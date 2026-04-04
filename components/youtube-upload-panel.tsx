@@ -131,9 +131,15 @@ export function YouTubeUploadPanel({
             Redirect URI: <code>{status.redirectUri}</code>
           </p>
           <div className="inlineActions">
-            <a className="primaryButton" href="/api/youtube/oauth/start">
-              Connect YouTube
-            </a>
+            {status.configured ? (
+              <a className="primaryButton" href="/api/youtube/oauth/start">
+                Connect YouTube
+              </a>
+            ) : (
+              <button className="secondaryButton" type="button" disabled>
+                Connect YouTube
+              </button>
+            )}
             <button
               className="secondaryButton"
               type="button"
@@ -147,6 +153,22 @@ export function YouTubeUploadPanel({
             </Link>
           </div>
           <p className="statusText">{message || "Use manual-first by default, or connect YouTube to test the API path."}</p>
+
+          {!status.configured ? (
+            <div className="studioCard">
+              <h3>OAuth Setup Needed</h3>
+              <p className="sidebarText">
+                The app cannot open Google OAuth yet because the server is missing
+                <code> GOOGLE_CLIENT_ID </code>
+                and
+                <code> GOOGLE_CLIENT_SECRET </code>.
+              </p>
+              <pre className="codeBlock">{`$env:GOOGLE_CLIENT_ID="your-google-client-id"
+$env:GOOGLE_CLIENT_SECRET="your-google-client-secret"
+$env:LOCALTUBE_BASE_URL="http://127.0.0.1:3000"
+powershell -ExecutionPolicy Bypass -File .\\start-localtube.ps1`}</pre>
+            </div>
+          ) : null}
 
           {status.lastUpload ? (
             <div className="studioCard">

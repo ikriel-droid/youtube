@@ -487,6 +487,18 @@ select {
   color: var(--muted);
 }
 
+.codeBlock {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid var(--line);
+  color: #dbeafe;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .suggestionBox p {
   margin: 0.25rem 0;
 }

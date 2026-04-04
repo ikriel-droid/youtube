@@ -15,3 +15,6 @@ public/generated-audio
 public/generated-video
 public/generated-thumbnails
 public/generated-manifests
+data/youtube-oauth.json
+data/youtube-oauth-state.json
+data/youtube-upload-history.json

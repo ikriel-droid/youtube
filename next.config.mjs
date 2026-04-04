@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     typedRoutes: true,
-    serverComponentsExternalPackages: ["@resvg/resvg-js", "ffmpeg-static"]
+    serverComponentsExternalPackages: ["@resvg/resvg-js", "ffmpeg-static", "googleapis"]
   }
 };
 

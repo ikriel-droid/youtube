@@ -16,6 +16,7 @@ export function AppShell({ children }: PropsWithChildren) {
           <Link href="/studio/sleep-lab">Sleep Lab</Link>
           <Link href="/studio/sleep-library">Sleep Library</Link>
           <Link href="/studio/sleep-launch">Sleep Launch</Link>
+          <Link href="/studio/youtube">YouTube</Link>
         </nav>
       </header>
       <main className="page">{children}</main>

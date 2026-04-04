@@ -26,7 +26,7 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 
 - [x] Decide the upload path: manual upload first or YouTube API integration
 - [x] If manual-first, add a one-click export bundle for upload assets
-- [ ] If API-based, implement Google OAuth and YouTube upload flow
+- [x] If API-based, implement Google OAuth and YouTube upload flow
 - [ ] Validate one private test upload on a real channel
 
 ## 4. First Channel Launch

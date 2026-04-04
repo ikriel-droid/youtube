@@ -51,6 +51,15 @@ Sleep music generator:
 - `Render YouTube Bundle` now creates a publishable MP4, thumbnail, and metadata manifest under `public/generated-video`, `public/generated-thumbnails`, and `public/generated-manifests`
 - `Download Upload Bundle` packages the MP4, thumbnail, metadata JSON, and a plain-text upload checklist into one ZIP for manual YouTube upload
 - channel launch plan: [SLEEP_CHANNEL_LAUNCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\SLEEP_CHANNEL_LAUNCH_PLAN.md)
+- API upload validation: [YOUTUBE_API_VALIDATION_RUNBOOK.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_API_VALIDATION_RUNBOOK.md)
+
+## YouTube API Validation Env
+
+```powershell
+$env:GOOGLE_CLIENT_ID="your-google-client-id"
+$env:GOOGLE_CLIENT_SECRET="your-google-client-secret"
+$env:LOCALTUBE_BASE_URL="http://127.0.0.1:3000"
+```
 
 If `next dev` gets into a bad hot-reload state, use the clean starter:
 

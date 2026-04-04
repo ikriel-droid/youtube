@@ -25,6 +25,9 @@ export default function SleepLaunchPage() {
           <Link className="primaryButton" href="/studio/sleep-library">
             Open Sleep Library
           </Link>
+          <Link className="secondaryButton" href="/studio/youtube">
+            Open YouTube Upload
+          </Link>
         </div>
       </section>
 

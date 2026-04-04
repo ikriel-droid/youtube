@@ -60,3 +60,15 @@ export const firstPublishReadyConceptId = "launch-01";
 export function getFirstPublishReadyConcept() {
   return firstSleepVideoConcepts.find((concept) => concept.id === firstPublishReadyConceptId)!;
 }
+
+export function getQuickPrivateTestConcept(): SleepVideoConcept {
+  const base = getFirstPublishReadyConcept();
+  return {
+    ...base,
+    id: "launch-01-quick",
+    title: "[Private Test] Rain Drift Sleep Music | 1 Minute Black Screen",
+    minutes: 1,
+    seed: `${base.seed}-quick-private-test`,
+    hook: "A fast private test render used to validate the YouTube upload path before the full-length release."
+  };
+}

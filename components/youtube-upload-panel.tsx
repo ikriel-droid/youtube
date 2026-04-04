@@ -112,6 +112,46 @@ export function YouTubeUploadPanel({
     }
   }
 
+  async function handleQuickPrivateUpload() {
+    setUploading(true);
+    setMessage("Uploading a 1-minute quick private test to YouTube...");
+
+    try {
+      const response = await fetch("/api/youtube/upload", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          conceptId: "launch-01-quick",
+          privacyStatus: "private"
+        })
+      });
+
+      const payload = (await response.json()) as {
+        error?: string;
+        youtubeWatchUrl?: string;
+        youtubeStudioUrl?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Quick private upload failed.");
+      }
+
+      setMessage(
+        `Quick private test completed. Watch: ${payload.youtubeWatchUrl} | Studio: ${payload.youtubeStudioUrl}`
+      );
+
+      const refresh = await fetch("/api/youtube/status", { cache: "no-store" });
+      const refreshedStatus = (await refresh.json()) as YouTubeStatus;
+      setStatus(refreshedStatus);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Quick private upload failed.");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <section className="panel stack">
       <div className="panelHeader">
@@ -143,6 +183,14 @@ export function YouTubeUploadPanel({
             <button
               className="secondaryButton"
               type="button"
+              onClick={handleQuickPrivateUpload}
+              disabled={!status.configured || !status.connected || uploading}
+            >
+              {uploading ? "Uploading Quick Test..." : "Upload Quick Private Test"}
+            </button>
+            <button
+              className="secondaryButton"
+              type="button"
               onClick={handlePrivateUpload}
               disabled={!status.configured || !status.connected || uploading}
             >
@@ -152,7 +200,10 @@ export function YouTubeUploadPanel({
               Open Launch Plan
             </Link>
           </div>
-          <p className="statusText">{message || "Use manual-first by default, or connect YouTube to test the API path."}</p>
+          <p className="statusText">
+            {message ||
+              "Use quick private test first to verify the upload path, then run the full launch-01 upload."}
+          </p>
 
           {!status.configured ? (
             <div className="studioCard">

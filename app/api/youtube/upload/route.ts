@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getAuthorizedOAuthClient } from "@/lib/youtube-auth";
-import { firstSleepVideoConcepts } from "@/lib/sleep-launch-plan";
+import { firstSleepVideoConcepts, getQuickPrivateTestConcept } from "@/lib/sleep-launch-plan";
 import { writeYouTubeUploadLog } from "@/lib/youtube-upload-log";
 import { uploadSleepBundleToYouTube } from "@/lib/youtube-upload";
 
@@ -17,7 +17,9 @@ export async function POST(request: Request) {
   };
 
   const concept =
-    firstSleepVideoConcepts.find((item) => item.id === body.conceptId) ?? firstSleepVideoConcepts[0];
+    body.conceptId === "launch-01-quick"
+      ? getQuickPrivateTestConcept()
+      : firstSleepVideoConcepts.find((item) => item.id === body.conceptId) ?? firstSleepVideoConcepts[0];
 
   try {
     await writeYouTubeUploadLog("upload_attempt", {

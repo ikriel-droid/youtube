@@ -4,7 +4,10 @@ import { copyFile, mkdtemp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
+import JSZip from "jszip";
+
 import { POST as generateMetadata } from "../app/api/ai/metadata/route";
+import { POST as createSleepUploadBundle } from "../app/api/sleep-upload-bundle/route";
 import { POST as createSleepTrack } from "../app/api/sleep-tracks/route";
 import { POST as createVideo } from "../app/api/videos/route";
 import { POST as createComment } from "../app/api/videos/[id]/comments/route";
@@ -195,6 +198,39 @@ test("sleep-track route saves generated audio and registers it in the library", 
     const savedFile = path.join(publicDir, "generated-audio", path.basename(payload.fileUrl));
     const audioBuffer = await readFile(savedFile);
     assert.ok(audioBuffer.byteLength > 1024);
+  });
+});
+
+test("sleep upload bundle route returns a zip with upload assets", async () => {
+  await withTempEnvironment(async () => {
+    const response = await createSleepUploadBundle(
+      new Request("http://localtube.test/api/sleep-upload-bundle", {
+        method: "POST",
+        body: JSON.stringify({
+          preset: "rain",
+          releasePreset: "black-screen",
+          minutes: 1,
+          seed: "zip-check",
+          title: "Rain Drift Sleep Music | 1 Minute Black Screen",
+          description: "Bundle smoke test",
+          tags: ["sleep music", "black screen", "rain ambience"],
+          channelName: "Sleep Lab"
+        })
+      })
+    );
+
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type") ?? "", /application\/zip/);
+
+    const zipBuffer = Buffer.from(await response.arrayBuffer());
+    const zip = await JSZip.loadAsync(zipBuffer);
+    const names = Object.keys(zip.files).sort();
+
+    assert.ok(names.some((name) => name.endsWith(".mp4")));
+    assert.ok(names.some((name) => name.endsWith(".png")));
+    assert.ok(names.some((name) => name.endsWith(".svg")));
+    assert.ok(names.some((name) => name.endsWith(".json")));
+    assert.ok(names.includes("UPLOAD_CHECKLIST.txt"));
   });
 });
 

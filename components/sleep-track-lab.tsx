@@ -13,6 +13,7 @@ import {
   type SleepPreset,
   type SleepReleasePreset
 } from "@/lib/sleep-audio";
+import { firstSleepVideoConcepts, sleepChannelIdentity } from "@/lib/sleep-launch-plan";
 import { SleepVisualizer } from "@/components/sleep-visualizer";
 import type { PublishState } from "@/lib/types";
 
@@ -47,22 +48,36 @@ const initialMetadata = buildSleepMetadata(
   }
 );
 
-export function SleepTrackLab() {
-  const [preset, setPreset] = useState<SleepPreset>("deep-drone");
-  const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>("black-screen");
-  const [minutes, setMinutes] = useState(30);
-  const [seed, setSeed] = useState("midnight-rain");
-  const [channelName, setChannelName] = useState("Sleep Lab");
-  const [channelSlug, setChannelSlug] = useState("sleep-lab");
+interface SleepTrackLabProps {
+  initialConceptId?: string;
+}
+
+function getInitialConcept(initialConceptId?: string) {
+  return firstSleepVideoConcepts.find((concept) => concept.id === initialConceptId) ?? null;
+}
+
+export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
+  const initialConcept = getInitialConcept(initialConceptId);
+  const [preset, setPreset] = useState<SleepPreset>(initialConcept?.preset ?? "deep-drone");
+  const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>(
+    initialConcept?.releasePreset ?? "black-screen"
+  );
+  const [minutes, setMinutes] = useState(initialConcept?.minutes ?? 30);
+  const [seed, setSeed] = useState(initialConcept?.seed ?? "midnight-rain");
+  const [channelName, setChannelName] = useState(sleepChannelIdentity.channelName);
+  const [channelSlug, setChannelSlug] = useState(sleepChannelIdentity.channelSlug);
   const [publishState, setPublishState] = useState<PublishState>("published");
-  const [title, setTitle] = useState(initialMetadata.title);
-  const [description, setDescription] = useState(initialMetadata.description);
-  const [tagsInput, setTagsInput] = useState(initialMetadata.tags.join(", "));
-  const [metadataTouched, setMetadataTouched] = useState(false);
-  const [status, setStatus] = useState("Pick a preset and generate a preview.");
+  const [title, setTitle] = useState(initialConcept?.title ?? initialMetadata.title);
+  const [description, setDescription] = useState(initialConcept?.hook ?? initialMetadata.description);
+  const [tagsInput, setTagsInput] = useState((initialConcept?.tags ?? initialMetadata.tags).join(", "));
+  const [metadataTouched, setMetadataTouched] = useState(Boolean(initialConcept));
+  const [status, setStatus] = useState(
+    initialConcept ? `Loaded ${initialConcept.id} into Sleep Lab.` : "Pick a preset and generate a preview."
+  );
   const [generating, setGenerating] = useState(false);
   const [saving, setSaving] = useState(false);
   const [renderingBundle, setRenderingBundle] = useState(false);
+  const [downloadingBundle, setDownloadingBundle] = useState(false);
   const [previewing, setPreviewing] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [savedVideoId, setSavedVideoId] = useState<string | null>(null);
@@ -224,6 +239,55 @@ export function SleepTrackLab() {
     }
   }
 
+  async function handleDownloadUploadBundle() {
+    setDownloadingBundle(true);
+    setStatus("Building a one-click upload bundle...");
+
+    try {
+      const response = await fetch("/api/sleep-upload-bundle", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          preset,
+          releasePreset,
+          minutes,
+          seed,
+          title: title.trim(),
+          description: description.trim(),
+          tags: tagsInput
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean),
+          channelName: channelName.trim()
+        })
+      });
+
+      if (!response.ok) {
+        const payload = (await response.json()) as { error?: string };
+        throw new Error(payload.error || "Upload bundle creation failed.");
+      }
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = objectUrl;
+      anchor.download = `${channelSlug || "sleep-channel"}-${preset}-${minutes}m-upload-bundle.zip`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(objectUrl);
+
+      setStatus("Upload bundle downloaded. MP4, thumbnail, manifest, and checklist are packed together.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Upload bundle creation failed.";
+      setStatus(message);
+    } finally {
+      setDownloadingBundle(false);
+    }
+  }
+
   async function handleSave() {
     if (!downloadUrl) {
       setStatus("Generate a WAV first, then save it into LocalTube.");
@@ -316,6 +380,9 @@ export function SleepTrackLab() {
         <div className="inlineActions">
           <Link className="secondaryButton" href="/studio/sleep-library">
             Open Sleep Library
+          </Link>
+          <Link className="secondaryButton" href="/studio/sleep-launch">
+            Open Sleep Launch Plan
           </Link>
         </div>
       </section>
@@ -474,6 +541,14 @@ export function SleepTrackLab() {
           <button
             className="secondaryButton"
             type="button"
+            onClick={handleDownloadUploadBundle}
+            disabled={downloadingBundle || renderingBundle || generating}
+          >
+            {downloadingBundle ? "Packing Upload Bundle..." : "Download Upload Bundle"}
+          </button>
+          <button
+            className="secondaryButton"
+            type="button"
             onClick={handleSave}
             disabled={saving || generating || !downloadUrl}
           >
@@ -513,6 +588,14 @@ export function SleepTrackLab() {
               <a className="secondaryButton" href={renderBundle.manifestUrl} target="_blank" rel="noreferrer">
                 Open Metadata Package
               </a>
+              <button
+                className="secondaryButton"
+                type="button"
+                onClick={handleDownloadUploadBundle}
+                disabled={downloadingBundle}
+              >
+                {downloadingBundle ? "Packing Upload Bundle..." : "Download Upload Bundle"}
+              </button>
             </div>
           </div>
         ) : null}

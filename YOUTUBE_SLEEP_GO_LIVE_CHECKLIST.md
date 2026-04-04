@@ -24,16 +24,16 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 
 ## 3. Real YouTube Upload Path
 
-- [ ] Decide the upload path: manual upload first or YouTube API integration
-- [ ] If manual-first, add a one-click export bundle for upload assets
+- [x] Decide the upload path: manual upload first or YouTube API integration
+- [x] If manual-first, add a one-click export bundle for upload assets
 - [ ] If API-based, implement Google OAuth and YouTube upload flow
 - [ ] Validate one private test upload on a real channel
 
 ## 4. First Channel Launch
 
-- [ ] Decide the first channel identity and niche
-- [ ] Create the first 3 video concepts
-- [ ] Produce the first 1 publish-ready sleep video end to end
+- [x] Decide the first channel identity and niche
+- [x] Create the first 3 video concepts
+- [x] Produce the first 1 publish-ready sleep video end to end
 - [ ] Upload the first video as private or unlisted
 - [ ] Review playback quality on desktop and mobile
 - [ ] Publish the first public sleep upload

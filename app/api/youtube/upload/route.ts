@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { getAuthorizedOAuthClient } from "@/lib/youtube-auth";
 import { firstSleepVideoConcepts } from "@/lib/sleep-launch-plan";
+import { writeYouTubeUploadLog } from "@/lib/youtube-upload-log";
 import { uploadSleepBundleToYouTube } from "@/lib/youtube-upload";
 
 export async function POST(request: Request) {
@@ -19,6 +20,12 @@ export async function POST(request: Request) {
     firstSleepVideoConcepts.find((item) => item.id === body.conceptId) ?? firstSleepVideoConcepts[0];
 
   try {
+    await writeYouTubeUploadLog("upload_attempt", {
+      conceptId: concept.id,
+      title: concept.title,
+      privacyStatus: body.privacyStatus ?? "private"
+    });
+
     const result = await uploadSleepBundleToYouTube(authClient, {
       preset: concept.preset,
       releasePreset: concept.releasePreset,
@@ -31,12 +38,26 @@ export async function POST(request: Request) {
       privacyStatus: body.privacyStatus ?? "private"
     });
 
+    await writeYouTubeUploadLog("upload_success", {
+      conceptId: concept.id,
+      title: result.lastUpload?.title ?? concept.title,
+      videoId: result.videoId,
+      privacyStatus: result.lastUpload?.privacyStatus ?? (body.privacyStatus ?? "private"),
+      youtubeWatchUrl: result.youtubeWatchUrl
+    });
+
     return NextResponse.json({
       ok: true,
       ...result
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "YouTube upload failed.";
+    await writeYouTubeUploadLog("upload_error", {
+      conceptId: concept.id,
+      title: concept.title,
+      privacyStatus: body.privacyStatus ?? "private",
+      error: message
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

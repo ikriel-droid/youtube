@@ -1,5 +1,8 @@
 import { YouTubeUploadPanel } from "@/components/youtube-upload-panel";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface YouTubeStudioPageProps {
   searchParams?: {
     status?: string;

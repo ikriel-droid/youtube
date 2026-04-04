@@ -1,0 +1,27 @@
+{
+  "name": "localtube",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx next dev",
+    "dev:clean": "if exist .next (rmdir /s /q .next) & npx next dev",
+    "build": "if exist .next (rmdir /s /q .next) & npx next build",
+    "start": "npx next start",
+    "test": "tsx --test tests/**/*.test.ts",
+    "seed:reset": "powershell -ExecutionPolicy Bypass -File .\\reset-localtube-seed.ps1"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.35",
+    "tsx": "4.19.2",
+    "typescript": "5.5.3"
+  }
+}

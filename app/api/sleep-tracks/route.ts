@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   }
 
   const filename = `${preset}-${minutes}min-${slugify(seed)}.wav`;
-  const relativeUrl = `/generated-audio/${filename}`;
+  const relativeUrl = `/api/generated-assets/generated-audio/${filename}`;
   const duplicate = await findDuplicateVideoByUrl(relativeUrl);
   if (duplicate) {
     return NextResponse.json(

@@ -12,3 +12,6 @@ pnpm-lock.yaml
 localtube-*.log
 localtube-*.err.log
 public/generated-audio
+public/generated-video
+public/generated-thumbnails
+public/generated-manifests

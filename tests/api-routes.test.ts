@@ -192,7 +192,7 @@ test("sleep-track route saves generated audio and registers it in the library", 
     assert.equal(created?.status, "draft");
     assert.deepEqual(created?.tags, ["sleep music", "rain ambience", "night"]);
 
-    const savedFile = path.join(publicDir, ...payload.fileUrl.split("/").filter(Boolean));
+    const savedFile = path.join(publicDir, "generated-audio", path.basename(payload.fileUrl));
     const audioBuffer = await readFile(savedFile);
     assert.ok(audioBuffer.byteLength > 1024);
   });

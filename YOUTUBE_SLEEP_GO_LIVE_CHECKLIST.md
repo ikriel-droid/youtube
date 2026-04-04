@@ -16,11 +16,11 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 
 ## 2. Video Packaging For YouTube
 
-- [ ] Render a publishable MP4 from audio plus a static or animated sleep visual
-- [ ] Add at least one black-screen export mode
-- [ ] Add at least one ambient animated background export mode
-- [ ] Generate a thumbnail image sized for YouTube uploads
-- [ ] Generate a metadata package: title, description, tags, pinned comment, and filename
+- [x] Render a publishable MP4 from audio plus a static or animated sleep visual
+- [x] Add at least one black-screen export mode
+- [x] Add at least one ambient animated background export mode
+- [x] Generate a thumbnail image sized for YouTube uploads
+- [x] Generate a metadata package: title, description, tags, pinned comment, and filename
 
 ## 3. Real YouTube Upload Path
 

@@ -47,6 +47,7 @@ Sleep music generator:
 - `http://127.0.0.1:3000/studio/sleep-lab`
 - generate a track, then use `Save To LocalTube` if you want it to stay in the library after refresh
 - saved sleep-audio posts can be revisited at `http://127.0.0.1:3000/studio/sleep-library`
+- `Render YouTube Bundle` now creates a publishable MP4, thumbnail, and metadata manifest under `public/generated-video`, `public/generated-thumbnails`, and `public/generated-manifests`
 
 If `next dev` gets into a bad hot-reload state, use the clean starter:
 

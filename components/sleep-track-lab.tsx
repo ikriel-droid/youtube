@@ -62,9 +62,16 @@ export function SleepTrackLab() {
   const [status, setStatus] = useState("Pick a preset and generate a preview.");
   const [generating, setGenerating] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [renderingBundle, setRenderingBundle] = useState(false);
   const [previewing, setPreviewing] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [savedVideoId, setSavedVideoId] = useState<string | null>(null);
+  const [renderBundle, setRenderBundle] = useState<{
+    videoUrl: string;
+    thumbnailUrl: string;
+    manifestUrl: string;
+    suggestedFilenameBase: string;
+  } | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const previewSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
@@ -139,6 +146,7 @@ export function SleepTrackLab() {
   async function handleGenerate() {
     setGenerating(true);
     setSavedVideoId(null);
+    setRenderBundle(null);
     setStatus("Generating WAV file...");
 
     try {
@@ -161,6 +169,58 @@ export function SleepTrackLab() {
       setStatus("Generation failed. Try again with a different preset or shorter duration.");
     } finally {
       setGenerating(false);
+    }
+  }
+
+  async function handleRenderBundle() {
+    setRenderingBundle(true);
+    setStatus("Rendering a YouTube-ready bundle...");
+
+    try {
+      const response = await fetch("/api/sleep-renders", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          preset,
+          releasePreset,
+          minutes,
+          seed,
+          title: title.trim(),
+          description: description.trim(),
+          tags: tagsInput
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean),
+          channelName: channelName.trim()
+        })
+      });
+
+      const payload = (await response.json()) as {
+        error?: string;
+        videoUrl?: string;
+        thumbnailUrl?: string;
+        manifestUrl?: string;
+        suggestedFilenameBase?: string;
+      };
+
+      if (!response.ok || !payload.videoUrl || !payload.thumbnailUrl || !payload.manifestUrl) {
+        throw new Error(payload.error || "Render bundle failed.");
+      }
+
+      setRenderBundle({
+        videoUrl: payload.videoUrl,
+        thumbnailUrl: payload.thumbnailUrl,
+        manifestUrl: payload.manifestUrl,
+        suggestedFilenameBase: payload.suggestedFilenameBase || "sleep-upload"
+      });
+      setStatus("YouTube-ready render bundle created. MP4, thumbnail, and manifest are ready.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Render bundle failed.";
+      setStatus(message);
+    } finally {
+      setRenderingBundle(false);
     }
   }
 
@@ -404,6 +464,14 @@ export function SleepTrackLab() {
             {generating ? "Generating..." : `Generate ${minutes}m WAV`}
           </button>
           <button
+            className="primaryButton"
+            type="button"
+            onClick={handleRenderBundle}
+            disabled={renderingBundle || generating}
+          >
+            {renderingBundle ? "Rendering Bundle..." : "Render YouTube Bundle"}
+          </button>
+          <button
             className="secondaryButton"
             type="button"
             onClick={handleSave}
@@ -430,6 +498,24 @@ export function SleepTrackLab() {
             </Link>
           ) : null}
         </div>
+        {renderBundle ? (
+          <div className="stack">
+            <div className="inlineTags">
+              <span className="tagPill">Suggested file base: {renderBundle.suggestedFilenameBase}</span>
+            </div>
+            <div className="inlineActions">
+              <a className="primaryButton" href={renderBundle.videoUrl} target="_blank" rel="noreferrer">
+                Open MP4
+              </a>
+              <a className="secondaryButton" href={renderBundle.thumbnailUrl} target="_blank" rel="noreferrer">
+                Open Thumbnail
+              </a>
+              <a className="secondaryButton" href={renderBundle.manifestUrl} target="_blank" rel="noreferrer">
+                Open Metadata Package
+              </a>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <section className="panel stack">

@@ -40,6 +40,11 @@ Test directions:
 - more sensory / mood language
 - less emphasis on "black screen" unless it is the main search hook
 
+Locked guidance:
+
+- use `ambient sleep` as the lead scenic phrase
+- keep `sleep music` in support tags / description copy
+
 ### 4. Noise Preset
 
 Branch beyond rain:
@@ -59,6 +64,7 @@ Branch beyond rain:
 
 - Concept: `Launch-03`
 - Goal: rain-window / brown-noise crossover test
+- Execution checklist: [YOUTUBE_SCENIC_BATCH_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_BATCH_CHECKLIST.md)
 
 ## Exit Criteria For The Next Batch
 

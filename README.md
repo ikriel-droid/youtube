@@ -26,9 +26,11 @@ See [PRODUCT_DIRECTION.md](c:\Users\Administrator\.vscode\cli\localtube\PRODUCT_
 If the immediate goal is a real sleep-music YouTube release, use:
 
 - [YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md)
+- [YOUTUBE_SCENIC_BATCH_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_BATCH_CHECKLIST.md)
 - [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md)
 - [YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md)
 - [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
+- [YOUTUBE_SCENIC_PACKAGING_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_PACKAGING_GUIDE.md)
 
 The current product decision is:
 

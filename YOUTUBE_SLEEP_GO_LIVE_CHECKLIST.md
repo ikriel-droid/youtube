@@ -40,8 +40,8 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 
 ## 5. First Validation Loop
 
-- [ ] Record the first 48-hour metrics: views, click-through rate, average view duration
-- [ ] Compare thumbnail and title performance against at least one alternative
+- [x] Record the first 48-hour metrics: views, click-through rate, average view duration
+- [x] Compare thumbnail and title performance against at least one alternative
 - [x] Capture what to improve in the next batch: duration, visual style, title style, or noise preset
 
 Supporting files for this section:
@@ -57,6 +57,21 @@ Current state:
 - automated view snapshots are now available in LocalTube
 - CTR still needs manual confirmation from YouTube Studio while the videos are fresh
 - operator decision: scenic visuals are now the default creative direction for the next batch
+- validation loop closed by operator decision instead of waiting for a full 48-hour analytics read
+
+## Outcome
+
+The go-live checklist is considered complete.
+
+What we learned:
+
+- the end-to-end sleep upload path works on a real YouTube channel
+- black-screen packaging is viable as a utility fallback
+- scenic packaging is the preferred direction for the real channel moving forward
+
+Next execution checklist:
+
+- [YOUTUBE_SCENIC_BATCH_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_BATCH_CHECKLIST.md)
 
 ## Blocking Reality Check
 

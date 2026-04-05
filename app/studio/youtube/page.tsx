@@ -15,10 +15,10 @@ export default function YouTubeStudioPage({ searchParams }: YouTubeStudioPagePro
     <>
       <section className="hero">
         <span className="pill">youtube api path</span>
-        <h1>Connect Google OAuth and test a real private YouTube upload.</h1>
+        <h1>Connect Google OAuth and push a real scenic sleep upload to YouTube.</h1>
         <p>
-          This is the experimental API path. The product still prefers manual-first for the first release,
-          but this page lets us validate the direct upload flow against a real channel.
+          This is the direct upload path. Imported licensed audio is now the preferred scenic workflow,
+          while generated scenic concepts remain available as the fallback path.
         </p>
       </section>
 

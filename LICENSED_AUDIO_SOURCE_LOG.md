@@ -21,3 +21,5 @@ This log records real external audio sources that were imported into LocalTube f
 - Used to render the first scenic bundle from imported audio instead of generated audio
 - Scenic render title:
   `Faroe Ocean Drift Ambient Sleep | 30 Minutes Waterfall And Ocean Waves`
+- Uploaded end to end as a private scenic YouTube validation asset:
+  `https://www.youtube.com/watch?v=LK_6_Quqffo`

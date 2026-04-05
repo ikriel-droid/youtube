@@ -35,6 +35,16 @@ Current design call:
 
 ## 3. Quality Lock Before More Uploads
 
-- [ ] Produce one imported-audio scenic upload end to end
-- [ ] Review whether the imported audio meaningfully improves perceived quality
-- [ ] Update LocalTube defaults if imported audio becomes the standard path
+- [x] Produce one imported-audio scenic upload end to end
+- [x] Review whether the imported audio meaningfully improves perceived quality
+- [x] Update LocalTube defaults if imported audio becomes the standard path
+
+Current locked decision:
+
+- imported licensed audio is now the standard path for publish-ready scenic uploads
+- generated audio remains the ideation and fallback path
+- first imported-audio scenic upload completed privately as `LK_6_Quqffo`
+
+Reference:
+
+- [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)

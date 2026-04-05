@@ -20,7 +20,7 @@ The current product direction is:
 
 The strongest use case on this branch is:
 
-- generate sleep-audio source material
+- import or generate sleep-audio source material
 - render a YouTube-ready MP4 bundle
 - produce thumbnails, metadata, and upload assets
 - validate real YouTube uploads and learn from early channel metrics
@@ -34,6 +34,7 @@ The first public upload proved the black-screen validation path, and we are now 
 The branch should now optimize for:
 
 - scenic ocean / rain-window uploads
+- imported licensed audio as the default publish-ready source
 - stronger sleep-brand identity
 - title and thumbnail experiments against the first public black-screen release
-- black-screen only as a supporting utility format, not the primary channel look
+- generated audio and black-screen only as supporting fallback formats, not the primary channel look

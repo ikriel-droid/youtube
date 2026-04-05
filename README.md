@@ -35,6 +35,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md)
 - [YOUTUBE_SCENIC_VISUAL_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_VISUAL_GUIDE.md)
 - [LICENSED_AUDIO_SOURCE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_AUDIO_SOURCE_LOG.md)
+- [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)
 
 The current product decision is:
 
@@ -57,10 +58,12 @@ Sleep music generator:
 
 - `http://127.0.0.1:3000/studio/sleep-lab`
 - imported licensed audio can now be brought into Sleep Lab and reviewed at `http://127.0.0.1:3000/studio/audio-library`
+- if imported licensed audio exists, Sleep Lab now defaults to that scenic path instead of the generated-audio path
 - generate a track, then use `Save To LocalTube` if you want it to stay in the library after refresh
 - saved sleep-audio posts can be revisited at `http://127.0.0.1:3000/studio/sleep-library`
 - `Render YouTube Bundle` now creates a publishable MP4, thumbnail, and metadata manifest under `public/generated-video`, `public/generated-thumbnails`, and `public/generated-manifests`
 - `Download Upload Bundle` packages the MP4, thumbnail, metadata JSON, and a plain-text upload checklist into one ZIP for manual YouTube upload
+- `/studio/youtube` now prefers imported-audio scenic uploads first and keeps generated scenic uploads as the fallback path
 - channel launch plan: [SLEEP_CHANNEL_LAUNCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\SLEEP_CHANNEL_LAUNCH_PLAN.md)
 - API upload validation: [YOUTUBE_API_VALIDATION_RUNBOOK.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_API_VALIDATION_RUNBOOK.md)
 - first public upload review: [YOUTUBE_FIRST_PUBLIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_FIRST_PUBLIC_REVIEW.md)

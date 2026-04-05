@@ -106,7 +106,7 @@ export function YouTubeUploadPanel({
 
   async function handlePrivateUpload() {
     setUploading(true);
-    setMessage("Uploading the scenic default concept to YouTube as private...");
+    setMessage("Uploading the generated-audio scenic fallback concept to YouTube as private...");
 
     try {
       const response = await fetch("/api/youtube/upload", {
@@ -224,6 +224,47 @@ export function YouTubeUploadPanel({
     }
   }
 
+  async function handleImportedScenicUpload() {
+    setUploading(true);
+    setMessage("Uploading the latest imported licensed-audio scenic bundle to YouTube as private...");
+
+    try {
+      const response = await fetch("/api/youtube/upload", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          mode: "imported-audio-scenic",
+          privacyStatus: "private"
+        })
+      });
+
+      const payload = (await response.json()) as {
+        error?: string;
+        youtubeWatchUrl?: string;
+        youtubeStudioUrl?: string;
+        importedAudio?: { title?: string };
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Imported-audio scenic upload failed.");
+      }
+
+      setMessage(
+        `Imported scenic upload completed. Source: ${payload.importedAudio?.title ?? "licensed audio"} | Watch: ${payload.youtubeWatchUrl} | Studio: ${payload.youtubeStudioUrl}`
+      );
+
+      const refresh = await fetch("/api/youtube/status", { cache: "no-store" });
+      const refreshedStatus = (await refresh.json()) as YouTubeStatus;
+      setStatus(refreshedStatus);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Imported-audio scenic upload failed.");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <section className="panel stack">
       <div className="panelHeader">
@@ -263,10 +304,18 @@ export function YouTubeUploadPanel({
             <button
               className="secondaryButton"
               type="button"
+              onClick={handleImportedScenicUpload}
+              disabled={!status.configured || !status.connected || uploading}
+            >
+              {uploading ? "Uploading Imported Scenic..." : "Upload Imported Scenic As Private"}
+            </button>
+            <button
+              className="secondaryButton"
+              type="button"
               onClick={handlePrivateUpload}
               disabled={!status.configured || !status.connected || uploading}
             >
-              {uploading ? "Uploading Scenic Release..." : "Upload Launch-02 As Private"}
+              {uploading ? "Uploading Scenic Fallback..." : "Upload Launch-02 Fallback As Private"}
             </button>
             <Link className="secondaryButton" href="/studio/sleep-launch">
               Open Launch Plan
@@ -282,7 +331,7 @@ export function YouTubeUploadPanel({
           </div>
           <p className="statusText">
             {message ||
-              "Use quick private test for the path check, then move into the scenic launch-02 upload flow."}
+              "Use quick private test for the path check, then prefer the imported-audio scenic flow. Launch-02 stays available as the generated fallback path."}
           </p>
 
           {!status.configured ? (

@@ -36,6 +36,16 @@ export async function listImportedAudioRecords() {
   );
 }
 
+export async function getImportedAudioRecordById(id: string) {
+  const records = await listImportedAudioRecords();
+  return records.find((record) => record.id === id) ?? null;
+}
+
+export async function getLatestImportedAudioRecord() {
+  const records = await listImportedAudioRecords();
+  return records[0] ?? null;
+}
+
 export async function addImportedAudioRecord(
   input: Omit<ImportedAudioRecord, "id" | "uploadedAt" | "durationLabel">
 ) {

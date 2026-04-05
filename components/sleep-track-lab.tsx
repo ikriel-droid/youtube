@@ -18,6 +18,7 @@ import {
   getFirstPublishReadyConcept,
   sleepChannelIdentity
 } from "@/lib/sleep-launch-plan";
+import { buildImportedAudioUploadDraft } from "@/lib/imported-audio-upload";
 import { SleepVisualizer } from "@/components/sleep-visualizer";
 import type { PublishState } from "@/lib/types";
 
@@ -80,6 +81,7 @@ function getInitialConcept(initialConceptId?: string) {
 export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   const initialConcept = getInitialConcept(initialConceptId);
   const [sourceMode, setSourceMode] = useState<"generated" | "imported">("generated");
+  const [sourceModeTouched, setSourceModeTouched] = useState(false);
   const [preset, setPreset] = useState<SleepPreset>(initialConcept.preset);
   const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>(
     initialConcept.releasePreset
@@ -138,6 +140,18 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
 
   const exportSpec = useMemo(() => getSleepExportSpec(minutes), [minutes]);
 
+  function applyImportedRecordDefaults(record: ImportedAudioRecord) {
+    const draft = buildImportedAudioUploadDraft(record);
+    setMetadataTouched(false);
+    setPreset(draft.preset);
+    setReleasePreset(draft.releasePreset);
+    setMinutes(draft.minutes);
+    setSeed(draft.seed);
+    setTitle(draft.title);
+    setDescription(draft.description);
+    setTagsInput(draft.tags.join(", "));
+  }
+
   useEffect(() => {
     return () => {
       stopPreview();
@@ -155,7 +169,16 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
         const response = await fetch("/api/imported-audio", { cache: "no-store" });
         const payload = (await response.json()) as { records: ImportedAudioRecord[] };
         if (mounted) {
-          setImportedAudioRecords(payload.records ?? []);
+          const records = payload.records ?? [];
+          setImportedAudioRecords(records);
+          if (records.length > 0 && !sourceModeTouched) {
+            setSourceMode("imported");
+            setSelectedImportedAudioUrl(records[0].fileUrl);
+            applyImportedRecordDefaults(records[0]);
+            setStatus(
+              "Imported licensed audio is available, so Sleep Lab defaulted to the scenic imported-audio path."
+            );
+          }
         }
       } catch {
         if (mounted) {
@@ -168,7 +191,7 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [sourceModeTouched]);
 
   useEffect(() => {
     if (!metadataTouched) {
@@ -504,13 +527,9 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
       const recordsPayload = (await recordsResponse.json()) as { records: ImportedAudioRecord[] };
       setImportedAudioRecords(recordsPayload.records ?? []);
       setSourceMode("imported");
+      setSourceModeTouched(true);
       setSelectedImportedAudioUrl(payload.record.fileUrl);
-      setMinutes(payload.record.minutes);
-      setTitle(payload.record.title);
-      setTagsInput(payload.record.tags.join(", "));
-      setDescription(
-        `${payload.record.sourceName}. ${payload.record.licenseNote}`
-      );
+      applyImportedRecordDefaults(payload.record);
       setStatus("Imported audio is now available in Sleep Lab and ready for scenic rendering.");
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Imported audio upload failed.");
@@ -554,7 +573,20 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
             Audio source
             <select
               value={sourceMode}
-              onChange={(event) => setSourceMode(event.target.value as "generated" | "imported")}
+              onChange={(event) => {
+                const nextMode = event.target.value as "generated" | "imported";
+                setSourceModeTouched(true);
+                setSourceMode(nextMode);
+
+                if (nextMode === "imported" && importedAudioRecords.length > 0) {
+                  const record =
+                    importedAudioRecords.find((item) => item.fileUrl === selectedImportedAudioUrl) ??
+                    importedAudioRecords[0];
+                  setSelectedImportedAudioUrl(record.fileUrl);
+                  applyImportedRecordDefaults(record);
+                  setStatus("Sleep Lab switched to the imported-audio scenic workflow.");
+                }
+              }}
             >
               <option value="generated">Generated in Sleep Lab</option>
               <option value="imported">Imported licensed audio</option>
@@ -565,7 +597,15 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
               Imported source
               <select
                 value={selectedImportedAudioUrl}
-                onChange={(event) => setSelectedImportedAudioUrl(event.target.value)}
+                onChange={(event) => {
+                  const nextUrl = event.target.value;
+                  setSelectedImportedAudioUrl(nextUrl);
+                  const record = importedAudioRecords.find((item) => item.fileUrl === nextUrl);
+                  if (record) {
+                    applyImportedRecordDefaults(record);
+                    setStatus(`Imported-audio scenic defaults loaded from ${record.title}.`);
+                  }
+                }}
               >
                 <option value="">Pick imported audio</option>
                 {importedAudioRecords.map((record) => (

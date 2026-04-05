@@ -8,6 +8,7 @@ This plan captures what to improve after the first public upload.
 - Black-screen packaging is useful for validation, but creatively limited
 - The next batch should teach us whether scenic visuals and different noise presets improve performance
 - We are now treating scenic uploads as the default direction unless real metrics clearly contradict it
+- Imported licensed audio now beats generated audio as the publish-ready scenic path when a real source is available
 
 ## Next Batch Priorities
 

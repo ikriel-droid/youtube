@@ -55,7 +55,7 @@ export async function captureCurrentMetricsSnapshot(
   });
 
   const statistics = statisticsResponse.data.items?.[0]?.statistics;
-  const views = statistics?.viewCount ? Number(statistics.viewCount) : null;
+  let views = statistics?.viewCount ? Number(statistics.viewCount) : null;
 
   let clickThroughRate: number | null = null;
   let averageViewDurationSeconds: number | null = null;
@@ -77,18 +77,29 @@ export async function captureCurrentMetricsSnapshot(
       const startDate = input.uploadedAt.slice(0, 10);
       const endDate = new Date().toISOString().slice(0, 10);
 
-      const response = await analytics.reports.query({
+      const performanceResponse = await analytics.reports.query({
         ids: "channel==MINE",
         startDate,
         endDate,
-        metrics:
-          "views,averageViewDuration,averageViewPercentage,videoThumbnailImpressionsClickRate",
+        metrics: "views,averageViewDuration,averageViewPercentage",
         filters: `video==${input.videoId}`
       });
 
-      const row = response.data.rows?.[0];
-      if (row) {
-        const [, avgDuration, avgPercentage, ctr] = row;
+      const reachResponse = await analytics.reports.query({
+        ids: "channel==MINE",
+        startDate,
+        endDate,
+        metrics: "videoThumbnailImpressions,videoThumbnailImpressionsClickRate",
+        filters: `video==${input.videoId}`
+      });
+
+      const performanceRow = performanceResponse.data.rows?.[0];
+      const reachRow = reachResponse.data.rows?.[0];
+
+      if (performanceRow || reachRow) {
+        const [viewsMetric, avgDuration, avgPercentage] = performanceRow ?? [null, null, null];
+        const [, ctr] = reachRow ?? [null, null];
+        views = views ?? toNumber(viewsMetric);
         averageViewDurationSeconds = toNumber(avgDuration);
         averageViewPercentage = toNumber(avgPercentage);
         clickThroughRate = toNumber(ctr);
@@ -104,6 +115,10 @@ export async function captureCurrentMetricsSnapshot(
         analyticsStatus = "analytics_api_disabled";
         analyticsNote =
           "Enable YouTube Analytics API in Google Cloud, then reconnect YouTube to capture CTR and average view duration.";
+      } else if (message.includes("The query is not supported")) {
+        analyticsStatus = "partial";
+        analyticsNote =
+          "Views are captured, but YouTube is not returning thumbnail CTR through the current Analytics query shape for this video yet. Use YouTube Studio for CTR while the video is fresh.";
       } else {
         analyticsStatus = "analytics_error";
         analyticsNote = message;

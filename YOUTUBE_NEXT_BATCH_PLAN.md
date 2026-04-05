@@ -52,6 +52,7 @@ Branch beyond rain:
 
 - Concept: `Launch-02`
 - Goal: scenic ambient visual test
+- Status: uploaded publicly as `TaOjFxPpfv8`
 
 ### Upload 3
 

@@ -26,6 +26,9 @@ The first upload validated the release path, but it does not yet tell us whether
 - Title: `Ocean Breath Sleep Music | 30 Minutes Soft Ocean Drift Visual`
 - Thumbnail direction: calm scenic ocean visual with lighter copy
 - Goal: test whether scenic motion improves CTR
+- Status: uploaded publicly
+- Video ID: `TaOjFxPpfv8`
+- Watch URL: `https://www.youtube.com/watch?v=TaOjFxPpfv8`
 
 ## Alternative B
 
@@ -40,6 +43,13 @@ The first upload validated the release path, but it does not yet tell us whether
 - average view duration
 - comments or qualitative feedback
 - whether viewers prefer black screen or scenic ambient presentation
+
+## Current Experiment State
+
+- Baseline public upload exists: `Fb1c63adZZk`
+- Alternative scenic public upload exists: `TaOjFxPpfv8`
+- The comparison is now live, but it is still too early to call a winner
+- Use [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md) to record the first meaningful numbers before closing the experiment
 
 ## Decision Rule
 

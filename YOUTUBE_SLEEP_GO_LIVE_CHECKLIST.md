@@ -50,6 +50,13 @@ Supporting files for this section:
 - [YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md)
 - [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
 
+Current state:
+
+- baseline public upload: `Fb1c63adZZk`
+- scenic comparison upload: `TaOjFxPpfv8`
+- automated view snapshots are now available in LocalTube
+- CTR still needs manual confirmation from YouTube Studio while the videos are fresh
+
 ## Blocking Reality Check
 
 If we are serious about publishing to real YouTube soon, the blocking items are:

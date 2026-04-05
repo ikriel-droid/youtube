@@ -31,3 +31,19 @@ This document locks the first public-candidate packaging for the imported ocean 
 - `ocean-drift` remains the visual preset
 - thumbnail stays light and scenic, not keyword-dense
 - source and license stay in description copy for transparency
+
+## Final Render Verification
+
+- Verified on `2026-04-05`
+- MP4:
+  `http://127.0.0.1:3000/api/generated-assets/generated-video/midnight-tide-sleep-ocean-ambient-sleep-30-minutes-coastal-wave-drift-ocean-drif.mp4`
+- Thumbnail SVG:
+  `http://127.0.0.1:3000/api/generated-assets/generated-thumbnails/midnight-tide-sleep-ocean-ambient-sleep-30-minutes-coastal-wave-drift-ocean-drif.svg`
+- Manifest:
+  `http://127.0.0.1:3000/api/generated-assets/generated-manifests/midnight-tide-sleep-ocean-ambient-sleep-30-minutes-coastal-wave-drift-ocean-drif.json`
+
+Verified packaging details:
+
+- headline renders as `Ocean Ambient Sleep` + `Coastal Wave Drift`
+- scenic cue renders as `coastal calm`
+- pinned comment now speaks in scenic language instead of generic validation language

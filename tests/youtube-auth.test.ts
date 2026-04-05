@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getYouTubeOAuthConfig } from "../lib/youtube-auth";
+import {
+  DEFAULT_YOUTUBE_OAUTH_SCOPES,
+  YOUTUBE_METADATA_SCOPE,
+  getYouTubeOAuthConfig
+} from "../lib/youtube-auth";
 
 test("youtube oauth config is disabled when client credentials are missing", () => {
   const previousClientId = process.env.GOOGLE_CLIENT_ID;
@@ -37,6 +41,10 @@ test("youtube oauth config derives redirect uri from base url", () => {
   restoreEnv("GOOGLE_CLIENT_ID", previousClientId);
   restoreEnv("GOOGLE_CLIENT_SECRET", previousClientSecret);
   restoreEnv("LOCALTUBE_BASE_URL", previousBaseUrl);
+});
+
+test("youtube oauth scopes include metadata update scope", () => {
+  assert.ok(DEFAULT_YOUTUBE_OAUTH_SCOPES.includes(YOUTUBE_METADATA_SCOPE));
 });
 
 function restoreEnv(key: string, value: string | undefined) {

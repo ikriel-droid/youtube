@@ -9,9 +9,11 @@ const tokenFile = path.join(dataDir, "youtube-oauth.json");
 const stateFile = path.join(dataDir, "youtube-oauth-state.json");
 const uploadHistoryFile = path.join(dataDir, "youtube-upload-history.json");
 export const YOUTUBE_ANALYTICS_SCOPE = "https://www.googleapis.com/auth/yt-analytics.readonly";
+export const YOUTUBE_METADATA_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl";
 export const DEFAULT_YOUTUBE_OAUTH_SCOPES = [
   "https://www.googleapis.com/auth/youtube.upload",
   "https://www.googleapis.com/auth/youtube.readonly",
+  YOUTUBE_METADATA_SCOPE,
   YOUTUBE_ANALYTICS_SCOPE
 ] as const;
 
@@ -156,6 +158,41 @@ export async function recordLastUpload(input: {
 
 export async function readUploadHistory() {
   return readJson<Array<Record<string, unknown>>>(uploadHistoryFile, []);
+}
+
+export async function syncStoredUploadMetadata(input: {
+  videoId: string;
+  title: string;
+  privacyStatus?: string;
+}) {
+  const store = await readTokenStore();
+  if (store?.lastUpload?.videoId === input.videoId) {
+    store.lastUpload = {
+      ...store.lastUpload,
+      title: input.title,
+      privacyStatus: input.privacyStatus ?? store.lastUpload.privacyStatus
+    };
+    await writeJson(tokenFile, store);
+  }
+
+  const history = await readJson<Array<Record<string, unknown>>>(uploadHistoryFile, []);
+  let touched = false;
+  const nextHistory = history.map((item) => {
+    if (item.videoId !== input.videoId) {
+      return item;
+    }
+
+    touched = true;
+    return {
+      ...item,
+      title: input.title,
+      privacyStatus: input.privacyStatus ?? item.privacyStatus
+    };
+  });
+
+  if (touched) {
+    await writeJson(uploadHistoryFile, nextHistory);
+  }
 }
 
 async function validateState(state?: string) {

@@ -64,3 +64,53 @@ export async function uploadSleepBundleToYouTube(
     lastUpload
   };
 }
+
+export async function updateYouTubeVideoMetadata(
+  authClient: InstanceType<typeof google.auth.OAuth2>,
+  input: {
+    videoId: string;
+    title: string;
+    description?: string;
+    tags?: string[];
+    privacyStatus?: "private" | "unlisted" | "public";
+  }
+) {
+  const youtube = google.youtube({
+    version: "v3",
+    auth: authClient
+  });
+
+  const detail = await youtube.videos.list({
+    part: ["snippet", "status"],
+    id: [input.videoId]
+  });
+
+  const item = detail.data.items?.[0];
+  if (!item?.snippet) {
+    throw new Error("Target YouTube video could not be found.");
+  }
+
+  const response = await youtube.videos.update({
+    part: ["snippet", "status"],
+    requestBody: {
+      id: input.videoId,
+      snippet: {
+        title: input.title,
+        description: input.description ?? item.snippet.description ?? "",
+        tags: input.tags ?? item.snippet.tags ?? [],
+        categoryId: item.snippet.categoryId ?? "10"
+      },
+      status: {
+        privacyStatus: input.privacyStatus ?? item.status?.privacyStatus ?? "public"
+      }
+    }
+  });
+
+  return {
+    videoId: input.videoId,
+    title: response.data.snippet?.title ?? input.title,
+    privacyStatus: response.data.status?.privacyStatus ?? item.status?.privacyStatus ?? "unknown",
+    youtubeWatchUrl: `https://www.youtube.com/watch?v=${input.videoId}`,
+    youtubeStudioUrl: `https://studio.youtube.com/video/${input.videoId}/edit`
+  };
+}

@@ -15,9 +15,14 @@ The goal is "ship the next scenic batch cleanly and turn the channel into a repe
 
 - [x] Confirm `launch-03` as the next follow-up concept
 - [x] Keep the next concept focused on `rain-window` plus `brown-noise`
-- [ ] Produce the final publish-ready asset bundle for `launch-03`
-- [ ] Render and review the final thumbnail for `launch-03`
-- [ ] Upload `launch-03` as a public scenic follow-up
+- [x] Produce the final publish-ready asset bundle for `launch-03`
+- [x] Render and review the final thumbnail for `launch-03`
+- [x] Upload `launch-03` as a public scenic follow-up
+
+Current scenic uploads:
+
+- `launch-02` public: `TaOjFxPpfv8`
+- `launch-03` public: `uXQgjWFzY0I`
 
 ## 3. Scenic Packaging System
 

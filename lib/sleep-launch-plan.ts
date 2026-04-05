@@ -44,14 +44,14 @@ export const firstSleepVideoConcepts: SleepVideoConcept[] = [
   },
   {
     id: "launch-03",
-    title: "Brown Noise Sleep Music | 30 Minutes Rain Window Visual For Focus And Sleep",
+    title: "Rain Window Ambient Sleep | 30 Minutes Brown Noise Night Drift",
     preset: "brown-noise",
     releasePreset: "rain-window",
     minutes: 30,
     seed: "brown-window-night",
-    hook: "A crossover upload that can pick up both sleep and focus intent.",
-    angle: "Useful for testing whether brown-noise packaging broadens search entry points.",
-    tags: ["brown noise", "sleep music", "focus sound", "rain window"]
+    hook: "A softer scenic follow-up built around rain-window motion, brown-noise masking, and calm night drift language.",
+    angle: "Useful for testing whether rain-window plus brown-noise can become the default scenic follow-up format.",
+    tags: ["ambient sleep", "rain window", "brown noise", "night calm"]
   }
 ];
 

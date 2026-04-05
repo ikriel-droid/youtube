@@ -10,6 +10,8 @@ Use this file to record the first two days of performance for the first public s
 - Published status: `public`
 - Alternative public test now live: `TaOjFxPpfv8`
 - Alternative title: `Ocean Breath Sleep Music | 30 Minutes Soft Ocean Drift Visual`
+- Second scenic follow-up now live: `uXQgjWFzY0I`
+- Second scenic title: `Rain Window Ambient Sleep | 30 Minutes Brown Noise Night Drift`
 
 ## How To Fill This In
 
@@ -57,6 +59,19 @@ Note:
 
 - LocalTube now captures the public upload list and current view counts
 - CTR should still be checked in YouTube Studio while the experiment is fresh
+
+## Scenic Follow-Up Snapshot
+
+- Video ID: `uXQgjWFzY0I`
+- Snapshot time: `2026-04-05T09:44:58.059Z`
+- Views: `0`
+- CTR: not available through the current automated query
+- Average view duration: not available yet
+
+Note:
+
+- This upload is the second scenic comparison point
+- The next real decision is `ocean-drift` versus `rain-window`, not black-screen versus scenic
 
 ## Extra Context Worth Capturing
 

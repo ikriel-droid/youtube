@@ -33,9 +33,12 @@ The first upload validated the release path, but it does not yet tell us whether
 ## Alternative B
 
 - Candidate concept: `Launch-03`
-- Title: `Brown Noise Sleep Music | 30 Minutes Rain Window Visual For Focus And Sleep`
+- Title: `Rain Window Ambient Sleep | 30 Minutes Brown Noise Night Drift`
 - Thumbnail direction: rain-window scene with broader sleep/focus appeal
 - Goal: test whether broader intent beats pure sleep utility packaging
+- Status: uploaded publicly
+- Video ID: `uXQgjWFzY0I`
+- Watch URL: `https://www.youtube.com/watch?v=uXQgjWFzY0I`
 
 ## What To Compare
 
@@ -47,9 +50,9 @@ The first upload validated the release path, but it does not yet tell us whether
 ## Current Experiment State
 
 - Baseline public upload exists: `Fb1c63adZZk`
-- Alternative scenic public upload exists: `TaOjFxPpfv8`
-- The comparison is now live, but it is still too early to call a winner
-- Use [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md) to record the first meaningful numbers before closing the experiment
+- Alternative scenic public uploads exist: `TaOjFxPpfv8`, `uXQgjWFzY0I`
+- Black-screen vs scenic direction is considered closed by operator decision
+- The remaining open comparison is scenic-vs-scenic, not black-vs-scenic
 
 ## Decision Rule
 

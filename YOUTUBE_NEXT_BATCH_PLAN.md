@@ -65,6 +65,7 @@ Branch beyond rain:
 - Concept: `Launch-03`
 - Goal: rain-window / brown-noise crossover test
 - Execution checklist: [YOUTUBE_SCENIC_BATCH_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_BATCH_CHECKLIST.md)
+- Status: uploaded publicly as `uXQgjWFzY0I`
 
 ## Exit Criteria For The Next Batch
 

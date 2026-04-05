@@ -45,6 +45,8 @@ Locked guidance:
 
 - use `ambient sleep` as the lead scenic phrase
 - keep `sleep music` in support tags / description copy
+- for imported ocean audio, the current public candidate is:
+  `Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift`
 
 ### 4. Noise Preset
 

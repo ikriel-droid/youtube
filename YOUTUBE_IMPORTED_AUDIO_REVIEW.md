@@ -28,3 +28,9 @@ This review captures the first end-to-end scenic YouTube upload built from impor
 - Sleep Lab should default to imported audio whenever imported licensed assets exist.
 - The YouTube upload page should surface imported-audio scenic upload before the generated fallback path.
 - Future public scenic uploads should prefer licensed imported audio unless there is a deliberate reason to test generated audio.
+
+## Public Candidate
+
+The current public-candidate package is documented in:
+
+- [YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md)

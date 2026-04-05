@@ -59,3 +59,17 @@ For the next public scenic uploads:
 - title = one soft lead phrase plus one concrete visual cue
 - thumbnail = two to four words max
 - description = calm sensory framing first, search keywords second
+
+## Imported Audio Public-Candidate Rule
+
+When the scenic upload uses imported licensed audio:
+
+- prefer a softer broad title over internal source naming
+- do not lead with internal workflow words like `licensed audio` or `visual`
+- keep the source and license in the description, not the headline
+
+Current preferred imported-ocean packaging:
+
+- title: `Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift`
+- thumbnail language: `ocean drift`, `deep rest`, or `coastal calm`
+- description lead: calm sensory framing first, source attribution second

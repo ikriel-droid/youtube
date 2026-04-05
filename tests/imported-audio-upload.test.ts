@@ -20,9 +20,11 @@ test("imported audio upload draft prefers scenic ocean packaging and caps length
   assert.equal(draft.preset, "ocean");
   assert.equal(draft.releasePreset, "ocean-drift");
   assert.equal(draft.minutes, 30);
-  assert.match(draft.title, /Soft Ocean Drift Visual/);
-  assert.match(draft.description, /licensed ambient source audio/i);
+  assert.equal(draft.title, "Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift");
+  assert.match(draft.description, /licensed source audio/i);
+  assert.match(draft.description, /coastal wave ambience/i);
   assert.ok(draft.tags.includes("licensed audio"));
   assert.ok(draft.tags.includes("sleep music"));
+  assert.ok(draft.tags.includes("wave sounds"));
   assert.match(draft.seed, /^imported-/);
 });

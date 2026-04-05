@@ -36,6 +36,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_SCENIC_VISUAL_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_VISUAL_GUIDE.md)
 - [LICENSED_AUDIO_SOURCE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_AUDIO_SOURCE_LOG.md)
 - [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)
+- [YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md)
 
 The current product decision is:
 

@@ -35,8 +35,8 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 - [x] Create the first 3 video concepts
 - [x] Produce the first 1 publish-ready sleep video end to end
 - [x] Upload the first video as private or unlisted
-- [ ] Review playback quality on desktop and mobile
-- [ ] Publish the first public sleep upload
+- [x] Review playback quality on desktop and mobile
+- [x] Publish the first public sleep upload
 
 ## 5. First Validation Loop
 

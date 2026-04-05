@@ -44,6 +44,12 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 - [ ] Compare thumbnail and title performance against at least one alternative
 - [ ] Capture what to improve in the next batch: duration, visual style, title style, or noise preset
 
+Supporting files for this section:
+
+- [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md)
+- [YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md)
+- [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
+
 ## Blocking Reality Check
 
 If we are serious about publishing to real YouTube soon, the blocking items are:

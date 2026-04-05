@@ -1,6 +1,6 @@
 # LocalTube
 
-LocalTube is a local-first video product sandbox that now leans toward a creator-tool workflow for sports channels.
+LocalTube is a local-first video product sandbox that, on the `sleepmusic` branch, is being used as a sleep-channel production workflow.
 
 ## Stack
 
@@ -23,15 +23,19 @@ LocalTube is a local-first video product sandbox that now leans toward a creator
 ## Direction
 
 See [PRODUCT_DIRECTION.md](c:\Users\Administrator\.vscode\cli\localtube\PRODUCT_DIRECTION.md).
-If the immediate goal is a real sleep-music YouTube release, use
-[YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md).
+If the immediate goal is a real sleep-music YouTube release, use:
+
+- [YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SLEEP_GO_LIVE_CHECKLIST.md)
+- [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md)
+- [YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md)
+- [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
 
 The current product decision is:
 
 - creator-tool product, not just a clone sandbox
-- primary audience: sports channels
-- best niche fit: football and baseball creators testing packaging ideas before real upload flows
-- sleep-music publishing path: manual-first YouTube upload for the first real launch validation
+- primary audience on this branch: sleep / ambience channel operators
+- best niche fit on this branch: repeatable YouTube sleep uploads
+- sleep-music publishing path: validated real YouTube upload workflow
 
 ## Run
 
@@ -52,6 +56,7 @@ Sleep music generator:
 - `Download Upload Bundle` packages the MP4, thumbnail, metadata JSON, and a plain-text upload checklist into one ZIP for manual YouTube upload
 - channel launch plan: [SLEEP_CHANNEL_LAUNCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\SLEEP_CHANNEL_LAUNCH_PLAN.md)
 - API upload validation: [YOUTUBE_API_VALIDATION_RUNBOOK.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_API_VALIDATION_RUNBOOK.md)
+- first public upload review: [YOUTUBE_FIRST_PUBLIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_FIRST_PUBLIC_REVIEW.md)
 
 ## YouTube API Validation Env
 
@@ -106,4 +111,4 @@ This restores `data/library.json` from the curated seed in `data/library.seed.js
 - uploaded videos are stored in `data/library.json`
 - duplicate video links are blocked
 - drafts stay out of the public feed until you publish them
-- this is still local-only and does not upload to real YouTube yet
+- the `sleepmusic` branch now has a validated real YouTube upload path

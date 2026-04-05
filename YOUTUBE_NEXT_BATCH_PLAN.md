@@ -1,0 +1,67 @@
+# YouTube Next Batch Improvement Plan
+
+This plan captures what to improve after the first public upload.
+
+## What The First Upload Taught Us
+
+- The production and upload path works end to end
+- Black-screen packaging is useful for validation, but creatively limited
+- The next batch should teach us whether scenic visuals and different noise presets improve performance
+
+## Next Batch Priorities
+
+### 1. Visual Style
+
+Move away from black-screen-only uploads for the next public-facing tests.
+
+Priority order:
+
+1. `ocean-drift`
+2. `rain-window`
+3. black-screen only as a utility format
+
+### 2. Duration
+
+Test shorter scenic uploads before committing every release to 60 minutes.
+
+Suggested durations:
+
+- 30 minutes for scenic test uploads
+- 60 minutes for proven winners
+
+### 3. Title Style
+
+Reduce the purely functional feel of the first title.
+
+Test directions:
+
+- softer sleep language
+- more sensory / mood language
+- less emphasis on "black screen" unless it is the main search hook
+
+### 4. Noise Preset
+
+Branch beyond rain:
+
+- `ocean` for a softer ambient feel
+- `brown-noise` for sleep + focus crossover intent
+
+## Next Two Uploads
+
+### Upload 2
+
+- Concept: `Launch-02`
+- Goal: scenic ambient visual test
+
+### Upload 3
+
+- Concept: `Launch-03`
+- Goal: rain-window / brown-noise crossover test
+
+## Exit Criteria For The Next Batch
+
+The next batch is successful if it gives us a clear answer on at least one of:
+
+- scenic visuals beat black screen on CTR
+- brown-noise packaging broadens audience reach
+- 30-minute scenic uploads hold attention better than 60-minute black-screen uploads

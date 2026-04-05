@@ -2,35 +2,37 @@
 
 ## Positioning
 
-LocalTube is no longer treated as a pure YouTube-clone sandbox. The product direction is now:
+On the `sleepmusic` branch, LocalTube is being used as a local-first sleep-channel production tool.
 
-- a local-first creator-tool product
-- built first for sports channels
-- especially football and baseball analysis creators
+The current product direction is:
+
+- a creator workflow for producing sleep-music uploads
+- optimized for long-form YouTube packaging
+- focused on repeatable batch production rather than one-off experiments
 
 ## Primary Audience
 
-- solo sports creators
-- small sports commentary channels
-- editors and writers testing titles, tags, shorts hooks, and upload packaging before publishing
+- solo creators building sleep, ambience, and focus channels
+- operators who want fast packaging loops for long-form evergreen content
+- channel owners who need to test title, thumbnail, and visual direction quickly
 
 ## Portfolio-Worthy Use Case
 
-The strongest portfolio and paid-use-case angle is:
+The strongest use case on this branch is:
 
-- upload real or sample links
-- generate title, description, tag, hook, and shorts-script ideas
-- test draft vs published workflows
-- shape channel packaging around sports content
+- generate sleep-audio source material
+- render a YouTube-ready MP4 bundle
+- produce thumbnails, metadata, and upload assets
+- validate real YouTube uploads and learn from early channel metrics
 
-In short: LocalTube helps sports creators package videos faster before a future YouTube API integration exists.
+In short: LocalTube helps us move from idea to real sleep-channel upload without leaving the local workflow.
 
-## Seed Content Strategy
+## Branch Direction
 
-The curated seed library now leans toward:
+The first public upload proved the black-screen validation path, but the next differentiation step is visual quality.
 
-- football recap and title-race angles
-- baseball rotation and bullpen breakdowns
-- creator workflow examples that support sports-channel packaging
+The branch should now optimize for:
 
-Use `reset-localtube-seed.ps1` to return to the curated sample state.
+- scenic ocean / rain-window uploads
+- stronger sleep-brand identity
+- title and thumbnail experiments against the first public black-screen release

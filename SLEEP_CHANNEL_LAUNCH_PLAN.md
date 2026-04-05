@@ -50,3 +50,28 @@ Success criteria:
 2. upload it to YouTube as private or unlisted
 3. review thumbnail, mobile playback, and title fit
 4. only then publish publicly
+
+## What We Learned From The First Public Upload
+
+`Launch-01` did its job as the simplest go-live validation:
+
+- black-screen packaging made the first render and upload path easy to validate
+- the YouTube OAuth and upload flow are now proven
+- the first public video is live, so the project has crossed from prototype into channel validation
+
+At the same time, the black-screen look is intentionally minimal and is not the long-term creative direction.
+
+## Next Creative Direction
+
+The next batch should shift toward scenic and ambient visuals instead of relying only on black-screen uploads.
+
+Priority order:
+
+1. `Launch-02` as the first scenic follow-up
+2. `Launch-03` as the first rain-window / brown-noise crossover test
+
+Why:
+
+- scenic visuals should improve click-through rate compared with pure black screen
+- moving visuals make the channel feel more like a sleep brand than a utility upload
+- this gives us a cleaner title/thumbnail A/B test against `Launch-01`

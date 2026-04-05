@@ -15,6 +15,6 @@ test("sleep launch plan defines a concrete channel identity", () => {
 test("sleep launch plan includes three concepts and a publish-ready target", () => {
   assert.equal(firstSleepVideoConcepts.length, 3);
   const concept = getFirstPublishReadyConcept();
-  assert.match(concept.title, /Rain Drift Sleep Music/i);
-  assert.equal(concept.releasePreset, "black-screen");
+  assert.match(concept.title, /Ocean Breath Sleep Music/i);
+  assert.equal(concept.releasePreset, "ocean-drift");
 });

@@ -7,6 +7,7 @@ This plan captures what to improve after the first public upload.
 - The production and upload path works end to end
 - Black-screen packaging is useful for validation, but creatively limited
 - The next batch should teach us whether scenic visuals and different noise presets improve performance
+- We are now treating scenic uploads as the default direction unless real metrics clearly contradict it
 
 ## Next Batch Priorities
 

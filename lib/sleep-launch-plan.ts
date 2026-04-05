@@ -15,8 +15,8 @@ export interface SleepVideoConcept {
 export const sleepChannelIdentity = {
   channelName: "Midnight Tide Sleep",
   channelSlug: "midnight-tide-sleep",
-  niche: "black-screen and soft-motion sleep ambience for late-night wind-down listeners",
-  tagline: "Long-form sleep ambience with clean packaging and zero-distraction visuals."
+  niche: "scenic ocean and rain-window sleep ambience for late-night wind-down listeners",
+  tagline: "Soft-motion sleep ambience with calm scenic visuals and clean long-form packaging."
 };
 
 export const firstSleepVideoConcepts: SleepVideoConcept[] = [
@@ -55,7 +55,7 @@ export const firstSleepVideoConcepts: SleepVideoConcept[] = [
   }
 ];
 
-export const firstPublishReadyConceptId = "launch-01";
+export const firstPublishReadyConceptId = "launch-02";
 
 export function getFirstPublishReadyConcept() {
   return firstSleepVideoConcepts.find((concept) => concept.id === firstPublishReadyConceptId)!;

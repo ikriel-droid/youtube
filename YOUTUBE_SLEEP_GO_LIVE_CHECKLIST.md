@@ -56,6 +56,7 @@ Current state:
 - scenic comparison upload: `TaOjFxPpfv8`
 - automated view snapshots are now available in LocalTube
 - CTR still needs manual confirmation from YouTube Studio while the videos are fresh
+- operator decision: scenic visuals are now the default creative direction for the next batch
 
 ## Blocking Reality Check
 

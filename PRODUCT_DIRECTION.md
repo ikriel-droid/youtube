@@ -29,10 +29,11 @@ In short: LocalTube helps us move from idea to real sleep-channel upload without
 
 ## Branch Direction
 
-The first public upload proved the black-screen validation path, but the next differentiation step is visual quality.
+The first public upload proved the black-screen validation path, and we are now treating scenic visuals as the main creative direction.
 
 The branch should now optimize for:
 
 - scenic ocean / rain-window uploads
 - stronger sleep-brand identity
 - title and thumbnail experiments against the first public black-screen release
+- black-screen only as a supporting utility format, not the primary channel look

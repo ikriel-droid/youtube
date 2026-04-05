@@ -13,7 +13,11 @@ import {
   type SleepPreset,
   type SleepReleasePreset
 } from "@/lib/sleep-audio";
-import { firstSleepVideoConcepts, sleepChannelIdentity } from "@/lib/sleep-launch-plan";
+import {
+  firstSleepVideoConcepts,
+  getFirstPublishReadyConcept,
+  sleepChannelIdentity
+} from "@/lib/sleep-launch-plan";
 import { SleepVisualizer } from "@/components/sleep-visualizer";
 import type { PublishState } from "@/lib/types";
 
@@ -37,14 +41,15 @@ const releaseProfiles: Array<{
   { value: "rain-window", lead: "A softer visual package built around rain-window motion." },
   { value: "ocean-drift", lead: "A calm glow-based package for ocean-style ambience videos." }
 ];
+const defaultPrimaryConcept = getFirstPublishReadyConcept();
 const initialMetadata = buildSleepMetadata(
   {
-    preset: "deep-drone",
-    minutes: 30,
-    seed: "midnight-rain"
+    preset: defaultPrimaryConcept.preset,
+    minutes: defaultPrimaryConcept.minutes,
+    seed: defaultPrimaryConcept.seed
   },
   {
-    releasePreset: "black-screen"
+    releasePreset: defaultPrimaryConcept.releasePreset
   }
 );
 
@@ -53,26 +58,31 @@ interface SleepTrackLabProps {
 }
 
 function getInitialConcept(initialConceptId?: string) {
-  return firstSleepVideoConcepts.find((concept) => concept.id === initialConceptId) ?? null;
+  return (
+    firstSleepVideoConcepts.find((concept) => concept.id === initialConceptId) ??
+    getFirstPublishReadyConcept()
+  );
 }
 
 export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   const initialConcept = getInitialConcept(initialConceptId);
-  const [preset, setPreset] = useState<SleepPreset>(initialConcept?.preset ?? "deep-drone");
+  const [preset, setPreset] = useState<SleepPreset>(initialConcept.preset);
   const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>(
-    initialConcept?.releasePreset ?? "black-screen"
+    initialConcept.releasePreset
   );
-  const [minutes, setMinutes] = useState(initialConcept?.minutes ?? 30);
-  const [seed, setSeed] = useState(initialConcept?.seed ?? "midnight-rain");
+  const [minutes, setMinutes] = useState(initialConcept.minutes);
+  const [seed, setSeed] = useState(initialConcept.seed);
   const [channelName, setChannelName] = useState(sleepChannelIdentity.channelName);
   const [channelSlug, setChannelSlug] = useState(sleepChannelIdentity.channelSlug);
   const [publishState, setPublishState] = useState<PublishState>("published");
-  const [title, setTitle] = useState(initialConcept?.title ?? initialMetadata.title);
-  const [description, setDescription] = useState(initialConcept?.hook ?? initialMetadata.description);
-  const [tagsInput, setTagsInput] = useState((initialConcept?.tags ?? initialMetadata.tags).join(", "));
+  const [title, setTitle] = useState(initialConcept.title ?? initialMetadata.title);
+  const [description, setDescription] = useState(initialConcept.hook ?? initialMetadata.description);
+  const [tagsInput, setTagsInput] = useState((initialConcept.tags ?? initialMetadata.tags).join(", "));
   const [metadataTouched, setMetadataTouched] = useState(Boolean(initialConcept));
   const [status, setStatus] = useState(
-    initialConcept ? `Loaded ${initialConcept.id} into Sleep Lab.` : "Pick a preset and generate a preview."
+    initialConceptId
+      ? `Loaded ${initialConcept.id} into Sleep Lab.`
+      : `Defaulted to ${initialConcept.id} so the next batch starts scenic-first.`
   );
   const [generating, setGenerating] = useState(false);
   const [saving, setSaving] = useState(false);

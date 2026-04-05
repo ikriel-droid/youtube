@@ -98,7 +98,7 @@ export function YouTubeUploadPanel({
 
   useEffect(() => {
     if (initialStatus === "connected") {
-      setMessage("YouTube connection completed. You can now upload launch-01 privately.");
+      setMessage("YouTube connection completed. Scenic uploads are ready for the next batch.");
     } else if (initialStatus === "oauth_error" && initialMessage) {
       setMessage(initialMessage);
     }
@@ -106,7 +106,7 @@ export function YouTubeUploadPanel({
 
   async function handlePrivateUpload() {
     setUploading(true);
-    setMessage("Uploading launch-01 to YouTube as private...");
+    setMessage("Uploading the scenic default concept to YouTube as private...");
 
     try {
       const response = await fetch("/api/youtube/upload", {
@@ -115,7 +115,7 @@ export function YouTubeUploadPanel({
           "content-type": "application/json"
         },
         body: JSON.stringify({
-          conceptId: "launch-01",
+          conceptId: "launch-02",
           privacyStatus: "private"
         })
       });
@@ -266,7 +266,7 @@ export function YouTubeUploadPanel({
               onClick={handlePrivateUpload}
               disabled={!status.configured || !status.connected || uploading}
             >
-              {uploading ? "Uploading Private Test..." : "Upload Launch-01 As Private"}
+              {uploading ? "Uploading Scenic Release..." : "Upload Launch-02 As Private"}
             </button>
             <Link className="secondaryButton" href="/studio/sleep-launch">
               Open Launch Plan
@@ -282,7 +282,7 @@ export function YouTubeUploadPanel({
           </div>
           <p className="statusText">
             {message ||
-              "Use quick private test first to verify the upload path, then run the full launch-01 upload."}
+              "Use quick private test for the path check, then move into the scenic launch-02 upload flow."}
           </p>
 
           {!status.configured ? (

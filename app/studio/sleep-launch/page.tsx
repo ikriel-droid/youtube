@@ -68,7 +68,7 @@ export default function SleepLaunchPage() {
       <section className="panel stack">
         <div className="panelHeader">
           <h2>First Publish-Ready Target</h2>
-          <span>launch-01</span>
+          <span>{primaryConcept.id}</span>
         </div>
         <p>
           <strong>Title:</strong> {primaryConcept.title}
@@ -78,6 +78,10 @@ export default function SleepLaunchPage() {
         </p>
         <p>
           <strong>Angle:</strong> {primaryConcept.angle}
+        </p>
+        <p className="sidebarText">
+          Scenic-first is now the chosen main direction. Black-screen stays as a utility fallback for
+          overnight validation and niche search intent.
         </p>
         <div className="inlineTags">
           <span className="tagPill">{primaryConcept.preset}</span>

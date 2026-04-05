@@ -7,6 +7,7 @@ import path from "node:path";
 import JSZip from "jszip";
 
 import { POST as generateMetadata } from "../app/api/ai/metadata/route";
+import { POST as importAudio } from "../app/api/imported-audio/route";
 import { POST as createSleepUploadBundle } from "../app/api/sleep-upload-bundle/route";
 import { POST as createSleepTrack } from "../app/api/sleep-tracks/route";
 import { POST as createVideo } from "../app/api/videos/route";
@@ -234,6 +235,53 @@ test("sleep upload bundle route returns a zip with upload assets", async () => {
   });
 });
 
+test("imported-audio route saves a licensed audio source and registers it in the library", async () => {
+  await withTempEnvironment(async ({ dataFile, publicDir }) => {
+    const form = new FormData();
+    form.set(
+      "file",
+      new File([new Uint8Array(4096).fill(7)], "licensed-ocean.wav", { type: "audio/wav" })
+    );
+    form.set("title", "Licensed Ocean Sleep Bed");
+    form.set("sourceName", "Purchased Pack");
+    form.set("licenseNote", "Commercial channel use allowed.");
+    form.set("minutes", "30");
+    form.set("tags", "ambient sleep, ocean drift");
+    form.set("channelName", "Midnight Tide Sleep");
+    form.set("channelSlug", "midnight-tide-sleep");
+    form.set("status", "draft");
+
+    const response = await importAudio(
+      new Request("http://localtube.test/api/imported-audio", {
+        method: "POST",
+        body: form
+      })
+    );
+
+    assert.equal(response.status, 200);
+    const payload = (await response.json()) as {
+      ok: boolean;
+      record: { fileUrl: string; sourceName: string };
+      videoId: string;
+    };
+    assert.equal(payload.ok, true);
+    assert.equal(payload.record.sourceName, "Purchased Pack");
+
+    const stored = JSON.parse(await readFile(dataFile, "utf8")) as {
+      videos: Array<{ id: string; videoUrl: string; category: string; status: string }>;
+    };
+    const created = stored.videos.find((video) => video.id === payload.videoId);
+    assert.ok(created);
+    assert.equal(created?.category, "sleep");
+    assert.equal(created?.status, "draft");
+    assert.equal(created?.videoUrl, payload.record.fileUrl);
+
+    const savedFile = path.join(publicDir, "imported-audio", path.basename(payload.record.fileUrl));
+    const audioBuffer = await readFile(savedFile);
+    assert.ok(audioBuffer.byteLength >= 4096);
+  });
+});
+
 async function withTempLibrary(run: (dataFile: string) => Promise<void>) {
   await withTempEnvironment(async ({ dataFile }) => run(dataFile));
 }
@@ -243,15 +291,18 @@ async function withTempEnvironment(
 ) {
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "localtube-tests-"));
   const dataFile = path.join(tempDir, "library.json");
+  const importedAudioFile = path.join(tempDir, "imported-audio-library.json");
   const publicDir = path.join(tempDir, "public");
   await copyFile(seedPath, dataFile);
   process.env.LOCALTUBE_DATA_FILE = dataFile;
+  process.env.LOCALTUBE_IMPORTED_AUDIO_FILE = importedAudioFile;
   process.env.LOCALTUBE_PUBLIC_DIR = publicDir;
 
   try {
     await run({ dataFile, publicDir });
   } finally {
     delete process.env.LOCALTUBE_DATA_FILE;
+    delete process.env.LOCALTUBE_IMPORTED_AUDIO_FILE;
     delete process.env.LOCALTUBE_PUBLIC_DIR;
     await rm(tempDir, { recursive: true, force: true });
   }

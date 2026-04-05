@@ -57,6 +57,19 @@ interface SleepTrackLabProps {
   initialConceptId?: string;
 }
 
+interface ImportedAudioRecord {
+  id: string;
+  title: string;
+  sourceName: string;
+  licenseNote: string;
+  minutes: number;
+  durationLabel: string;
+  tags: string[];
+  fileUrl: string;
+  fileName: string;
+  uploadedAt: string;
+}
+
 function getInitialConcept(initialConceptId?: string) {
   return (
     firstSleepVideoConcepts.find((concept) => concept.id === initialConceptId) ??
@@ -66,6 +79,7 @@ function getInitialConcept(initialConceptId?: string) {
 
 export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   const initialConcept = getInitialConcept(initialConceptId);
+  const [sourceMode, setSourceMode] = useState<"generated" | "imported">("generated");
   const [preset, setPreset] = useState<SleepPreset>(initialConcept.preset);
   const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>(
     initialConcept.releasePreset
@@ -97,8 +111,18 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
     manifestUrl: string;
     suggestedFilenameBase: string;
   } | null>(null);
+  const [importedAudioRecords, setImportedAudioRecords] = useState<ImportedAudioRecord[]>([]);
+  const [selectedImportedAudioUrl, setSelectedImportedAudioUrl] = useState("");
+  const [importingAudio, setImportingAudio] = useState(false);
+  const [importTitle, setImportTitle] = useState("");
+  const [importSourceName, setImportSourceName] = useState("");
+  const [importLicenseNote, setImportLicenseNote] = useState("Licensed for channel use.");
+  const [importMinutes, setImportMinutes] = useState(30);
+  const [importTags, setImportTags] = useState("ambient sleep, licensed audio");
+  const [importFile, setImportFile] = useState<File | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const previewSourceRef = useRef<AudioBufferSourceNode | null>(null);
+  const importedPreviewRef = useRef<HTMLAudioElement | null>(null);
 
   const metadata = useMemo(
     () =>
@@ -124,6 +148,29 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   }, [downloadUrl]);
 
   useEffect(() => {
+    let mounted = true;
+
+    async function loadImportedAudio() {
+      try {
+        const response = await fetch("/api/imported-audio", { cache: "no-store" });
+        const payload = (await response.json()) as { records: ImportedAudioRecord[] };
+        if (mounted) {
+          setImportedAudioRecords(payload.records ?? []);
+        }
+      } catch {
+        if (mounted) {
+          setStatus("Imported audio library could not be loaded.");
+        }
+      }
+    }
+
+    loadImportedAudio();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     if (!metadataTouched) {
       setTitle(metadata.title);
       setDescription(metadata.description);
@@ -134,9 +181,36 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   async function handlePreview() {
     stopPreview();
     setPreviewing(true);
-    setStatus("Building a 20-second preview...");
+    setStatus(
+      sourceMode === "generated"
+        ? "Building a 20-second preview..."
+        : "Previewing the imported audio source..."
+    );
 
     try {
+      if (sourceMode === "imported") {
+        const selectedImported = importedAudioRecords.find(
+          (record) => record.fileUrl === selectedImportedAudioUrl
+        );
+        if (!selectedImported) {
+          setPreviewing(false);
+          setStatus("Pick an imported audio source first.");
+          return;
+        }
+
+        const audio = new Audio(selectedImported.fileUrl);
+        importedPreviewRef.current = audio;
+        audio.currentTime = 0;
+        await audio.play();
+        window.setTimeout(() => {
+          audio.pause();
+          setPreviewing(false);
+          setStatus("Imported-audio preview finished.");
+        }, 20_000);
+        setStatus("Imported-audio preview playing.");
+        return;
+      }
+
       const previewSamples = generateSleepTrackData(
         {
           preset,
@@ -169,6 +243,11 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   }
 
   async function handleGenerate() {
+    if (sourceMode === "imported") {
+      setStatus("Imported audio already exists as a source. Render the bundle or save the import instead.");
+      return;
+    }
+
     setGenerating(true);
     setSavedVideoId(null);
     setRenderBundle(null);
@@ -212,6 +291,7 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           releasePreset,
           minutes,
           seed,
+          audioSourceUrl: sourceMode === "imported" ? selectedImportedAudioUrl : undefined,
           title: title.trim(),
           description: description.trim(),
           tags: tagsInput
@@ -264,6 +344,7 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           releasePreset,
           minutes,
           seed,
+          audioSourceUrl: sourceMode === "imported" ? selectedImportedAudioUrl : undefined,
           title: title.trim(),
           description: description.trim(),
           tags: tagsInput
@@ -299,6 +380,11 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   }
 
   async function handleSave() {
+    if (sourceMode === "imported") {
+      setStatus("Imported audio is already saved through the import flow. Use Open Sleep Library to review it.");
+      return;
+    }
+
     if (!downloadUrl) {
       setStatus("Generate a WAV first, then save it into LocalTube.");
       return;
@@ -363,6 +449,8 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
     previewSourceRef.current = null;
     audioContextRef.current?.close();
     audioContextRef.current = null;
+    importedPreviewRef.current?.pause();
+    importedPreviewRef.current = null;
     setPreviewing(false);
   }
 
@@ -378,6 +466,59 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
     setStatus("Suggested sleep-upload metadata restored.");
   }
 
+  async function handleImportAudio() {
+    if (!importFile) {
+      setStatus("Pick an audio file before importing.");
+      return;
+    }
+
+    setImportingAudio(true);
+    setStatus("Importing licensed audio into LocalTube...");
+
+    try {
+      const form = new FormData();
+      form.set("file", importFile);
+      form.set("title", importTitle.trim());
+      form.set("sourceName", importSourceName.trim());
+      form.set("licenseNote", importLicenseNote.trim());
+      form.set("minutes", String(importMinutes));
+      form.set("tags", importTags);
+      form.set("channelName", channelName.trim());
+      form.set("channelSlug", channelSlug.trim());
+      form.set("status", publishState);
+
+      const response = await fetch("/api/imported-audio", {
+        method: "POST",
+        body: form
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        record?: ImportedAudioRecord;
+      };
+
+      if (!response.ok || !payload.record) {
+        throw new Error(payload.error || "Imported audio upload failed.");
+      }
+
+      const recordsResponse = await fetch("/api/imported-audio", { cache: "no-store" });
+      const recordsPayload = (await recordsResponse.json()) as { records: ImportedAudioRecord[] };
+      setImportedAudioRecords(recordsPayload.records ?? []);
+      setSourceMode("imported");
+      setSelectedImportedAudioUrl(payload.record.fileUrl);
+      setMinutes(payload.record.minutes);
+      setTitle(payload.record.title);
+      setTagsInput(payload.record.tags.join(", "));
+      setDescription(
+        `${payload.record.sourceName}. ${payload.record.licenseNote}`
+      );
+      setStatus("Imported audio is now available in Sleep Lab and ready for scenic rendering.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Imported audio upload failed.");
+    } finally {
+      setImportingAudio(false);
+    }
+  }
+
   return (
     <div className="stack">
       <section className="hero">
@@ -390,6 +531,9 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
         <div className="inlineActions">
           <Link className="secondaryButton" href="/studio/sleep-library">
             Open Sleep Library
+          </Link>
+          <Link className="secondaryButton" href="/studio/audio-library">
+            Open Audio Library
           </Link>
           <Link className="secondaryButton" href="/studio/sleep-launch">
             Open Sleep Launch Plan
@@ -404,6 +548,100 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           <h2>Track Controls</h2>
           <span>local synth</span>
         </div>
+
+        <div className="fieldGrid">
+          <label>
+            Audio source
+            <select
+              value={sourceMode}
+              onChange={(event) => setSourceMode(event.target.value as "generated" | "imported")}
+            >
+              <option value="generated">Generated in Sleep Lab</option>
+              <option value="imported">Imported licensed audio</option>
+            </select>
+          </label>
+          {sourceMode === "imported" ? (
+            <label>
+              Imported source
+              <select
+                value={selectedImportedAudioUrl}
+                onChange={(event) => setSelectedImportedAudioUrl(event.target.value)}
+              >
+                <option value="">Pick imported audio</option>
+                {importedAudioRecords.map((record) => (
+                  <option key={record.id} value={record.fileUrl}>
+                    {record.title} · {record.durationLabel}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+        </div>
+
+        {sourceMode === "imported" ? (
+          <div className="studioCard stack">
+            <div className="panelHeader">
+              <h3>Licensed Audio Import</h3>
+              <span>quality-first source</span>
+            </div>
+            <div className="fieldGrid">
+              <label>
+                Audio file
+                <input
+                  type="file"
+                  accept=".wav,.mp3,.m4a,audio/*"
+                  onChange={(event) => setImportFile(event.target.files?.[0] ?? null)}
+                />
+              </label>
+              <label>
+                Imported title
+                <input value={importTitle} onChange={(event) => setImportTitle(event.target.value)} />
+              </label>
+              <label>
+                Source name
+                <input
+                  value={importSourceName}
+                  onChange={(event) => setImportSourceName(event.target.value)}
+                  placeholder="Licensed pack / composer / store"
+                />
+              </label>
+              <label>
+                License note
+                <input
+                  value={importLicenseNote}
+                  onChange={(event) => setImportLicenseNote(event.target.value)}
+                />
+              </label>
+              <label>
+                Length in minutes
+                <input
+                  type="number"
+                  min={1}
+                  max={600}
+                  value={importMinutes}
+                  onChange={(event) => setImportMinutes(Number(event.target.value))}
+                />
+              </label>
+              <label>
+                Import tags
+                <input value={importTags} onChange={(event) => setImportTags(event.target.value)} />
+              </label>
+            </div>
+            <div className="inlineActions">
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={handleImportAudio}
+                disabled={importingAudio}
+              >
+                {importingAudio ? "Importing Audio..." : "Import Licensed Audio"}
+              </button>
+              <Link className="secondaryButton" href="/studio/audio-library">
+                Review Imported Audio
+              </Link>
+            </div>
+          </div>
+        ) : null}
 
         <div className="sleepPresetGrid">
           {presets.map((item) => (
@@ -560,7 +798,7 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
             className="secondaryButton"
             type="button"
             onClick={handleSave}
-            disabled={saving || generating || !downloadUrl}
+            disabled={saving || generating || !downloadUrl || sourceMode === "imported"}
           >
             {saving ? "Saving..." : "Save To LocalTube"}
           </button>

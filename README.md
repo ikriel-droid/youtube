@@ -32,6 +32,8 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
 - [YOUTUBE_SCENIC_PACKAGING_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_PACKAGING_GUIDE.md)
 - [YOUTUBE_SCENIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_REVIEW.md)
+- [YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md)
+- [YOUTUBE_SCENIC_VISUAL_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_VISUAL_GUIDE.md)
 
 The current product decision is:
 
@@ -53,6 +55,7 @@ Open `http://127.0.0.1:3000`.
 Sleep music generator:
 
 - `http://127.0.0.1:3000/studio/sleep-lab`
+- imported licensed audio can now be brought into Sleep Lab and reviewed at `http://127.0.0.1:3000/studio/audio-library`
 - generate a track, then use `Save To LocalTube` if you want it to stay in the library after refresh
 - saved sleep-audio posts can be revisited at `http://127.0.0.1:3000/studio/sleep-library`
 - `Render YouTube Bundle` now creates a publishable MP4, thumbnail, and metadata manifest under `public/generated-video`, `public/generated-thumbnails`, and `public/generated-manifests`

@@ -12,9 +12,11 @@ pnpm-lock.yaml
 localtube-*.log
 localtube-*.err.log
 public/generated-audio
+public/imported-audio
 public/generated-video
 public/generated-thumbnails
 public/generated-manifests
+data/imported-audio-library.json
 data/youtube-oauth.json
 data/youtube-oauth-state.json
 data/youtube-upload-history.json

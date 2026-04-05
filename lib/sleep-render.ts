@@ -59,16 +59,25 @@ export function buildSleepFileBase(input: SleepRenderInput) {
 export function buildSleepThumbnailSvg(input: SleepRenderInput) {
   const background = getSleepGradient(input.releasePreset);
   const accent = getSleepAccent(input.releasePreset);
-  const titleLines = wrapTitle(input.title, 28).slice(0, 3);
+  const titleLines =
+    input.releasePreset === "black-screen"
+      ? wrapTitle(input.title, 28).slice(0, 3)
+      : buildScenicTitleLines(input.title);
   const durationLabel = `${input.minutes} MINUTES`;
   const presetLabel = getSleepPresetLabel(input.preset).toUpperCase();
+  const titleFontSize = input.releasePreset === "black-screen" ? 72 : 60;
+  const titleStep = input.releasePreset === "black-screen" ? 96 : 76;
 
   const textLines = titleLines
     .map(
       (line, index) =>
-        `<text x="90" y="${220 + index * 96}" fill="#f8fafc" font-size="72" font-weight="700" font-family="Segoe UI, Arial, sans-serif">${escapeXml(line)}</text>`
+        `<text x="90" y="${220 + index * titleStep}" fill="#f8fafc" font-size="${titleFontSize}" font-weight="700" font-family="Segoe UI, Arial, sans-serif">${escapeXml(line)}</text>`
     )
     .join("");
+  const scenicLead =
+    input.releasePreset === "black-screen"
+      ? ""
+      : `<text x="92" y="470" fill="#cbd5e1" font-size="30" font-weight="500" font-family="Segoe UI, Arial, sans-serif">ambient sleep visual</text>`;
 
   return `
 <svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
@@ -88,6 +97,7 @@ export function buildSleepThumbnailSvg(input: SleepRenderInput) {
   <rect x="72" y="92" rx="999" ry="999" width="248" height="56" fill="rgba(255,255,255,0.12)"/>
   <text x="108" y="128" fill="#cbd5e1" font-size="28" font-weight="600" font-family="Segoe UI, Arial, sans-serif">LOCALTUBE SLEEP</text>
   ${textLines}
+  ${scenicLead}
   <rect x="90" y="560" rx="24" ry="24" width="270" height="72" fill="rgba(15,23,42,0.58)" stroke="rgba(255,255,255,0.12)"/>
   <text x="128" y="608" fill="#f8fafc" font-size="34" font-weight="700" font-family="Segoe UI, Arial, sans-serif">${durationLabel}</text>
   <rect x="388" y="560" rx="24" ry="24" width="320" height="72" fill="rgba(15,23,42,0.58)" stroke="rgba(255,255,255,0.12)"/>
@@ -137,6 +147,18 @@ function wrapTitle(text: string, maxChars: number) {
   }
 
   return lines.length > 0 ? lines : [text];
+}
+
+function buildScenicTitleLines(title: string) {
+  const [headline, support = ""] = title.split("|").map((part) => part.trim());
+  const lines = wrapTitle(headline || title, 24).slice(0, 2);
+  const supportLine = support.trim();
+
+  if (supportLine) {
+    return [...lines.slice(0, 1), supportLine.slice(0, 26)];
+  }
+
+  return lines;
 }
 
 function slugify(value: string) {

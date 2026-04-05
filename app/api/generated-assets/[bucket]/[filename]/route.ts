@@ -3,7 +3,13 @@ import path from "node:path";
 
 import { NextResponse } from "next/server";
 
-const allowedBuckets = new Set(["generated-audio", "generated-video", "generated-thumbnails", "generated-manifests"]);
+const allowedBuckets = new Set([
+  "generated-audio",
+  "generated-video",
+  "generated-thumbnails",
+  "generated-manifests",
+  "imported-audio"
+]);
 
 export async function GET(
   _request: Request,
@@ -37,6 +43,12 @@ function getContentType(filename: string) {
   }
   if (filename.endsWith(".wav")) {
     return "audio/wav";
+  }
+  if (filename.endsWith(".mp3")) {
+    return "audio/mpeg";
+  }
+  if (filename.endsWith(".m4a")) {
+    return "audio/mp4";
   }
   if (filename.endsWith(".png")) {
     return "image/png";

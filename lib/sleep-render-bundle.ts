@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -23,6 +23,7 @@ export interface SleepRenderRequestInput {
   releasePreset: SleepReleasePreset;
   minutes: number;
   seed: string;
+  audioSourceUrl?: string;
   title?: string;
   description?: string;
   tags?: string[];
@@ -65,6 +66,7 @@ export async function generateSleepRenderBundle(
     releasePreset: input.releasePreset,
     minutes: input.minutes,
     seed: input.seed,
+    audioSourceUrl: input.audioSourceUrl?.trim() || undefined,
     title: input.title?.trim() || metadata.title,
     description: input.description?.trim() || metadata.description,
     tags: normalizeTags(input.tags, metadata.tags),
@@ -86,15 +88,20 @@ export async function generateSleepRenderBundle(
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "localtube-sleep-render-"));
 
   try {
-    const exportResult = exportSleepTrackWav({
-      preset: normalized.preset,
-      minutes: normalized.minutes,
-      seed: normalized.seed
-    });
-
-    const audioPath = path.join(tempDir, `${fileBase}.wav`);
-    const audioBuffer = Buffer.from(await exportResult.blob.arrayBuffer());
-    await writeFile(audioPath, audioBuffer);
+    const audioSource = normalized.audioSourceUrl
+      ? await prepareImportedAudioSource({
+          audioSourceUrl: normalized.audioSourceUrl,
+          tempDir,
+          fileBase,
+          minutes: normalized.minutes
+        })
+      : await prepareGeneratedAudioSource({
+          preset: normalized.preset,
+          minutes: normalized.minutes,
+          seed: normalized.seed,
+          tempDir,
+          fileBase
+        });
 
     const thumbnailSvg = buildSleepThumbnailSvg(normalized);
     const thumbnailSvgFilePath = path.join(thumbnailDir, `${fileBase}.svg`);
@@ -114,8 +121,8 @@ export async function generateSleepRenderBundle(
     await renderSleepVideo({
       ffmpegExecutable: ffmpegPath,
       releasePreset: normalized.releasePreset,
-      durationSeconds: exportResult.durationSeconds,
-      audioPath,
+      durationSeconds: audioSource.durationSeconds,
+      audioPath: audioSource.audioPath,
       thumbnailPngPath: thumbnailFilePath,
       outputVideoPath: videoFilePath
     });
@@ -139,6 +146,63 @@ export async function generateSleepRenderBundle(
   } finally {
     await rm(tempDir, { recursive: true, force: true });
   }
+}
+
+async function prepareGeneratedAudioSource(input: {
+  preset: SleepPreset;
+  minutes: number;
+  seed: string;
+  tempDir: string;
+  fileBase: string;
+}) {
+  const exportResult = exportSleepTrackWav({
+    preset: input.preset,
+    minutes: input.minutes,
+    seed: input.seed
+  });
+
+  const audioPath = path.join(input.tempDir, `${input.fileBase}.wav`);
+  const audioBuffer = Buffer.from(await exportResult.blob.arrayBuffer());
+  await writeFile(audioPath, audioBuffer);
+
+  return {
+    audioPath,
+    durationSeconds: exportResult.durationSeconds
+  };
+}
+
+async function prepareImportedAudioSource(input: {
+  audioSourceUrl: string;
+  tempDir: string;
+  fileBase: string;
+  minutes: number;
+}) {
+  const filePath = resolveImportedAudioSourcePath(input.audioSourceUrl);
+  const extension = path.extname(filePath) || ".wav";
+  const audioPath = path.join(input.tempDir, `${input.fileBase}${extension}`);
+  await copyFile(filePath, audioPath);
+
+  return {
+    audioPath,
+    durationSeconds: input.minutes * 60
+  };
+}
+
+function resolveImportedAudioSourcePath(audioSourceUrl: string) {
+  const match = audioSourceUrl.match(/^\/api\/generated-assets\/([^/]+)\/([^/]+)$/);
+  if (!match) {
+    throw new Error("Imported audio source must come from LocalTube assets.");
+  }
+
+  const [, bucket, filename] = match;
+  if (!["generated-audio", "imported-audio"].includes(bucket)) {
+    throw new Error("Unsupported audio asset bucket.");
+  }
+  if (filename.includes("..") || filename.includes("/") || filename.includes("\\")) {
+    throw new Error("Invalid audio asset path.");
+  }
+
+  return path.join(getPublicDir(), bucket, filename);
 }
 
 function getPublicDir() {

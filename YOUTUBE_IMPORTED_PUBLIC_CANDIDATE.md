@@ -59,3 +59,11 @@ Verification:
 
 - YouTube watch page returned `200`
 - YouTube oEmbed resolved the final title and thumbnail successfully
+
+## Next Quality Step
+
+The public ocean candidate is still useful as a live benchmark, but the next packaging target is now the motion-first scenic path:
+
+- [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)
+
+That version keeps imported licensed audio and upgrades the video layer from static scenic graphics to real moving waterfall footage.

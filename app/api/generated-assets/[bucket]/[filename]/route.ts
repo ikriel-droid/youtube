@@ -8,7 +8,8 @@ const allowedBuckets = new Set([
   "generated-video",
   "generated-thumbnails",
   "generated-manifests",
-  "imported-audio"
+  "imported-audio",
+  "imported-footage"
 ]);
 
 export async function GET(
@@ -40,6 +41,12 @@ export async function GET(
 function getContentType(filename: string) {
   if (filename.endsWith(".mp4")) {
     return "video/mp4";
+  }
+  if (filename.endsWith(".webm")) {
+    return "video/webm";
+  }
+  if (filename.endsWith(".mov")) {
+    return "video/quicktime";
   }
   if (filename.endsWith(".wav")) {
     return "audio/wav";

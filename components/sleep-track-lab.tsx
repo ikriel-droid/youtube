@@ -71,6 +71,17 @@ interface ImportedAudioRecord {
   uploadedAt: string;
 }
 
+interface ImportedFootageRecord {
+  id: string;
+  title: string;
+  sourceName: string;
+  licenseNote: string;
+  tags: string[];
+  fileUrl: string;
+  fileName: string;
+  uploadedAt: string;
+}
+
 function getInitialConcept(initialConceptId?: string) {
   return (
     firstSleepVideoConcepts.find((concept) => concept.id === initialConceptId) ??
@@ -82,6 +93,8 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   const initialConcept = getInitialConcept(initialConceptId);
   const [sourceMode, setSourceMode] = useState<"generated" | "imported">("generated");
   const [sourceModeTouched, setSourceModeTouched] = useState(false);
+  const [visualSourceMode, setVisualSourceMode] = useState<"graphic" | "imported-footage">("graphic");
+  const [visualSourceModeTouched, setVisualSourceModeTouched] = useState(false);
   const [preset, setPreset] = useState<SleepPreset>(initialConcept.preset);
   const [releasePreset, setReleasePreset] = useState<SleepReleasePreset>(
     initialConcept.releasePreset
@@ -115,13 +128,21 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
   } | null>(null);
   const [importedAudioRecords, setImportedAudioRecords] = useState<ImportedAudioRecord[]>([]);
   const [selectedImportedAudioUrl, setSelectedImportedAudioUrl] = useState("");
+  const [importedFootageRecords, setImportedFootageRecords] = useState<ImportedFootageRecord[]>([]);
+  const [selectedImportedFootageUrl, setSelectedImportedFootageUrl] = useState("");
   const [importingAudio, setImportingAudio] = useState(false);
+  const [importingFootage, setImportingFootage] = useState(false);
   const [importTitle, setImportTitle] = useState("");
   const [importSourceName, setImportSourceName] = useState("");
   const [importLicenseNote, setImportLicenseNote] = useState("Licensed for channel use.");
   const [importMinutes, setImportMinutes] = useState(30);
   const [importTags, setImportTags] = useState("ambient sleep, licensed audio");
   const [importFile, setImportFile] = useState<File | null>(null);
+  const [footageTitle, setFootageTitle] = useState("");
+  const [footageSourceName, setFootageSourceName] = useState("");
+  const [footageLicenseNote, setFootageLicenseNote] = useState("Licensed for channel use.");
+  const [footageTags, setFootageTags] = useState("scenic footage, ocean, waterfall");
+  const [footageFile, setFootageFile] = useState<File | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const previewSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const importedPreviewRef = useRef<HTMLAudioElement | null>(null);
@@ -192,6 +213,34 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
       mounted = false;
     };
   }, [sourceModeTouched]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadImportedFootage() {
+      try {
+        const response = await fetch("/api/imported-footage", { cache: "no-store" });
+        const payload = (await response.json()) as { records: ImportedFootageRecord[] };
+        if (mounted) {
+          const records = payload.records ?? [];
+          setImportedFootageRecords(records);
+          if (records.length > 0 && !visualSourceModeTouched) {
+            setVisualSourceMode("imported-footage");
+            setSelectedImportedFootageUrl(records[0].fileUrl);
+          }
+        }
+      } catch {
+        if (mounted) {
+          setStatus("Imported scenic footage library could not be loaded.");
+        }
+      }
+    }
+
+    loadImportedFootage();
+    return () => {
+      mounted = false;
+    };
+  }, [visualSourceModeTouched]);
 
   useEffect(() => {
     if (!metadataTouched) {
@@ -315,6 +364,8 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           minutes,
           seed,
           audioSourceUrl: sourceMode === "imported" ? selectedImportedAudioUrl : undefined,
+          footageSourceUrl:
+            visualSourceMode === "imported-footage" ? selectedImportedFootageUrl : undefined,
           title: title.trim(),
           description: description.trim(),
           tags: tagsInput
@@ -368,6 +419,8 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           minutes,
           seed,
           audioSourceUrl: sourceMode === "imported" ? selectedImportedAudioUrl : undefined,
+          footageSourceUrl:
+            visualSourceMode === "imported-footage" ? selectedImportedFootageUrl : undefined,
           title: title.trim(),
           description: description.trim(),
           tags: tagsInput
@@ -538,6 +591,50 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
     }
   }
 
+  async function handleImportFootage() {
+    if (!footageFile) {
+      setStatus("Pick a scenic footage file before importing.");
+      return;
+    }
+
+    setImportingFootage(true);
+    setStatus("Importing licensed scenic footage into LocalTube...");
+
+    try {
+      const form = new FormData();
+      form.set("file", footageFile);
+      form.set("title", footageTitle.trim());
+      form.set("sourceName", footageSourceName.trim());
+      form.set("licenseNote", footageLicenseNote.trim());
+      form.set("tags", footageTags);
+
+      const response = await fetch("/api/imported-footage", {
+        method: "POST",
+        body: form
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        record?: ImportedFootageRecord;
+      };
+
+      if (!response.ok || !payload.record) {
+        throw new Error(payload.error || "Imported scenic footage upload failed.");
+      }
+
+      const recordsResponse = await fetch("/api/imported-footage", { cache: "no-store" });
+      const recordsPayload = (await recordsResponse.json()) as { records: ImportedFootageRecord[] };
+      setImportedFootageRecords(recordsPayload.records ?? []);
+      setVisualSourceMode("imported-footage");
+      setVisualSourceModeTouched(true);
+      setSelectedImportedFootageUrl(payload.record.fileUrl);
+      setStatus("Imported scenic footage is now available and will be looped as the moving background.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Imported scenic footage upload failed.");
+    } finally {
+      setImportingFootage(false);
+    }
+  }
+
   return (
     <div className="stack">
       <section className="hero">
@@ -553,6 +650,9 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
           </Link>
           <Link className="secondaryButton" href="/studio/audio-library">
             Open Audio Library
+          </Link>
+          <Link className="secondaryButton" href="/studio/footage-library">
+            Open Footage Library
           </Link>
           <Link className="secondaryButton" href="/studio/sleep-launch">
             Open Sleep Launch Plan
@@ -678,6 +778,109 @@ export function SleepTrackLab({ initialConceptId }: SleepTrackLabProps) {
               </button>
               <Link className="secondaryButton" href="/studio/audio-library">
                 Review Imported Audio
+              </Link>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="fieldGrid">
+          <label>
+            Scenic footage
+            <select
+              value={visualSourceMode}
+              onChange={(event) => {
+                const nextMode = event.target.value as "graphic" | "imported-footage";
+                setVisualSourceModeTouched(true);
+                setVisualSourceMode(nextMode);
+                if (nextMode === "imported-footage" && importedFootageRecords.length > 0) {
+                  const record =
+                    importedFootageRecords.find((item) => item.fileUrl === selectedImportedFootageUrl) ??
+                    importedFootageRecords[0];
+                  setSelectedImportedFootageUrl(record.fileUrl);
+                  setStatus("Sleep Lab switched to imported moving footage for scenic renders.");
+                }
+              }}
+            >
+              <option value="graphic">Graphic scenic background</option>
+              <option value="imported-footage">Imported moving footage</option>
+            </select>
+          </label>
+          {visualSourceMode === "imported-footage" ? (
+            <label>
+              Footage source
+              <select
+                value={selectedImportedFootageUrl}
+                onChange={(event) => {
+                  setSelectedImportedFootageUrl(event.target.value);
+                  const record = importedFootageRecords.find(
+                    (item) => item.fileUrl === event.target.value
+                  );
+                  if (record) {
+                    setStatus(`Moving scenic footage loaded from ${record.title}.`);
+                  }
+                }}
+              >
+                <option value="">Pick scenic footage</option>
+                {importedFootageRecords.map((record) => (
+                  <option key={record.id} value={record.fileUrl}>
+                    {record.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+        </div>
+
+        {visualSourceMode === "imported-footage" ? (
+          <div className="studioCard stack">
+            <div className="panelHeader">
+              <h3>Licensed Scenic Footage Import</h3>
+              <span>moving background</span>
+            </div>
+            <div className="fieldGrid">
+              <label>
+                Footage file
+                <input
+                  type="file"
+                  accept=".webm,.mp4,.mov,video/*"
+                  onChange={(event) => setFootageFile(event.target.files?.[0] ?? null)}
+                />
+              </label>
+              <label>
+                Footage title
+                <input value={footageTitle} onChange={(event) => setFootageTitle(event.target.value)} />
+              </label>
+              <label>
+                Source name
+                <input
+                  value={footageSourceName}
+                  onChange={(event) => setFootageSourceName(event.target.value)}
+                  placeholder="Wikimedia Commons / licensed stock pack"
+                />
+              </label>
+              <label>
+                License note
+                <input
+                  value={footageLicenseNote}
+                  onChange={(event) => setFootageLicenseNote(event.target.value)}
+                />
+              </label>
+              <label>
+                Footage tags
+                <input value={footageTags} onChange={(event) => setFootageTags(event.target.value)} />
+              </label>
+            </div>
+            <div className="inlineActions">
+              <button
+                className="primaryButton"
+                type="button"
+                onClick={handleImportFootage}
+                disabled={importingFootage}
+              >
+                {importingFootage ? "Importing Footage..." : "Import Scenic Footage"}
+              </button>
+              <Link className="secondaryButton" href="/studio/footage-library">
+                Review Scenic Footage
               </Link>
             </div>
           </div>

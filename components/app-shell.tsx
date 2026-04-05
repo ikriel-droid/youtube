@@ -15,6 +15,7 @@ export function AppShell({ children }: PropsWithChildren) {
           <Link href="/studio/upload">Studio</Link>
           <Link href="/studio/sleep-lab">Sleep Lab</Link>
           <Link href="/studio/audio-library">Audio Library</Link>
+          <Link href="/studio/footage-library">Footage Library</Link>
           <Link href="/studio/sleep-library">Sleep Library</Link>
           <Link href="/studio/sleep-launch">Sleep Launch</Link>
           <Link href="/studio/youtube">YouTube</Link>

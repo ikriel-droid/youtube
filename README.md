@@ -35,8 +35,10 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_AUDIO_AND_DESIGN_CHECKLIST.md)
 - [YOUTUBE_SCENIC_VISUAL_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_VISUAL_GUIDE.md)
 - [LICENSED_AUDIO_SOURCE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_AUDIO_SOURCE_LOG.md)
+- [LICENSED_SCENIC_FOOTAGE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_SCENIC_FOOTAGE_LOG.md)
 - [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)
 - [YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md)
+- [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)
 
 The current product decision is:
 
@@ -59,7 +61,9 @@ Sleep music generator:
 
 - `http://127.0.0.1:3000/studio/sleep-lab`
 - imported licensed audio can now be brought into Sleep Lab and reviewed at `http://127.0.0.1:3000/studio/audio-library`
+- licensed scenic footage can now be brought into Sleep Lab and reviewed at `http://127.0.0.1:3000/studio/footage-library`
 - if imported licensed audio exists, Sleep Lab now defaults to that scenic path instead of the generated-audio path
+- if imported scenic footage exists, Sleep Lab now prefers that moving-footage path over the static scenic graphic path
 - generate a track, then use `Save To LocalTube` if you want it to stay in the library after refresh
 - saved sleep-audio posts can be revisited at `http://127.0.0.1:3000/studio/sleep-library`
 - `Render YouTube Bundle` now creates a publishable MP4, thumbnail, and metadata manifest under `public/generated-video`, `public/generated-thumbnails`, and `public/generated-manifests`

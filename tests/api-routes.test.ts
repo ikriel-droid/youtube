@@ -8,6 +8,7 @@ import JSZip from "jszip";
 
 import { POST as generateMetadata } from "../app/api/ai/metadata/route";
 import { POST as importAudio } from "../app/api/imported-audio/route";
+import { POST as importFootage } from "../app/api/imported-footage/route";
 import { POST as createSleepUploadBundle } from "../app/api/sleep-upload-bundle/route";
 import { POST as createSleepTrack } from "../app/api/sleep-tracks/route";
 import { POST as createVideo } from "../app/api/videos/route";
@@ -282,6 +283,39 @@ test("imported-audio route saves a licensed audio source and registers it in the
   });
 });
 
+test("imported-footage route saves a licensed scenic clip into the footage library", async () => {
+  await withTempEnvironment(async ({ publicDir }) => {
+    const form = new FormData();
+    form.set(
+      "file",
+      new File([new Uint8Array(4096).fill(9)], "waterfall-footage.webm", { type: "video/webm" })
+    );
+    form.set("title", "Waterfall Scenic Loop");
+    form.set("sourceName", "Wikimedia Commons");
+    form.set("licenseNote", "CC BY-SA compatible scenic reference clip.");
+    form.set("tags", "waterfall, scenic footage, sleep channel");
+
+    const response = await importFootage(
+      new Request("http://localtube.test/api/imported-footage", {
+        method: "POST",
+        body: form
+      })
+    );
+
+    assert.equal(response.status, 200);
+    const payload = (await response.json()) as {
+      ok: boolean;
+      record: { fileUrl: string; sourceName: string };
+    };
+    assert.equal(payload.ok, true);
+    assert.equal(payload.record.sourceName, "Wikimedia Commons");
+
+    const savedFile = path.join(publicDir, "imported-footage", path.basename(payload.record.fileUrl));
+    const footageBuffer = await readFile(savedFile);
+    assert.ok(footageBuffer.byteLength >= 4096);
+  });
+});
+
 async function withTempLibrary(run: (dataFile: string) => Promise<void>) {
   await withTempEnvironment(async ({ dataFile }) => run(dataFile));
 }
@@ -292,10 +326,12 @@ async function withTempEnvironment(
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "localtube-tests-"));
   const dataFile = path.join(tempDir, "library.json");
   const importedAudioFile = path.join(tempDir, "imported-audio-library.json");
+  const importedFootageFile = path.join(tempDir, "imported-footage-library.json");
   const publicDir = path.join(tempDir, "public");
   await copyFile(seedPath, dataFile);
   process.env.LOCALTUBE_DATA_FILE = dataFile;
   process.env.LOCALTUBE_IMPORTED_AUDIO_FILE = importedAudioFile;
+  process.env.LOCALTUBE_IMPORTED_FOOTAGE_FILE = importedFootageFile;
   process.env.LOCALTUBE_PUBLIC_DIR = publicDir;
 
   try {
@@ -303,6 +339,7 @@ async function withTempEnvironment(
   } finally {
     delete process.env.LOCALTUBE_DATA_FILE;
     delete process.env.LOCALTUBE_IMPORTED_AUDIO_FILE;
+    delete process.env.LOCALTUBE_IMPORTED_FOOTAGE_FILE;
     delete process.env.LOCALTUBE_PUBLIC_DIR;
     await rm(tempDir, { recursive: true, force: true });
   }

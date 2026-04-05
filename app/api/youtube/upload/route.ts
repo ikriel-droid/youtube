@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getImportedAudioRecordById, getLatestImportedAudioRecord } from "@/lib/imported-audio-library";
+import { getLatestImportedFootageRecord } from "@/lib/imported-footage-library";
 import { buildImportedAudioUploadDraft } from "@/lib/imported-audio-upload";
 import { getAuthorizedOAuthClient } from "@/lib/youtube-auth";
 import {
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       }
 
       const draft = buildImportedAudioUploadDraft(importedAudio);
+      const importedFootage = await getLatestImportedFootageRecord();
 
       await writeYouTubeUploadLog("upload_attempt", {
         conceptId: `imported-audio:${importedAudio.id}`,
@@ -53,6 +55,7 @@ export async function POST(request: Request) {
         minutes: draft.minutes,
         seed: draft.seed,
         audioSourceUrl: importedAudio.fileUrl,
+        footageSourceUrl: importedFootage?.fileUrl,
         title: draft.title,
         description: draft.description,
         tags: draft.tags,

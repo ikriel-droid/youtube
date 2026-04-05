@@ -48,3 +48,15 @@ Current locked decision:
 Reference:
 
 - [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)
+
+## 4. Moving Scenic Footage
+
+- [x] Add a licensed scenic-footage import route
+- [x] Add a scenic footage library page
+- [x] Render the first scenic bundle from imported moving footage instead of a static scenic graphic
+- [x] Decide that moving licensed footage is the preferred scenic path when it matches the audio theme
+
+References:
+
+- [LICENSED_SCENIC_FOOTAGE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_SCENIC_FOOTAGE_LOG.md)
+- [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)

@@ -26,6 +26,7 @@ export async function POST(request: Request) {
       minutes: Number(body.minutes),
       seed: body.seed.trim(),
       audioSourceUrl: body.audioSourceUrl,
+      footageSourceUrl: body.footageSourceUrl,
       title: body.title,
       description: body.description,
       tags: body.tags,

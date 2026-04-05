@@ -13,10 +13,12 @@ localtube-*.log
 localtube-*.err.log
 public/generated-audio
 public/imported-audio
+public/imported-footage
 public/generated-video
 public/generated-thumbnails
 public/generated-manifests
 data/imported-audio-library.json
+data/imported-footage-library.json
 data/youtube-oauth.json
 data/youtube-oauth-state.json
 data/youtube-upload-history.json

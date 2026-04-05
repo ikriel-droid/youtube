@@ -24,6 +24,7 @@ export interface SleepRenderRequestInput {
   minutes: number;
   seed: string;
   audioSourceUrl?: string;
+  footageSourceUrl?: string;
   title?: string;
   description?: string;
   tags?: string[];
@@ -67,6 +68,7 @@ export async function generateSleepRenderBundle(
     minutes: input.minutes,
     seed: input.seed,
     audioSourceUrl: input.audioSourceUrl?.trim() || undefined,
+    footageSourceUrl: input.footageSourceUrl?.trim() || undefined,
     title: input.title?.trim() || metadata.title,
     description: input.description?.trim() || metadata.description,
     tags: normalizeTags(input.tags, metadata.tags),
@@ -124,6 +126,9 @@ export async function generateSleepRenderBundle(
       durationSeconds: audioSource.durationSeconds,
       audioPath: audioSource.audioPath,
       thumbnailPngPath: thumbnailFilePath,
+      footagePath: normalized.footageSourceUrl
+        ? resolveImportedFootageSourcePath(normalized.footageSourceUrl)
+        : undefined,
       outputVideoPath: videoFilePath
     });
 
@@ -205,6 +210,23 @@ function resolveImportedAudioSourcePath(audioSourceUrl: string) {
   return path.join(getPublicDir(), bucket, filename);
 }
 
+function resolveImportedFootageSourcePath(footageSourceUrl: string) {
+  const match = footageSourceUrl.match(/^\/api\/generated-assets\/([^/]+)\/([^/]+)$/);
+  if (!match) {
+    throw new Error("Imported footage source must come from LocalTube assets.");
+  }
+
+  const [, bucket, filename] = match;
+  if (!["imported-footage"].includes(bucket)) {
+    throw new Error("Unsupported footage asset bucket.");
+  }
+  if (filename.includes("..") || filename.includes("/") || filename.includes("\\")) {
+    throw new Error("Invalid footage asset path.");
+  }
+
+  return path.join(getPublicDir(), bucket, filename);
+}
+
 function getPublicDir() {
   const configured = process.env.LOCALTUBE_PUBLIC_DIR?.trim();
   if (!configured) {
@@ -231,6 +253,7 @@ async function renderSleepVideo(input: {
   durationSeconds: number;
   audioPath: string;
   thumbnailPngPath: string;
+  footagePath?: string;
   outputVideoPath: string;
 }) {
   const duration = String(input.durationSeconds);
@@ -257,7 +280,36 @@ async function renderSleepVideo(input: {
           "192k",
           input.outputVideoPath
         ]
-      : [
+      : input.footagePath
+        ? [
+            "-y",
+            "-stream_loop",
+            "-1",
+            "-i",
+            input.footagePath,
+            "-i",
+            input.audioPath,
+            "-map",
+            "0:v:0",
+            "-map",
+            "1:a:0",
+            "-vf",
+            "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=30,format=yuv420p",
+            "-t",
+            duration,
+            "-c:v",
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "192k",
+            input.outputVideoPath
+          ]
+        : [
           "-y",
           "-loop",
           "1",

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 type YouTubeStatus = {
   configured: boolean;
   connected: boolean;
+  analyticsScopeGranted?: boolean;
+  grantedScopes?: string[];
   redirectUri: string;
   channelId: string | null;
   channelTitle: string | null;
@@ -25,6 +27,29 @@ type YouTubeStatus = {
   }>;
 };
 
+type YouTubeAnalyticsState = {
+  configured: boolean;
+  connected: boolean;
+  analyticsScopeGranted: boolean;
+  targetVideo: {
+    videoId: string;
+    title: string;
+    privacyStatus: string;
+    uploadedAt: string;
+  } | null;
+  latestSnapshot: {
+    videoId: string;
+    title: string;
+    snapshotAt: string;
+    views: number | null;
+    clickThroughRate: number | null;
+    averageViewDurationSeconds: number | null;
+    averageViewPercentage: number | null;
+    analyticsStatus: string;
+    analyticsNote: string;
+  } | null;
+};
+
 export function YouTubeUploadPanel({
   initialStatus,
   initialMessage
@@ -33,8 +58,10 @@ export function YouTubeUploadPanel({
   initialMessage?: string;
 }) {
   const [status, setStatus] = useState<YouTubeStatus | null>(null);
+  const [analytics, setAnalytics] = useState<YouTubeAnalyticsState | null>(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [capturingMetrics, setCapturingMetrics] = useState(false);
   const [message, setMessage] = useState(initialMessage ?? "");
 
   useEffect(() => {
@@ -42,10 +69,15 @@ export function YouTubeUploadPanel({
 
     async function loadStatus() {
       try {
-        const response = await fetch("/api/youtube/status", { cache: "no-store" });
-        const payload = (await response.json()) as YouTubeStatus;
+        const [statusResponse, analyticsResponse] = await Promise.all([
+          fetch("/api/youtube/status", { cache: "no-store" }),
+          fetch("/api/youtube/analytics", { cache: "no-store" })
+        ]);
+        const payload = (await statusResponse.json()) as YouTubeStatus;
+        const analyticsPayload = (await analyticsResponse.json()) as YouTubeAnalyticsState;
         if (mounted) {
           setStatus(payload);
+          setAnalytics(analyticsPayload);
         }
       } catch {
         if (mounted) {
@@ -109,6 +141,46 @@ export function YouTubeUploadPanel({
       setMessage(error instanceof Error ? error.message : "YouTube upload failed.");
     } finally {
       setUploading(false);
+    }
+  }
+
+  async function handleCaptureMetrics() {
+    setCapturingMetrics(true);
+    setMessage("Capturing current YouTube metrics for the first public upload...");
+
+    try {
+      const response = await fetch("/api/youtube/analytics", {
+        method: "POST"
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        snapshot?: YouTubeAnalyticsState["latestSnapshot"];
+      };
+
+      const snapshot = payload.snapshot ?? null;
+
+      if (!response.ok || !snapshot) {
+        throw new Error(payload.error || "Could not capture YouTube metrics.");
+      }
+
+      setAnalytics((current) =>
+        current
+          ? {
+              ...current,
+              latestSnapshot: snapshot
+            }
+          : current
+      );
+
+      setMessage(
+        `Metrics snapshot saved. Views: ${snapshot.views ?? "n/a"}, CTR: ${
+          snapshot.clickThroughRate ?? "n/a"
+        }, Avg view duration: ${snapshot.averageViewDurationSeconds ?? "n/a"}`
+      );
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not capture YouTube metrics.");
+    } finally {
+      setCapturingMetrics(false);
     }
   }
 
@@ -199,6 +271,14 @@ export function YouTubeUploadPanel({
             <Link className="secondaryButton" href="/studio/sleep-launch">
               Open Launch Plan
             </Link>
+            <button
+              className="secondaryButton"
+              type="button"
+              onClick={handleCaptureMetrics}
+              disabled={!status.configured || !status.connected || capturingMetrics}
+            >
+              {capturingMetrics ? "Capturing Metrics..." : "Capture Current Metrics"}
+            </button>
           </div>
           <p className="statusText">
             {message ||
@@ -264,6 +344,43 @@ powershell -ExecutionPolicy Bypass -File .\\start-localtube.ps1`}</pre>
                   </p>
                 </div>
               ))}
+            </div>
+          ) : null}
+
+          {analytics?.targetVideo ? (
+            <div className="studioCard">
+              <h3>First Validation Loop</h3>
+              <p>
+                <strong>{analytics.targetVideo.title}</strong>
+              </p>
+              <p className="sidebarText">
+                Public target: {analytics.targetVideo.videoId} | uploaded{" "}
+                {new Date(analytics.targetVideo.uploadedAt).toLocaleString()}
+              </p>
+              <p className="sidebarText">
+                Analytics scope: {analytics.analyticsScopeGranted ? "granted" : "missing"}.
+              </p>
+              {analytics.latestSnapshot ? (
+                <div className="stack">
+                  <p className="sidebarText">
+                    Snapshot: {new Date(analytics.latestSnapshot.snapshotAt).toLocaleString()}
+                  </p>
+                  <div className="inlineTags">
+                    <span className="tagPill">views {analytics.latestSnapshot.views ?? "n/a"}</span>
+                    <span className="tagPill">
+                      ctr {analytics.latestSnapshot.clickThroughRate ?? "n/a"}
+                    </span>
+                    <span className="tagPill">
+                      avd {analytics.latestSnapshot.averageViewDurationSeconds ?? "n/a"}s
+                    </span>
+                  </div>
+                  <p className="sidebarText">{analytics.latestSnapshot.analyticsNote}</p>
+                </div>
+              ) : (
+                <p className="sidebarText">
+                  No metrics snapshot saved yet. Capture one after the video has had time to circulate.
+                </p>
+              )}
             </div>
           ) : null}
         </>

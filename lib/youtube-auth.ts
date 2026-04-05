@@ -8,6 +8,12 @@ const dataDir = path.join(process.cwd(), "data");
 const tokenFile = path.join(dataDir, "youtube-oauth.json");
 const stateFile = path.join(dataDir, "youtube-oauth-state.json");
 const uploadHistoryFile = path.join(dataDir, "youtube-upload-history.json");
+export const YOUTUBE_ANALYTICS_SCOPE = "https://www.googleapis.com/auth/yt-analytics.readonly";
+export const DEFAULT_YOUTUBE_OAUTH_SCOPES = [
+  "https://www.googleapis.com/auth/youtube.upload",
+  "https://www.googleapis.com/auth/youtube.readonly",
+  YOUTUBE_ANALYTICS_SCOPE
+] as const;
 
 export interface YouTubeTokenStore {
   tokens: Record<string, unknown>;
@@ -58,10 +64,7 @@ export async function createAuthUrl() {
   const url = oauth2Client.generateAuthUrl({
     access_type: "offline",
     prompt: "consent",
-    scope: [
-      "https://www.googleapis.com/auth/youtube.upload",
-      "https://www.googleapis.com/auth/youtube.readonly"
-    ],
+    scope: [...DEFAULT_YOUTUBE_OAUTH_SCOPES],
     state
   });
 
@@ -112,9 +115,12 @@ export async function getAuthorizedOAuthClient() {
 export async function getYouTubeStatus() {
   const config = getYouTubeOAuthConfig();
   const tokenStore = await readTokenStore();
+  const grantedScopes = parseGrantedScopes(tokenStore?.tokens.scope);
   return {
     configured: config.configured,
     connected: Boolean(tokenStore?.tokens),
+    grantedScopes,
+    analyticsScopeGranted: grantedScopes.includes(YOUTUBE_ANALYTICS_SCOPE),
     redirectUri: config.redirectUri,
     channelId: tokenStore?.channelId ?? null,
     channelTitle: tokenStore?.channelTitle ?? null,
@@ -186,4 +192,15 @@ function sanitizeTokens(tokens: Record<string, unknown>) {
     token_type: tokens.token_type,
     expiry_date: tokens.expiry_date
   };
+}
+
+function parseGrantedScopes(scopeValue: unknown) {
+  if (typeof scopeValue !== "string") {
+    return [] as string[];
+  }
+
+  return scopeValue
+    .split(" ")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }

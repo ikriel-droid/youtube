@@ -29,6 +29,19 @@ The key fields are the ones already called out in the checklist:
 | T+24h |  |  |  |  |
 | T+48h |  |  |  |  |
 
+## Latest Captured Snapshot
+
+- Snapshot time: `2026-04-05T08:19:26.244Z`
+- Views: `4`
+- CTR: not available yet
+- Average view duration: not available yet
+- Status: `analytics_scope_missing`
+
+Reason:
+
+- LocalTube can already read public view count for the uploaded video
+- CTR and average view duration still require reconnecting YouTube with the `yt-analytics.readonly` scope after enabling YouTube Analytics API
+
 ## Extra Context Worth Capturing
 
 - impressions

@@ -42,7 +42,7 @@ Use this file when the goal is "publish sleep content on YouTube soon", not "fin
 
 - [ ] Record the first 48-hour metrics: views, click-through rate, average view duration
 - [ ] Compare thumbnail and title performance against at least one alternative
-- [ ] Capture what to improve in the next batch: duration, visual style, title style, or noise preset
+- [x] Capture what to improve in the next batch: duration, visual style, title style, or noise preset
 
 Supporting files for this section:
 

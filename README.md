@@ -57,6 +57,7 @@ Sleep music generator:
 - channel launch plan: [SLEEP_CHANNEL_LAUNCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\SLEEP_CHANNEL_LAUNCH_PLAN.md)
 - API upload validation: [YOUTUBE_API_VALIDATION_RUNBOOK.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_API_VALIDATION_RUNBOOK.md)
 - first public upload review: [YOUTUBE_FIRST_PUBLIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_FIRST_PUBLIC_REVIEW.md)
+- current metrics tracking: [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md)
 
 ## YouTube API Validation Env
 
@@ -65,6 +66,8 @@ $env:GOOGLE_CLIENT_ID="your-google-client-id"
 $env:GOOGLE_CLIENT_SECRET="your-google-client-secret"
 $env:LOCALTUBE_BASE_URL="http://127.0.0.1:3000"
 ```
+
+If you want CTR and average view duration inside LocalTube, also enable `YouTube Analytics API` in Google Cloud and reconnect the channel so the token includes `yt-analytics.readonly`.
 
 If `next dev` gets into a bad hot-reload state, use the clean starter:
 

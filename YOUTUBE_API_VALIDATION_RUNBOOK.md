@@ -22,8 +22,10 @@ $env:YOUTUBE_OAUTH_REDIRECT_URI="http://127.0.0.1:3000/api/youtube/oauth/callbac
 
 1. Create or select a Google Cloud project.
 2. Enable `YouTube Data API v3`.
-3. Create an OAuth client for a web application.
-4. Add the LocalTube callback URL:
+3. Enable `YouTube Analytics API` if you want LocalTube to capture CTR and average view duration snapshots.
+4. Reconnect YouTube after adding the analytics scope so the stored token includes `yt-analytics.readonly`.
+5. Create an OAuth client for a web application.
+6. Add the LocalTube callback URL:
 
 ```text
 http://127.0.0.1:3000/api/youtube/oauth/callback
@@ -39,6 +41,7 @@ http://127.0.0.1:3000/api/youtube/oauth/callback
 6. Click `Upload Launch-01 As Private`.
 7. Open the returned YouTube watch link.
 8. Open the returned YouTube Studio link.
+9. Use `Capture Current Metrics` on `/studio/youtube` after the public upload is live.
 
 ## Success Criteria
 
@@ -46,6 +49,7 @@ http://127.0.0.1:3000/api/youtube/oauth/callback
 - a private video is created on the real channel
 - the video has the generated title, description, tags, and thumbnail
 - the video plays correctly on YouTube
+- metrics capture can read views immediately and CTR / average view duration after YouTube Analytics API is enabled
 
 ## Notes
 

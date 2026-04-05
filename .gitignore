@@ -18,3 +18,4 @@ public/generated-manifests
 data/youtube-oauth.json
 data/youtube-oauth-state.json
 data/youtube-upload-history.json
+data/youtube-metrics-history.json

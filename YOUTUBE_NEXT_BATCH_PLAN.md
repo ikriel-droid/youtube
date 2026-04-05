@@ -74,3 +74,8 @@ The next batch is successful if it gives us a clear answer on at least one of:
 - scenic visuals beat black screen on CTR
 - brown-noise packaging broadens audience reach
 - 30-minute scenic uploads hold attention better than 60-minute black-screen uploads
+
+Current operator call:
+
+- `ocean-drift` stays the default scenic preset
+- `rain-window` stays in rotation as the secondary themed follow-up format

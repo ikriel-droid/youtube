@@ -37,7 +37,16 @@ Reference:
 
 ## 4. Scenic Batch Review
 
-- [ ] Review `launch-02` and `launch-03` side by side in YouTube Studio
-- [ ] Record scenic-vs-scenic performance notes
-- [ ] Decide whether `ocean-drift` or `rain-window` becomes the default scenic preset
-- [ ] Update LocalTube defaults again if the winner is clear
+- [x] Review `launch-02` and `launch-03` side by side in YouTube Studio
+- [x] Record scenic-vs-scenic performance notes
+- [x] Decide whether `ocean-drift` or `rain-window` becomes the default scenic preset
+- [x] Update LocalTube defaults again if the winner is clear
+
+Decision:
+
+- `ocean-drift` stays the default scenic preset
+- `rain-window` remains the secondary themed scenic format
+
+Reference:
+
+- [YOUTUBE_SCENIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_REVIEW.md)

@@ -31,6 +31,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_TITLE_THUMBNAIL_EXPERIMENT.md)
 - [YOUTUBE_NEXT_BATCH_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NEXT_BATCH_PLAN.md)
 - [YOUTUBE_SCENIC_PACKAGING_GUIDE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_PACKAGING_GUIDE.md)
+- [YOUTUBE_SCENIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_REVIEW.md)
 
 The current product decision is:
 

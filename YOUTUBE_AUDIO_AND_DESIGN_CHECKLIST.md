@@ -13,8 +13,12 @@ The focus here is:
 - [x] Add a licensed-audio import route
 - [x] Add an imported-audio library page
 - [x] Let Sleep Lab render scenic bundles from imported audio assets
-- [ ] Import the first real licensed sleep-audio source
-- [ ] Render the first scenic bundle from imported audio instead of generated audio
+- [x] Import the first real licensed sleep-audio source
+- [x] Render the first scenic bundle from imported audio instead of generated audio
+
+Reference:
+
+- [LICENSED_AUDIO_SOURCE_LOG.md](c:\Users\Administrator\.vscode\cli\localtube\LICENSED_AUDIO_SOURCE_LOG.md)
 
 ## 2. Scenic Visual Design
 

@@ -70,6 +70,12 @@ Branch beyond rain:
 - Execution checklist: [YOUTUBE_SCENIC_BATCH_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SCENIC_BATCH_CHECKLIST.md)
 - Status: uploaded publicly as `uXQgjWFzY0I`
 
+### Imported Audio Public Candidate
+
+- Packaging: [YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md)
+- Goal: measure whether real licensed ocean ambience plus scenic packaging beats the earlier generated-audio scenic uploads
+- Status: uploaded publicly as `nor_klS1GWE`
+
 ## Exit Criteria For The Next Batch
 
 The next batch is successful if it gives us a clear answer on at least one of:

@@ -47,3 +47,15 @@ Verified packaging details:
 - headline renders as `Ocean Ambient Sleep` + `Coastal Wave Drift`
 - scenic cue renders as `coastal calm`
 - pinned comment now speaks in scenic language instead of generic validation language
+
+## Public Upload
+
+- Published on `2026-04-05`
+- Video ID: `nor_klS1GWE`
+- Watch URL: `https://www.youtube.com/watch?v=nor_klS1GWE`
+- Status: `public`
+
+Verification:
+
+- YouTube watch page returned `200`
+- YouTube oEmbed resolved the final title and thumbnail successfully

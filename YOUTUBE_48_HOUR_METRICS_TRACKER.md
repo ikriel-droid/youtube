@@ -1,13 +1,16 @@
 # YouTube 48-Hour Metrics Tracker
 
-Use this file to record the first two days of performance for the first public sleep upload.
+Use this file to record the first two days of performance for the current public sleep upload we want to learn from.
 
 ## Current Public Video
 
-- Video ID: `Fb1c63adZZk`
-- Title: `Rain Drift Sleep Music | 60 Minutes Black Screen For Deep Sleep`
-- Watch URL: `https://www.youtube.com/watch?v=Fb1c63adZZk`
+- Video ID: `nor_klS1GWE`
+- Title: `Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift`
+- Watch URL: `https://www.youtube.com/watch?v=nor_klS1GWE`
 - Published status: `public`
+- Public imported-audio candidate is now the primary metric target
+- Previous public baseline remains:
+  - `Fb1c63adZZk` -> `Rain Drift Sleep Music | 60 Minutes Black Screen For Deep Sleep`
 - Alternative public test now live: `TaOjFxPpfv8`
 - Alternative title: `Ocean Breath Sleep Music | 30 Minutes Soft Ocean Drift Visual`
 - Second scenic follow-up now live: `uXQgjWFzY0I`
@@ -15,7 +18,7 @@ Use this file to record the first two days of performance for the first public s
 
 ## How To Fill This In
 
-Open YouTube Studio for the public upload and record the numbers at roughly:
+Open YouTube Studio for `nor_klS1GWE` and record the numbers at roughly:
 
 - T+24h
 - T+48h
@@ -33,18 +36,18 @@ The key fields are the ones already called out in the checklist:
 | T+24h |  |  |  |  |
 | T+48h |  |  |  |  |
 
-## Latest Captured Snapshot
+## Current Public Candidate Snapshot
 
-- Snapshot time: `2026-04-05T08:19:26.244Z`
-- Views: `4`
+- Snapshot time: `2026-04-05T13:12:32.591Z`
+- Views: not captured yet
 - CTR: not available yet
 - Average view duration: not available yet
-- Status: `analytics_scope_missing`
+- Status: `fresh_public_upload`
 
 Reason:
 
-- LocalTube can already read public view count for the uploaded video
-- CTR and average view duration still require reconnecting YouTube with the `yt-analytics.readonly` scope after enabling YouTube Analytics API
+- the upload just went public
+- this is now the main scenic imported-audio candidate we want to observe for the next 48 hours
 
 ## Scenic Alternative Snapshot
 

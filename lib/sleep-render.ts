@@ -45,6 +45,16 @@ export function buildSleepRenderManifest(input: SleepRenderInput): SleepRenderMa
 
 export function buildSleepPinnedComment(input: SleepRenderInput) {
   const preset = getSleepPresetLabel(input.preset);
+  const scenicCue = getScenicCue(input);
+
+  if (input.releasePreset !== "black-screen") {
+    return [
+      `Tonight's upload leans into ${scenicCue} with the ${preset} bed and the ${getSleepReleasePresetLabel(input.releasePreset)} package.`,
+      `If you want a longer version or a slower visual pass, leave the next duration in the comments.`,
+      `Sleep well.`
+    ].join(" ");
+  }
+
   return [
     `Tonight's upload uses the ${preset} bed with the ${getSleepReleasePresetLabel(input.releasePreset)} package.`,
     `If you want a longer version, leave the next duration you want in the comments.`,
@@ -77,7 +87,7 @@ export function buildSleepThumbnailSvg(input: SleepRenderInput) {
   const scenicLead =
     input.releasePreset === "black-screen"
       ? ""
-      : `<text x="92" y="470" fill="#cbd5e1" font-size="30" font-weight="500" font-family="Segoe UI, Arial, sans-serif">ambient sleep visual</text>`;
+      : `<text x="92" y="470" fill="#cbd5e1" font-size="30" font-weight="500" font-family="Segoe UI, Arial, sans-serif">${escapeXml(getScenicLead(input))}</text>`;
 
   return `
 <svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
@@ -152,13 +162,40 @@ function wrapTitle(text: string, maxChars: number) {
 function buildScenicTitleLines(title: string) {
   const [headline, support = ""] = title.split("|").map((part) => part.trim());
   const lines = wrapTitle(headline || title, 24).slice(0, 2);
-  const supportLine = support.trim();
+  const supportLine = support.replace(/^\d+\s+Minutes?\s+/i, "").trim();
 
   if (supportLine) {
     return [...lines.slice(0, 1), supportLine.slice(0, 26)];
   }
 
   return lines;
+}
+
+function getScenicLead(input: SleepRenderInput) {
+  if (input.releasePreset === "rain-window") {
+    return "night rain";
+  }
+
+  const cue = getScenicCue(input);
+  if (cue === "coastal calm") {
+    return cue;
+  }
+
+  return "ocean drift";
+}
+
+function getScenicCue(input: SleepRenderInput) {
+  const haystack = `${input.title} ${input.description} ${input.tags.join(" ")}`.toLowerCase();
+
+  if (/(coast|coastal|ocean|wave|waves|sea|shore|waterfall)/.test(haystack)) {
+    return "coastal calm";
+  }
+
+  if (/(rain|window|storm|drizzle)/.test(haystack)) {
+    return "night rain";
+  }
+
+  return "ambient calm";
 }
 
 function slugify(value: string) {

@@ -72,4 +72,5 @@ Current preferred imported-ocean packaging:
 
 - title: `Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift`
 - thumbnail language: `ocean drift`, `deep rest`, or `coastal calm`
+- on-frame scenic cue: prefer `coastal calm` over generic `ambient sleep visual`
 - description lead: calm sensory framing first, source attribution second

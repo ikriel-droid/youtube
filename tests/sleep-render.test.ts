@@ -35,6 +35,8 @@ test("sleep thumbnail svg is sized for YouTube thumbnails", () => {
   assert.match(svg, /height="720"/);
   assert.match(svg, /Rain Drift Sleep Music/);
   assert.match(svg, /30 MINUTES/);
+  assert.match(svg, /night rain/);
+  assert.doesNotMatch(svg, /30 Minutes Rain Window Visual/);
 });
 
 test("sleep file base is slugified and stable", () => {
@@ -47,5 +49,6 @@ test("sleep pinned comment stays creator-ready", () => {
   const comment = buildSleepPinnedComment(sampleInput);
 
   assert.match(comment, /Rain Window Visual/);
+  assert.match(comment, /night rain/i);
   assert.match(comment, /Sleep well/i);
 });

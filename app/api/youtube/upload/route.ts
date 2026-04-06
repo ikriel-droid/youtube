@@ -23,6 +23,9 @@ export async function POST(request: Request) {
     conceptId?: string;
     importedAudioId?: string;
     privacyStatus?: "private" | "unlisted" | "public";
+    titleOverride?: string;
+    descriptionOverride?: string;
+    tagsOverride?: string[];
   };
 
   const mode = body.mode ?? "concept";
@@ -42,10 +45,17 @@ export async function POST(request: Request) {
 
       const draft = buildImportedAudioUploadDraft(importedAudio);
       const importedFootage = await getLatestImportedFootageRecord();
+      const title = body.titleOverride?.trim() || draft.title;
+      const description = body.descriptionOverride?.trim() || draft.description;
+      const tags =
+        body.tagsOverride
+          ?.map((item) => item.trim().toLowerCase())
+          .filter(Boolean)
+          .slice(0, 10) || draft.tags;
 
       await writeYouTubeUploadLog("upload_attempt", {
         conceptId: `imported-audio:${importedAudio.id}`,
-        title: draft.title,
+        title,
         privacyStatus: body.privacyStatus ?? "private"
       });
 
@@ -56,9 +66,9 @@ export async function POST(request: Request) {
         seed: draft.seed,
         audioSourceUrl: importedAudio.fileUrl,
         footageSourceUrl: importedFootage?.fileUrl,
-        title: draft.title,
-        description: draft.description,
-        tags: draft.tags,
+        title,
+        description,
+        tags,
         channelName: sleepChannelIdentity.channelName,
         privacyStatus: body.privacyStatus ?? "private"
       });

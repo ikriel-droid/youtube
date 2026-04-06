@@ -4,11 +4,11 @@ Use this file to record the first two days of performance for the current public
 
 ## Current Public Video
 
-- Video ID: `nor_klS1GWE`
-- Title: `Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift`
-- Watch URL: `https://www.youtube.com/watch?v=nor_klS1GWE`
+- Video ID: `nMf3WHL61EA`
+- Title: `힘든 마음을 적셔주기 위해 시원하게 떨어지는 폭포 소리 ASMR, 자연음악, 힐링음악`
+- Watch URL: `https://www.youtube.com/watch?v=nMf3WHL61EA`
 - Published status: `public`
-- Public imported-audio candidate is now the primary metric target
+- Public moving-scenic candidate is now the primary metric target
 - Previous public baseline remains:
   - `Fb1c63adZZk` -> `Rain Drift Sleep Music | 60 Minutes Black Screen For Deep Sleep`
 - Alternative public test now live: `TaOjFxPpfv8`
@@ -18,7 +18,7 @@ Use this file to record the first two days of performance for the current public
 
 ## How To Fill This In
 
-Open YouTube Studio for `nor_klS1GWE` and record the numbers at roughly:
+Open YouTube Studio for `nMf3WHL61EA` and record the numbers at roughly:
 
 - T+24h
 - T+48h
@@ -38,7 +38,7 @@ The key fields are the ones already called out in the checklist:
 
 ## Current Public Candidate Snapshot
 
-- Snapshot time: `2026-04-05T13:12:32.591Z`
+- Snapshot time: `2026-04-06T15:07:12.668Z`
 - Views: not captured yet
 - CTR: not available yet
 - Average view duration: not available yet
@@ -46,8 +46,8 @@ The key fields are the ones already called out in the checklist:
 
 Reason:
 
-- the upload just went public
-- this is now the main scenic imported-audio candidate we want to observe for the next 48 hours
+- the upload just went public under the `힐링전도사` channel context
+- this is now the main scenic imported-audio plus moving-footage candidate we want to observe for the next 48 hours
 
 ## Scenic Alternative Snapshot
 

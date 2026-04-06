@@ -41,6 +41,20 @@ Verified results:
 - imported audio remains the sound bed
 - the bundle is ready to use as the next motion-first upload candidate
 
+## Public Upload
+
+- Published on `2026-04-06`
+- Video ID: `nMf3WHL61EA`
+- Watch URL: `https://www.youtube.com/watch?v=nMf3WHL61EA`
+- Final public title:
+  - `힘든 마음을 적셔주기 위해 시원하게 떨어지는 폭포 소리 ASMR, 자연음악, 힐링음악`
+- Status: `public`
+
+Verification:
+
+- YouTube watch page returned `200`
+- upload completed under the refreshed `힐링전도사` channel connection
+
 ## Current Call
 
 - Motion-first scenic uploads are now the quality target.

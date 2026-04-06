@@ -62,7 +62,7 @@ Verification:
 
 ## Next Quality Step
 
-The public ocean candidate is still useful as a live benchmark, but the next packaging target is now the motion-first scenic path:
+The public ocean candidate is still useful as a live benchmark, but the motion-first scenic path is now live as the stronger public-facing follow-up:
 
 - [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)
 

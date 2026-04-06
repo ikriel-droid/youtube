@@ -16,6 +16,10 @@ export interface SleepRenderInput {
   channelName: string;
 }
 
+export interface SleepThumbnailOptions {
+  backgroundMode?: "full" | "overlay";
+}
+
 export interface SleepRenderManifest {
   title: string;
   description: string;
@@ -66,7 +70,12 @@ export function buildSleepFileBase(input: SleepRenderInput) {
   return slugify(`${input.channelName}-${input.title}-${input.releasePreset}-${input.minutes}m`);
 }
 
-export function buildSleepThumbnailSvg(input: SleepRenderInput) {
+export function buildSleepThumbnailSvg(
+  input: SleepRenderInput,
+  options: SleepThumbnailOptions = {}
+) {
+  const backgroundMode = options.backgroundMode ?? "full";
+  const overlayOnly = backgroundMode === "overlay";
   const background = getSleepGradient(input.releasePreset);
   const accent = getSleepAccent(input.releasePreset);
   const titleLines =
@@ -89,6 +98,17 @@ export function buildSleepThumbnailSvg(input: SleepRenderInput) {
       ? ""
       : `<text x="92" y="470" fill="#cbd5e1" font-size="30" font-weight="500" font-family="Segoe UI, Arial, sans-serif">${escapeXml(getScenicLead(input))}</text>`;
 
+  const backgroundMarkup = overlayOnly
+    ? `
+  <rect width="1280" height="720" fill="rgba(2,6,23,0.14)"/>
+  <rect width="1280" height="720" fill="url(#shade)"/>
+  <circle cx="970" cy="190" r="260" fill="url(#glow)"/>
+  <circle cx="1080" cy="560" r="180" fill="url(#glow)" opacity="0.32"/>`
+    : `
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="970" cy="190" r="260" fill="url(#glow)"/>
+  <circle cx="1080" cy="560" r="180" fill="url(#glow)" opacity="0.45"/>`;
+
   return `
 <svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -96,14 +116,17 @@ export function buildSleepThumbnailSvg(input: SleepRenderInput) {
       <stop offset="0%" stop-color="${background[0]}"/>
       <stop offset="100%" stop-color="${background[1]}"/>
     </linearGradient>
+    <linearGradient id="shade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(2,6,23,0.16)"/>
+      <stop offset="60%" stop-color="rgba(2,6,23,0.30)"/>
+      <stop offset="100%" stop-color="rgba(2,6,23,0.62)"/>
+    </linearGradient>
     <radialGradient id="glow" cx="50%" cy="50%" r="60%">
       <stop offset="0%" stop-color="${accent}" stop-opacity="0.55"/>
       <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1280" height="720" fill="url(#bg)"/>
-  <circle cx="970" cy="190" r="260" fill="url(#glow)"/>
-  <circle cx="1080" cy="560" r="180" fill="url(#glow)" opacity="0.45"/>
+  ${backgroundMarkup}
   <rect x="72" y="92" rx="999" ry="999" width="248" height="56" fill="rgba(255,255,255,0.12)"/>
   <text x="108" y="128" fill="#cbd5e1" font-size="28" font-weight="600" font-family="Segoe UI, Arial, sans-serif">LOCALTUBE SLEEP</text>
   ${textLines}

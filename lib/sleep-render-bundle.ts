@@ -44,6 +44,11 @@ export interface SleepRenderBundleResult {
   manifestFilePath: string;
 }
 
+interface PreparedFootageSource {
+  footagePath: string;
+  thumbnailBackgroundPath: string;
+}
+
 export async function generateSleepRenderBundle(
   input: SleepRenderRequestInput
 ): Promise<SleepRenderBundleResult> {
@@ -105,7 +110,18 @@ export async function generateSleepRenderBundle(
           fileBase
         });
 
-    const thumbnailSvg = buildSleepThumbnailSvg(normalized);
+    const preparedFootage = normalized.footageSourceUrl
+      ? await prepareImportedFootageSource({
+          footageSourceUrl: normalized.footageSourceUrl,
+          tempDir,
+          fileBase,
+          ffmpegExecutable: ffmpegPath
+        })
+      : null;
+
+    const thumbnailSvg = buildSleepThumbnailSvg(normalized, {
+      backgroundMode: preparedFootage ? "overlay" : "full"
+    });
     const thumbnailSvgFilePath = path.join(thumbnailDir, `${fileBase}.svg`);
     await writeFile(thumbnailSvgFilePath, thumbnailSvg, "utf8");
 
@@ -115,9 +131,20 @@ export async function generateSleepRenderBundle(
         value: 1280
       }
     });
-    const pngData = resvg.render();
     const thumbnailFilePath = path.join(thumbnailDir, `${fileBase}.png`);
-    await writeFile(thumbnailFilePath, pngData.asPng());
+    const overlayPngPath = path.join(tempDir, `${fileBase}-thumbnail-overlay.png`);
+    await writeFile(overlayPngPath, resvg.render().asPng());
+
+    if (preparedFootage) {
+      await composeThumbnailWithOverlay({
+        ffmpegExecutable: ffmpegPath,
+        backgroundPath: preparedFootage.thumbnailBackgroundPath,
+        overlayPath: overlayPngPath,
+        outputPath: thumbnailFilePath
+      });
+    } else {
+      await copyFile(overlayPngPath, thumbnailFilePath);
+    }
 
     const videoFilePath = path.join(videoDir, `${fileBase}.mp4`);
     await renderSleepVideo({
@@ -126,9 +153,7 @@ export async function generateSleepRenderBundle(
       durationSeconds: audioSource.durationSeconds,
       audioPath: audioSource.audioPath,
       thumbnailPngPath: thumbnailFilePath,
-      footagePath: normalized.footageSourceUrl
-        ? resolveImportedFootageSourcePath(normalized.footageSourceUrl)
-        : undefined,
+      footagePath: preparedFootage?.footagePath,
       outputVideoPath: videoFilePath
     });
 
@@ -190,6 +215,51 @@ async function prepareImportedAudioSource(input: {
   return {
     audioPath,
     durationSeconds: input.minutes * 60
+  };
+}
+
+async function prepareImportedFootageSource(input: {
+  footageSourceUrl: string;
+  tempDir: string;
+  fileBase: string;
+  ffmpegExecutable: string;
+}): Promise<PreparedFootageSource> {
+  const originalFootagePath = resolveImportedFootageSourcePath(input.footageSourceUrl);
+  const footagePath = path.join(input.tempDir, `${input.fileBase}-footage.mp4`);
+  const thumbnailBackgroundPath = path.join(input.tempDir, `${input.fileBase}-thumbnail-background.png`);
+
+  await runProcess(input.ffmpegExecutable, [
+    "-y",
+    "-ss",
+    "1.2",
+    "-i",
+    originalFootagePath,
+    "-an",
+    "-vf",
+    "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=30,format=yuv420p",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "veryfast",
+    "-crf",
+    "21",
+    "-movflags",
+    "+faststart",
+    footagePath
+  ]);
+
+  await runProcess(input.ffmpegExecutable, [
+    "-y",
+    "-i",
+    footagePath,
+    "-frames:v",
+    "1",
+    thumbnailBackgroundPath
+  ]);
+
+  return {
+    footagePath,
+    thumbnailBackgroundPath
   };
 }
 
@@ -283,6 +353,8 @@ async function renderSleepVideo(input: {
       : input.footagePath
         ? [
             "-y",
+            "-fflags",
+            "+genpts",
             "-stream_loop",
             "-1",
             "-i",
@@ -293,8 +365,6 @@ async function renderSleepVideo(input: {
             "0:v:0",
             "-map",
             "1:a:0",
-            "-vf",
-            "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,fps=30,format=yuv420p",
             "-t",
             duration,
             "-c:v",
@@ -307,6 +377,8 @@ async function renderSleepVideo(input: {
             "aac",
             "-b:a",
             "192k",
+            "-movflags",
+            "+faststart",
             input.outputVideoPath
           ]
         : [
@@ -332,10 +404,32 @@ async function renderSleepVideo(input: {
           "aac",
           "-b:a",
           "192k",
+          "-movflags",
+          "+faststart",
           input.outputVideoPath
         ];
 
   await runProcess(input.ffmpegExecutable, args);
+}
+
+async function composeThumbnailWithOverlay(input: {
+  ffmpegExecutable: string;
+  backgroundPath: string;
+  overlayPath: string;
+  outputPath: string;
+}) {
+  await runProcess(input.ffmpegExecutable, [
+    "-y",
+    "-i",
+    input.backgroundPath,
+    "-i",
+    input.overlayPath,
+    "-filter_complex",
+    "[0:v][1:v]overlay=0:0",
+    "-frames:v",
+    "1",
+    input.outputPath
+  ]);
 }
 
 async function runProcess(command: string, args: string[]) {

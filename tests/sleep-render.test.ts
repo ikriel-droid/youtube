@@ -39,6 +39,16 @@ test("sleep thumbnail svg is sized for YouTube thumbnails", () => {
   assert.doesNotMatch(svg, /30 Minutes Rain Window Visual/);
 });
 
+test("sleep thumbnail overlay mode keeps text but skips the solid scenic background", () => {
+  const svg = buildSleepThumbnailSvg(sampleInput, { backgroundMode: "overlay" });
+
+  assert.match(svg, /width="1280"/);
+  assert.match(svg, /Rain Drift Sleep Music/);
+  assert.match(svg, /night rain/);
+  assert.doesNotMatch(svg, /fill="url\(#bg\)"/);
+  assert.match(svg, /fill="url\(#shade\)"/);
+});
+
 test("sleep file base is slugified and stable", () => {
   const base = buildSleepFileBase(sampleInput);
   assert.equal(base.includes(" "), false);

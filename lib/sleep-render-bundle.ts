@@ -119,31 +119,25 @@ export async function generateSleepRenderBundle(
         })
       : null;
 
-    const thumbnailSvg = buildSleepThumbnailSvg(normalized, {
-      backgroundMode: preparedFootage ? "overlay" : "full"
-    });
+    const thumbnailSvg = preparedFootage
+      ? buildFrameOnlyThumbnailSvg()
+      : buildSleepThumbnailSvg(normalized);
     const thumbnailSvgFilePath = path.join(thumbnailDir, `${fileBase}.svg`);
     await writeFile(thumbnailSvgFilePath, thumbnailSvg, "utf8");
 
-    const resvg = new Resvg(thumbnailSvg, {
-      fitTo: {
-        mode: "width",
-        value: 1280
-      }
-    });
     const thumbnailFilePath = path.join(thumbnailDir, `${fileBase}.png`);
-    const overlayPngPath = path.join(tempDir, `${fileBase}-thumbnail-overlay.png`);
-    await writeFile(overlayPngPath, resvg.render().asPng());
 
     if (preparedFootage) {
-      await composeThumbnailWithOverlay({
-        ffmpegExecutable: ffmpegPath,
-        backgroundPath: preparedFootage.thumbnailBackgroundPath,
-        overlayPath: overlayPngPath,
-        outputPath: thumbnailFilePath
-      });
+      await copyFile(preparedFootage.thumbnailBackgroundPath, thumbnailFilePath);
     } else {
-      await copyFile(overlayPngPath, thumbnailFilePath);
+      const resvg = new Resvg(thumbnailSvg, {
+        fitTo: {
+          mode: "width",
+          value: 1280
+        }
+      });
+      const renderedThumbnailPng = resvg.render().asPng();
+      await writeFile(thumbnailFilePath, renderedThumbnailPng);
     }
 
     const videoFilePath = path.join(videoDir, `${fileBase}.mp4`);
@@ -412,26 +406,6 @@ async function renderSleepVideo(input: {
   await runProcess(input.ffmpegExecutable, args);
 }
 
-async function composeThumbnailWithOverlay(input: {
-  ffmpegExecutable: string;
-  backgroundPath: string;
-  overlayPath: string;
-  outputPath: string;
-}) {
-  await runProcess(input.ffmpegExecutable, [
-    "-y",
-    "-i",
-    input.backgroundPath,
-    "-i",
-    input.overlayPath,
-    "-filter_complex",
-    "[0:v][1:v]overlay=0:0",
-    "-frames:v",
-    "1",
-    input.outputPath
-  ]);
-}
-
 async function runProcess(command: string, args: string[]) {
   await new Promise<void>((resolve, reject) => {
     const child = spawn(command, args, {
@@ -462,4 +436,11 @@ function normalizeTags(tags: string[] | undefined, fallback: string[]) {
     .slice(0, 10);
 
   return cleaned.length > 0 ? [...new Set(cleaned)] : fallback;
+}
+
+function buildFrameOnlyThumbnailSvg() {
+  return `
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="transparent"/>
+</svg>`.trim();
 }

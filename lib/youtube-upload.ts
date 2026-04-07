@@ -1,6 +1,11 @@
 import { createReadStream } from "node:fs";
+import { mkdtemp, stat } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { spawn } from "node:child_process";
 
 import { google } from "googleapis";
+import ffmpegPath from "ffmpeg-static";
 
 import { recordLastUpload } from "@/lib/youtube-auth";
 import {
@@ -42,10 +47,11 @@ export async function uploadSleepBundleToYouTube(
     throw new Error("YouTube upload did not return a video id.");
   }
 
+  const thumbnailPathForUpload = await prepareThumbnailForYouTubeUpload(bundle.thumbnailFilePath);
   await youtube.thumbnails.set({
     videoId,
     media: {
-      body: createReadStream(bundle.thumbnailFilePath)
+      body: createReadStream(thumbnailPathForUpload)
     }
   });
 
@@ -63,6 +69,61 @@ export async function uploadSleepBundleToYouTube(
     manifestUrl: bundle.manifestUrl,
     lastUpload
   };
+}
+
+async function prepareThumbnailForYouTubeUpload(thumbnailFilePath: string) {
+  const thumbnailStat = await stat(thumbnailFilePath);
+  if (thumbnailStat.size <= 2_000_000) {
+    return thumbnailFilePath;
+  }
+
+  if (!ffmpegPath) {
+    throw new Error("Thumbnail is too large for YouTube and ffmpeg-static is unavailable for compression.");
+  }
+
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), "localtube-youtube-thumb-"));
+  const outputPath = path.join(tempDir, `${path.parse(thumbnailFilePath).name}-youtube.jpg`);
+
+  await runProcess(ffmpegPath, [
+    "-y",
+    "-i",
+    thumbnailFilePath,
+    "-vf",
+    "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2",
+    "-q:v",
+    "4",
+    outputPath
+  ]);
+
+  const outputStat = await stat(outputPath);
+  if (outputStat.size > 2_000_000) {
+    throw new Error("Compressed thumbnail is still too large for YouTube.");
+  }
+
+  return outputPath;
+}
+
+async function runProcess(command: string, args: string[]) {
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn(command, args, {
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+
+    let stderr = "";
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk.toString();
+    });
+
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code === 0) {
+        resolve();
+        return;
+      }
+
+      reject(new Error(stderr || `Process exited with code ${code}.`));
+    });
+  });
 }
 
 export async function updateYouTubeVideoMetadata(

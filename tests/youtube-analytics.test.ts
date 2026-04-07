@@ -3,10 +3,11 @@ import assert from "node:assert/strict";
 
 import { getQuickPrivateTestConcept } from "../lib/sleep-launch-plan";
 
-test("quick private test concept shortens launch-01 for upload validation", () => {
+test("quick private test concept stays scenic and short for upload validation", () => {
   const concept = getQuickPrivateTestConcept();
 
-  assert.equal(concept.id, "launch-01-quick");
+  assert.equal(concept.id, "nature-quick-private");
   assert.equal(concept.minutes, 1);
   assert.match(concept.title, /\[Private Test\]/);
+  assert.equal(concept.releasePreset, "ocean-drift");
 });

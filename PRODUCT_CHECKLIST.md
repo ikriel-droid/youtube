@@ -76,3 +76,12 @@ first. This file is the broader product backlog.
 - [x] Add basic background visual or visualizer support for sleep uploads
 - [x] Add sleep-channel-specific packaging templates
 - [x] Save generated sleep tracks into LocalTube so they survive refresh and restart
+
+## 9. Nature Healing Series
+
+- [x] Lock a 10-theme natural-healing lineup
+- [x] Add the 10 concepts into the launch plan UI
+- [x] Include rain as a core theme instead of treating it as a side format
+- [ ] Import licensed audio for each of the 10 themes
+- [ ] Import licensed footage for each of the 10 themes
+- [ ] Produce the first full 10-video nature batch

@@ -9,6 +9,7 @@ This plan captures what to improve after the first public upload.
 - The next batch should teach us whether scenic visuals and different noise presets improve performance
 - We are now treating scenic uploads as the default direction unless real metrics clearly contradict it
 - Imported licensed audio now beats generated audio as the publish-ready scenic path when a real source is available
+- The next useful expansion is breadth: more nature themes, not just more versions of the same ocean or waterfall idea
 
 ## Next Batch Priorities
 
@@ -55,6 +56,23 @@ Branch beyond rain:
 - `ocean` for a softer ambient feel
 - `brown-noise` for sleep + focus crossover intent
 
+### 5. Theme Breadth
+
+Move from isolated scenic tests into a broader natural-healing lineup.
+
+Priority themes:
+
+1. waterfall
+2. rain
+3. forest
+4. day ocean
+5. night sea
+6. valley stream
+7. mountain wind
+8. meadow breeze
+9. lakeside dusk
+10. snow forest
+
 ## Next Two Uploads
 
 ### Upload 2
@@ -88,3 +106,9 @@ Current operator call:
 
 - `ocean-drift` stays the default scenic preset
 - `rain-window` stays in rotation as the secondary themed follow-up format
+- the next real batch should be managed as a 10-video natural-healing series
+
+References:
+
+- [YOUTUBE_NATURE_SERIES_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_PLAN.md)
+- [YOUTUBE_NATURE_SERIES_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_CHECKLIST.md)

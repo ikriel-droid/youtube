@@ -13,10 +13,10 @@ export default function SleepLaunchPage() {
     <>
       <section className="hero">
         <span className="pill">first channel launch</span>
-        <h1>We are launching the sleep-music workflow as a manual-first YouTube channel.</h1>
+        <h1>We are now running a 10-video natural healing series through the sleep-music workflow.</h1>
         <p>
-          This page keeps the first channel identity, the first three concepts, and the first
-          publish-ready target in one place so we can move without re-deciding the basics every time.
+          This page keeps the channel identity, the current 10-theme lineup, and the next
+          publish-ready target in one place so we can keep shipping without re-deciding the series.
         </p>
         <div className="inlineActions">
           <Link className="secondaryButton" href="/studio/sleep-lab">
@@ -42,7 +42,7 @@ export default function SleepLaunchPage() {
         </article>
         <article className="summaryCard">
           <h2>{firstSleepVideoConcepts.length}</h2>
-          <p>Launch concepts ready</p>
+          <p>Nature series concepts ready</p>
         </article>
       </section>
 
@@ -74,14 +74,23 @@ export default function SleepLaunchPage() {
           <strong>Title:</strong> {primaryConcept.title}
         </p>
         <p>
+          <strong>Theme:</strong> {primaryConcept.themeLabel}
+        </p>
+        <p>
           <strong>Hook:</strong> {primaryConcept.hook}
         </p>
         <p>
           <strong>Angle:</strong> {primaryConcept.angle}
         </p>
+        <p>
+          <strong>Audio direction:</strong> {primaryConcept.audioDirection}
+        </p>
+        <p>
+          <strong>Visual direction:</strong> {primaryConcept.visualDirection}
+        </p>
         <p className="sidebarText">
-          Scenic-first is now the chosen main direction. Black-screen stays as a utility fallback for
-          overnight validation and niche search intent.
+          Scenic-first is now the chosen main direction. The lineup deliberately mixes forest, sea,
+          rain, waterfall, wind, and dusk themes so the channel feels broader than a one-format test.
         </p>
         <div className="inlineTags">
           <span className="tagPill">{primaryConcept.preset}</span>
@@ -94,7 +103,7 @@ export default function SleepLaunchPage() {
         {firstSleepVideoConcepts.map((concept) => (
           <article key={concept.id} className="studioCard">
             <div className="panelHeader">
-              <h3>{concept.id}</h3>
+              <h3>{concept.themeLabel}</h3>
               <span>{concept.minutes} min</span>
             </div>
             <p>
@@ -102,7 +111,14 @@ export default function SleepLaunchPage() {
             </p>
             <p>{concept.hook}</p>
             <p className="sidebarText">{concept.angle}</p>
+            <p className="sidebarText">
+              <strong>Audio:</strong> {concept.audioDirection}
+            </p>
+            <p className="sidebarText">
+              <strong>Visual:</strong> {concept.visualDirection}
+            </p>
             <div className="inlineTags">
+              <span className="tagPill">{concept.id}</span>
               <span className="tagPill">{concept.preset}</span>
               <span className="tagPill">{concept.releasePreset}</span>
               {concept.tags.map((tag) => (

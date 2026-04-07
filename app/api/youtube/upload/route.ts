@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     }
 
     const concept =
-      body.conceptId === "launch-01-quick"
+      body.conceptId === "launch-01-quick" || body.conceptId === "nature-quick-private"
         ? getQuickPrivateTestConcept()
         : firstSleepVideoConcepts.find((item) => item.id === body.conceptId) ?? firstSleepVideoConcepts[0];
 

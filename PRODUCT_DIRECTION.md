@@ -33,8 +33,21 @@ The first public upload proved the black-screen validation path, and we are now 
 
 The branch should now optimize for:
 
-- scenic ocean / rain-window uploads
+- scenic natural-healing uploads across multiple themes
 - imported licensed audio as the default publish-ready source
 - stronger sleep-brand identity
 - title and thumbnail experiments against the first public black-screen release
 - generated audio and black-screen only as supporting fallback formats, not the primary channel look
+
+The next content shape is a 10-video nature lineup rather than repeated variations of one scenic mood:
+
+- forest
+- day ocean
+- mountain wind
+- valley stream
+- night sea
+- rain
+- waterfall
+- snow forest
+- meadow breeze
+- lakeside dusk

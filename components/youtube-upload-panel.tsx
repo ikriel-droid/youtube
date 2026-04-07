@@ -115,7 +115,7 @@ export function YouTubeUploadPanel({
           "content-type": "application/json"
         },
         body: JSON.stringify({
-          conceptId: "launch-02",
+          conceptId: "nature-02",
           privacyStatus: "private"
         })
       });
@@ -186,7 +186,7 @@ export function YouTubeUploadPanel({
 
   async function handleQuickPrivateUpload() {
     setUploading(true);
-    setMessage("Uploading a 1-minute quick private test to YouTube...");
+    setMessage("Uploading a 1-minute scenic quick private test to YouTube...");
 
     try {
       const response = await fetch("/api/youtube/upload", {
@@ -195,7 +195,7 @@ export function YouTubeUploadPanel({
           "content-type": "application/json"
         },
         body: JSON.stringify({
-          conceptId: "launch-01-quick",
+          conceptId: "nature-quick-private",
           privacyStatus: "private"
         })
       });
@@ -315,7 +315,7 @@ export function YouTubeUploadPanel({
               onClick={handlePrivateUpload}
               disabled={!status.configured || !status.connected || uploading}
             >
-              {uploading ? "Uploading Scenic Fallback..." : "Upload Launch-02 Fallback As Private"}
+              {uploading ? "Uploading Scenic Fallback..." : "Upload Nature-02 Fallback As Private"}
             </button>
             <Link className="secondaryButton" href="/studio/sleep-launch">
               Open Launch Plan
@@ -331,7 +331,7 @@ export function YouTubeUploadPanel({
           </div>
           <p className="statusText">
             {message ||
-              "Use quick private test for the path check, then prefer the imported-audio scenic flow. Launch-02 stays available as the generated fallback path."}
+              "Use quick private test for the path check, then prefer the imported-audio scenic flow. Nature-02 stays available as the generated fallback path."}
           </p>
 
           {!status.configured ? (

@@ -9,12 +9,13 @@ import {
 
 test("sleep launch plan defines a concrete channel identity", () => {
   assert.match(sleepChannelIdentity.channelName, /Midnight Tide Sleep/);
-  assert.match(sleepChannelIdentity.niche, /sleep/i);
+  assert.match(sleepChannelIdentity.niche, /forest|ocean|rain|waterfall/i);
 });
 
-test("sleep launch plan includes three concepts and a publish-ready target", () => {
-  assert.equal(firstSleepVideoConcepts.length, 3);
+test("sleep launch plan includes a 10-theme nature lineup and a publish-ready target", () => {
+  assert.equal(firstSleepVideoConcepts.length, 10);
   const concept = getFirstPublishReadyConcept();
-  assert.match(concept.title, /Ocean Breath Sleep Music/i);
+  assert.equal(concept.themeLabel, "Waterfall");
+  assert.match(concept.title, /Waterfall Ambient Sleep/i);
   assert.equal(concept.releasePreset, "ocean-drift");
 });

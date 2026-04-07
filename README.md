@@ -39,6 +39,8 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_IMPORTED_AUDIO_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_AUDIO_REVIEW.md)
 - [YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_IMPORTED_PUBLIC_CANDIDATE.md)
 - [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)
+- [YOUTUBE_NATURE_SERIES_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_PLAN.md)
+- [YOUTUBE_NATURE_SERIES_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_CHECKLIST.md)
 
 The current product decision is:
 
@@ -46,6 +48,7 @@ The current product decision is:
 - primary audience on this branch: sleep / ambience channel operators
 - best niche fit on this branch: repeatable YouTube sleep uploads
 - sleep-music publishing path: validated real YouTube upload workflow
+- next content direction: a 10-video natural-healing series with rain included in the core lineup
 
 ## Run
 

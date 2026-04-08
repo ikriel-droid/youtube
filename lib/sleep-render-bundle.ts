@@ -44,6 +44,19 @@ export interface SleepRenderBundleResult {
   manifestFilePath: string;
 }
 
+export interface SleepBundleVerificationSample {
+  label: string;
+  startSeconds: number;
+  meanVolumeDb: number | null;
+  maxVolumeDb: number | null;
+}
+
+export interface SleepBundleVerificationResult {
+  expectedDurationSeconds: number;
+  actualDurationSeconds: number;
+  samples: SleepBundleVerificationSample[];
+}
+
 interface PreparedFootageSource {
   footagePath: string;
   thumbnailBackgroundPath: string;
@@ -335,6 +348,82 @@ export async function readSleepBundleFiles(bundle: SleepRenderBundleResult) {
   return { mp4, png, svg, manifest };
 }
 
+export async function verifyRenderedSleepBundle(input: {
+  bundle: SleepRenderBundleResult;
+  expectedDurationSeconds: number;
+}) {
+  if (!ffmpegPath) {
+    throw new Error("ffmpeg-static is not available, so rendered bundle verification cannot run.");
+  }
+
+  const actualDurationSeconds = await probeMediaDurationSeconds(input.bundle.videoFilePath);
+  if (Math.abs(actualDurationSeconds - input.expectedDurationSeconds) > 2) {
+    throw new Error(
+      `Rendered video duration mismatch. Expected about ${input.expectedDurationSeconds}s but got ${actualDurationSeconds.toFixed(2)}s.`
+    );
+  }
+
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), "localtube-sleep-verify-"));
+
+  try {
+    const samples: SleepBundleVerificationSample[] = [];
+
+    for (const startSeconds of buildVerificationSampleOffsets(actualDurationSeconds)) {
+      const label =
+        startSeconds >= input.expectedDurationSeconds - 15
+          ? "tail"
+          : startSeconds >= 300
+            ? "post-5min"
+            : "mid";
+      const samplePath = path.join(
+        tempDir,
+        `${path.basename(input.bundle.videoFilePath, path.extname(input.bundle.videoFilePath))}-${label}.wav`
+      );
+
+      await runProcess(ffmpegPath, [
+        "-y",
+        "-ss",
+        String(startSeconds),
+        "-t",
+        "3",
+        "-i",
+        input.bundle.videoFilePath,
+        "-map",
+        "0:a:0",
+        "-ac",
+        "2",
+        "-ar",
+        "44100",
+        samplePath
+      ]);
+
+      const { meanVolumeDb, maxVolumeDb } = await detectAudioVolume(samplePath);
+      if (meanVolumeDb === null || meanVolumeDb <= -70) {
+        throw new Error(
+          `Rendered audio verification failed at ${label} sample (${startSeconds}s). Mean volume was ${meanVolumeDb ?? "n/a"} dB.`
+        );
+      }
+
+      samples.push({
+        label,
+        startSeconds,
+        meanVolumeDb,
+        maxVolumeDb
+      });
+    }
+
+    const result: SleepBundleVerificationResult = {
+      expectedDurationSeconds: input.expectedDurationSeconds,
+      actualDurationSeconds,
+      samples
+    };
+
+    return result;
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function renderSleepVideo(input: {
   ffmpegExecutable: string;
   releasePreset: SleepReleasePreset;
@@ -432,13 +521,69 @@ async function renderSleepVideo(input: {
   await runProcess(input.ffmpegExecutable, args);
 }
 
+export function buildVerificationSampleOffsets(actualDurationSeconds: number) {
+  const latestSafeStart = Math.max(0, Math.floor(actualDurationSeconds) - 15);
+  const sampleStarts = new Set<number>();
+
+  if (actualDurationSeconds >= 315) {
+    sampleStarts.add(310);
+  }
+
+  sampleStarts.add(latestSafeStart);
+
+  return [...sampleStarts]
+    .filter((value) => value <= Math.max(0, Math.floor(actualDurationSeconds) - 3))
+    .sort((left, right) => left - right);
+}
+
+async function probeMediaDurationSeconds(filePath: string) {
+  const output = await runProcessCapture(ffmpegPath!, ["-i", filePath, "-f", "null", "-"]);
+  const match = output.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
+  if (!match) {
+    throw new Error(`Could not read media duration for ${filePath}.`);
+  }
+
+  const [, hours, minutes, seconds] = match;
+  return Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
+}
+
+async function detectAudioVolume(filePath: string) {
+  const output = await runProcessCapture(ffmpegPath!, [
+    "-i",
+    filePath,
+    "-af",
+    "volumedetect",
+    "-f",
+    "null",
+    process.platform === "win32" ? "NUL" : "/dev/null"
+  ]);
+
+  return {
+    meanVolumeDb: extractVolumeMetric(output, "mean_volume"),
+    maxVolumeDb: extractVolumeMetric(output, "max_volume")
+  };
+}
+
+function extractVolumeMetric(output: string, key: "mean_volume" | "max_volume") {
+  const match = output.match(new RegExp(`${key}:\\s*(-?\\d+(?:\\.\\d+)?) dB`));
+  return match ? Number(match[1]) : null;
+}
+
 async function runProcess(command: string, args: string[]) {
-  await new Promise<void>((resolve, reject) => {
+  await runProcessCapture(command, args);
+}
+
+async function runProcessCapture(command: string, args: string[]) {
+  return await new Promise<string>((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: ["ignore", "pipe", "pipe"]
     });
 
+    let stdout = "";
     let stderr = "";
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk.toString();
+    });
     child.stderr.on("data", (chunk) => {
       stderr += chunk.toString();
     });
@@ -446,11 +591,11 @@ async function runProcess(command: string, args: string[]) {
     child.on("error", reject);
     child.on("close", (code) => {
       if (code === 0) {
-        resolve();
+        resolve(`${stdout}\n${stderr}`);
         return;
       }
 
-      reject(new Error(stderr || `Process exited with code ${code}.`));
+      reject(new Error(stderr || stdout || `Process exited with code ${code}.`));
     });
   });
 }

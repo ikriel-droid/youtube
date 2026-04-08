@@ -77,6 +77,10 @@ Sleep music generator:
 - API upload validation: [YOUTUBE_API_VALIDATION_RUNBOOK.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_API_VALIDATION_RUNBOOK.md)
 - first public upload review: [YOUTUBE_FIRST_PUBLIC_REVIEW.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_FIRST_PUBLIC_REVIEW.md)
 - current metrics tracking: [YOUTUBE_48_HOUR_METRICS_TRACKER.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_48_HOUR_METRICS_TRACKER.md)
+- imported-audio scenic uploads now run a self-verification pass before YouTube upload:
+  - render duration check
+  - post-5-minute audio sample check
+  - tail audio sample check
 
 ## YouTube API Validation Env
 

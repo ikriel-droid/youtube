@@ -36,4 +36,4 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 
 Current rain upload:
 
-- `https://www.youtube.com/watch?v=6x3p0icVGxk`
+- `https://www.youtube.com/watch?v=AvWzXS_Rt2w`

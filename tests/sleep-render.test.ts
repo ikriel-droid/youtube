@@ -7,7 +7,10 @@ import {
   buildSleepRenderManifest,
   buildSleepThumbnailSvg
 } from "../lib/sleep-render";
-import { buildLoopedImportedAudioArgs } from "../lib/sleep-render-bundle";
+import {
+  buildLoopedImportedAudioArgs,
+  buildVerificationSampleOffsets
+} from "../lib/sleep-render-bundle";
 
 const sampleInput = {
   preset: "rain" as const,
@@ -72,4 +75,10 @@ test("imported audio render args loop short audio to the full target duration", 
   assert.ok(args.includes("1800"));
   assert.ok(args.includes("pcm_s16le"));
   assert.equal(args.at(-1), "output.wav");
+});
+
+test("render verification checks post-5-minute and tail samples for long videos", () => {
+  assert.deepEqual(buildVerificationSampleOffsets(3600), [310, 3585]);
+  assert.deepEqual(buildVerificationSampleOffsets(360), [310, 345]);
+  assert.deepEqual(buildVerificationSampleOffsets(60), [45]);
 });

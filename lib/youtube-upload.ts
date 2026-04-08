@@ -10,6 +10,7 @@ import ffmpegPath from "ffmpeg-static";
 import { recordLastUpload } from "@/lib/youtube-auth";
 import {
   generateSleepRenderBundle,
+  verifyRenderedSleepBundle,
   type SleepRenderRequestInput
 } from "@/lib/sleep-render-bundle";
 
@@ -18,6 +19,10 @@ export async function uploadSleepBundleToYouTube(
   input: SleepRenderRequestInput & { privacyStatus?: "private" | "unlisted" | "public" }
 ) {
   const bundle = await generateSleepRenderBundle(input);
+  const verification = await verifyRenderedSleepBundle({
+    bundle,
+    expectedDurationSeconds: input.minutes * 60
+  });
   const youtube = google.youtube({
     version: "v3",
     auth: authClient
@@ -67,7 +72,8 @@ export async function uploadSleepBundleToYouTube(
     youtubeStudioUrl: `https://studio.youtube.com/video/${videoId}/edit`,
     thumbnailUrl: bundle.thumbnailUrl,
     manifestUrl: bundle.manifestUrl,
-    lastUpload
+    lastUpload,
+    verification
   };
 }
 

@@ -8,7 +8,8 @@
     "build": "if exist .next (rmdir /s /q .next) & npx next build",
     "start": "npx next start",
     "test": "tsx --test tests/**/*.test.ts",
-    "seed:reset": "powershell -ExecutionPolicy Bypass -File .\\reset-localtube-seed.ps1"
+    "seed:reset": "powershell -ExecutionPolicy Bypass -File .\\reset-localtube-seed.ps1",
+    "upload:imported-scenic": "tsx scripts/upload-imported-scenic.ts"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",

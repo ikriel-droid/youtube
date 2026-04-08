@@ -7,6 +7,7 @@ import {
   buildSleepRenderManifest,
   buildSleepThumbnailSvg
 } from "../lib/sleep-render";
+import { buildLoopedImportedAudioArgs } from "../lib/sleep-render-bundle";
 
 const sampleInput = {
   preset: "rain" as const,
@@ -61,4 +62,14 @@ test("sleep pinned comment stays creator-ready", () => {
   assert.match(comment, /Rain Window Visual/);
   assert.match(comment, /night rain/i);
   assert.match(comment, /Sleep well/i);
+});
+
+test("imported audio render args loop short audio to the full target duration", () => {
+  const args = buildLoopedImportedAudioArgs("input.ogg", "output.wav", 1800);
+
+  assert.deepEqual(args.slice(0, 5), ["-y", "-stream_loop", "-1", "-i", "input.ogg"]);
+  assert.ok(args.includes("-t"));
+  assert.ok(args.includes("1800"));
+  assert.ok(args.includes("pcm_s16le"));
+  assert.equal(args.at(-1), "output.wav");
 });

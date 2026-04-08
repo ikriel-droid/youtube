@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { buildImportedAudioUploadDraft } from "../lib/imported-audio-upload";
 
-test("imported audio upload draft prefers scenic ocean packaging and caps length at 30 minutes", () => {
+test("imported audio upload draft prefers scenic ocean packaging and defaults to a 1-hour repeat listen format", () => {
   const draft = buildImportedAudioUploadDraft({
     id: "audio-1",
     uploadedAt: "2026-04-05T10:21:10.488Z",
@@ -19,8 +19,8 @@ test("imported audio upload draft prefers scenic ocean packaging and caps length
 
   assert.equal(draft.preset, "ocean");
   assert.equal(draft.releasePreset, "ocean-drift");
-  assert.equal(draft.minutes, 30);
-  assert.equal(draft.title, "Ocean Ambient Sleep | 30 Minutes Coastal Wave Drift");
+  assert.equal(draft.minutes, 60);
+  assert.equal(draft.title, "Ocean Ambient Sleep | Coastal Wave Drift | 1시간 반복듣기");
   assert.match(draft.description, /licensed source audio/i);
   assert.match(draft.description, /coastal wave ambience/i);
   assert.ok(draft.tags.includes("licensed audio"));

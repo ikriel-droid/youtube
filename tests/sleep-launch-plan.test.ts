@@ -17,5 +17,7 @@ test("sleep launch plan includes a 10-theme nature lineup and a publish-ready ta
   const concept = getFirstPublishReadyConcept();
   assert.equal(concept.themeLabel, "Waterfall");
   assert.match(concept.title, /Waterfall Ambient Sleep/i);
+  assert.match(concept.title, /1시간 반복듣기/);
+  assert.equal(concept.minutes, 60);
   assert.equal(concept.releasePreset, "ocean-drift");
 });

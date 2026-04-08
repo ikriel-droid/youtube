@@ -13,7 +13,7 @@ export interface ImportedAudioUploadDraft {
 export function buildImportedAudioUploadDraft(
   record: ImportedAudioRecord
 ): ImportedAudioUploadDraft {
-  const minutes = Math.min(Math.max(record.minutes, 1), 30);
+  const minutes = 60;
   const theme = detectImportedAudioTheme(record);
   const title = buildImportedTitle(theme, minutes);
   const description = buildImportedDescription(theme, record);
@@ -56,15 +56,15 @@ function detectImportedAudioTheme(record: ImportedAudioRecord): ImportedTheme {
 }
 
 function buildImportedTitle(theme: ImportedTheme, minutes: number) {
-  const duration = minutes === 1 ? "1 Minute" : `${minutes} Minutes`;
+  const durationLabel = minutes >= 60 ? "1시간 반복듣기" : minutes === 1 ? "1 Minute" : `${minutes} Minutes`;
 
   switch (theme) {
     case "ocean":
-      return `Ocean Ambient Sleep | ${duration} Coastal Wave Drift`;
+      return `Ocean Ambient Sleep | Coastal Wave Drift | ${durationLabel}`;
     case "rain":
-      return `Rain Window Ambient Sleep | ${duration} Soft Night Drift`;
+      return `Rain Window Ambient Sleep | Soft Night Drift | ${durationLabel}`;
     case "ambient":
-      return `Ambient Sleep | ${duration} Scenic Night Drift`;
+      return `Ambient Sleep | Scenic Night Drift | ${durationLabel}`;
   }
 }
 

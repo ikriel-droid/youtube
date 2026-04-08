@@ -201,15 +201,39 @@ async function prepareImportedAudioSource(input: {
   fileBase: string;
   minutes: number;
 }) {
+  if (!ffmpegPath) {
+    throw new Error("ffmpeg-static is not available, so imported audio cannot be extended for video rendering.");
+  }
+
   const filePath = resolveImportedAudioSourcePath(input.audioSourceUrl);
-  const extension = path.extname(filePath) || ".wav";
-  const audioPath = path.join(input.tempDir, `${input.fileBase}${extension}`);
-  await copyFile(filePath, audioPath);
+  const durationSeconds = input.minutes * 60;
+  const audioPath = path.join(input.tempDir, `${input.fileBase}-looped.wav`);
+
+  await runProcess(ffmpegPath, buildLoopedImportedAudioArgs(filePath, audioPath, durationSeconds));
 
   return {
     audioPath,
-    durationSeconds: input.minutes * 60
+    durationSeconds
   };
+}
+
+export function buildLoopedImportedAudioArgs(inputPath: string, outputPath: string, durationSeconds: number) {
+  return [
+    "-y",
+    "-stream_loop",
+    "-1",
+    "-i",
+    inputPath,
+    "-t",
+    String(durationSeconds),
+    "-ac",
+    "2",
+    "-ar",
+    "44100",
+    "-c:a",
+    "pcm_s16le",
+    outputPath
+  ];
 }
 
 async function prepareImportedFootageSource(input: {

@@ -41,3 +41,23 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the first rain-theme imported audio source in the nature-healing series
 - Public rain upload:
   `https://www.youtube.com/watch?v=6x3p0icVGxk`
+
+## Source 003
+
+- Title: `Forest Lake Rain Sleep`
+- Local asset: `/api/generated-assets/imported-audio/forest-lake-rain-sleep-1775659572611.mp3`
+- Upstream source page: `https://commons.wikimedia.org/wiki/File:Lost_Lake_(33586039086).webm`
+- Import URL used:
+  - `https://commons.wikimedia.org/wiki/Special:Redirect/file/Lost%20Lake%20%2833586039086%29.webm`
+- Creator listed on source page: `BLM Oregon & Washington / Greg Shine`
+- License:
+  - `Public domain in the United States as a U.S. federal government work`
+  - also mirrored on Wikimedia Commons with `CC BY 2.0` attribution context
+- Source description: lakeside coastal forest scene during a late winter rain at Lost Lake, Oregon
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-08`
+- Used as the upgraded natural-rain audio bed for the outdoor forest/lake rain upload
+- Public rain upload:
+  `https://www.youtube.com/watch?v=WGf9Wmvlh7g`

@@ -4,9 +4,9 @@ Use this file to record the first two days of performance for the current public
 
 ## Current Public Video
 
-- Video ID: `AvWzXS_Rt2w`
-- Title: `자연 속 잔잔한 빗소리 ASMR, 차분한 비 내리는 힐링 수면음악 | 1시간 반복듣기`
-- Watch URL: `https://www.youtube.com/watch?v=AvWzXS_Rt2w`
+- Video ID: `WGf9Wmvlh7g`
+- Title: `자연 숲과 호숫가에 내리는 빗소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
+- Watch URL: `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
 - Published status: `public`
 - Public moving-scenic candidate is now the primary metric target
 - Previous public baseline remains:
@@ -18,7 +18,7 @@ Use this file to record the first two days of performance for the current public
 
 ## How To Fill This In
 
-Open YouTube Studio for `AvWzXS_Rt2w` and record the numbers at roughly:
+Open YouTube Studio for `WGf9Wmvlh7g` and record the numbers at roughly:
 
 - T+24h
 - T+48h
@@ -38,7 +38,7 @@ The key fields are the ones already called out in the checklist:
 
 ## Current Public Candidate Snapshot
 
-- Snapshot time: `2026-04-08T14:38:04.057Z`
+- Snapshot time: `2026-04-08T14:51:09.439Z`
 - Views: not captured yet
 - CTR: not available yet
 - Average view duration: not available yet
@@ -47,14 +47,14 @@ The key fields are the ones already called out in the checklist:
 Reason:
 
 - the upload just went public under the `힐링전도사` channel context
-- this is now the main 1-hour rain moving-scenic candidate we want to observe for the next 48 hours
+- this is now the main 1-hour outdoor-rain moving-scenic candidate we want to observe for the next 48 hours
 
 Self-verification before upload:
 
 - expected duration: `3600s`
 - actual duration: `3600s`
-- post-5-minute audio sample mean volume: `-30.7 dB`
-- tail audio sample mean volume: `-30.5 dB`
+- post-5-minute audio sample mean volume: `-44.7 dB`
+- tail audio sample mean volume: `-42.5 dB`
 
 ## Scenic Alternative Snapshot
 

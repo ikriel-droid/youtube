@@ -48,3 +48,25 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
   - rain ambience
   - gentle healing uploads
   - window-rain and outdoor-rain themed sleep videos
+
+## 3. Lost Lake Forest Rain Motion
+
+- Imported on: `2026-04-08`
+- LocalTube footage record id: `footage-1775659573420-682`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/lost-lake-forest-rain-motion-1775659572611.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Lost_Lake_(33586039086).webm`
+- Import URL used:
+  - `https://commons.wikimedia.org/wiki/Special:Redirect/file/Lost%20Lake%20%2833586039086%29.webm`
+- Creator:
+  - `BLM Oregon & Washington / Greg Shine`
+- License:
+  - `Public domain in the United States`
+  - also mirrored on Wikimedia Commons with `CC BY 2.0` attribution context
+- License note used in LocalTube:
+  - `Public domain in the United States as a U.S. Bureau of Land Management work; also mirrored on Wikimedia Commons with CC BY 2.0 attribution context.`
+- Visual fit:
+  - natural outdoor rain
+  - forest and lakeside healing uploads
+  - calmer environmental rain than the earlier generic rain clip

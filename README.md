@@ -81,6 +81,9 @@ Sleep music generator:
   - render duration check
   - post-5-minute audio sample check
   - tail audio sample check
+- reusable helper scripts:
+  - `npm run import:remote-scenic -- --source-url ...` for licensed outdoor A/V imports
+  - `npm run upload:imported-scenic -- --audio-id ... --footage-id ... --title ...` for verified YouTube uploads
 
 ## YouTube API Validation Env
 

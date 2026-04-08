@@ -1,5 +1,6 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { spawn } from "node:child_process";
 
 import ffmpegPath from "ffmpeg-static";
 
@@ -12,8 +13,10 @@ async function main() {
   }
 
   const args = parseArgs(process.argv.slice(2));
-  if (!args.sourceUrl || !args.audioTitle || !args.footageTitle || !args.sourceName || !args.licenseNote) {
-    throw new Error("Missing required args. Need --source-url, --audio-title, --footage-title, --source-name, --license-note.");
+  if ((!args.sourceUrl && !args.localFile) || !args.audioTitle || !args.footageTitle || !args.sourceName || !args.licenseNote) {
+    throw new Error(
+      "Missing required args. Need either --source-url or --local-file, plus --audio-title, --footage-title, --source-name, and --license-note."
+    );
   }
 
   const publicDir = path.join(process.cwd(), "public");
@@ -21,23 +24,27 @@ async function main() {
   const audioDir = path.join(publicDir, "imported-audio");
   await Promise.all([mkdir(footageDir, { recursive: true }), mkdir(audioDir, { recursive: true })]);
 
-  const response = await fetch(args.sourceUrl);
-  if (!response.ok) {
-    throw new Error(`Could not download remote source: ${response.status} ${response.statusText}`);
-  }
-
-  const contentType = response.headers.get("content-type") || "";
-  const remoteBuffer = Buffer.from(await response.arrayBuffer());
-
   const timestamp = Date.now();
-  const sourceExtension = inferVideoExtension(args.sourceUrl, contentType);
+  const sourceExtension = inferVideoExtension(args.sourceUrl ?? args.localFile!, args.contentType ?? "");
   const footageFileName = `${slugify(args.footageTitle)}-${timestamp}.${sourceExtension}`;
   const footagePath = path.join(footageDir, footageFileName);
-  await writeFile(footagePath, remoteBuffer);
+
+  if (args.localFile) {
+    await copyFile(path.resolve(args.localFile), footagePath);
+  } else {
+    const response = await fetch(args.sourceUrl!);
+    if (!response.ok) {
+      throw new Error(`Could not download remote source: ${response.status} ${response.statusText}`);
+    }
+
+    const remoteBuffer = Buffer.from(await response.arrayBuffer());
+    await writeFile(footagePath, remoteBuffer);
+  }
 
   const audioFileName = `${slugify(args.audioTitle)}-${timestamp}.mp3`;
   const audioPath = path.join(audioDir, audioFileName);
   await extractAudioToMp3(footagePath, audioPath);
+  await assertAudioIsAudible(audioPath);
 
   const audioRecord = await addImportedAudioRecord({
     title: args.audioTitle,
@@ -62,6 +69,7 @@ async function main() {
     JSON.stringify(
       {
         sourceUrl: args.sourceUrl,
+        localFile: args.localFile,
         audioRecord,
         footageRecord
       },
@@ -74,10 +82,12 @@ async function main() {
 function parseArgs(argv: string[]) {
   const parsed: {
     sourceUrl?: string;
+    localFile?: string;
     audioTitle?: string;
     footageTitle?: string;
     sourceName?: string;
     licenseNote?: string;
+    contentType?: string;
     audioTags?: string;
     footageTags?: string;
     minutes?: number;
@@ -93,6 +103,10 @@ function parseArgs(argv: string[]) {
     switch (key) {
       case "--source-url":
         parsed.sourceUrl = value;
+        index += 1;
+        break;
+      case "--local-file":
+        parsed.localFile = value;
         index += 1;
         break;
       case "--audio-title":
@@ -121,6 +135,10 @@ function parseArgs(argv: string[]) {
         break;
       case "--minutes":
         parsed.minutes = Number(value);
+        index += 1;
+        break;
+      case "--content-type":
+        parsed.contentType = value;
         index += 1;
         break;
       default:
@@ -162,8 +180,6 @@ function slugify(value: string) {
 }
 
 async function extractAudioToMp3(inputPath: string, outputPath: string) {
-  const { spawn } = await import("node:child_process");
-
   await new Promise<void>((resolve, reject) => {
     const child = spawn(ffmpegPath!, [
       "-y",
@@ -192,6 +208,48 @@ async function extractAudioToMp3(inputPath: string, outputPath: string) {
       }
 
       reject(new Error(stderr || `ffmpeg audio extraction failed with code ${code}.`));
+    });
+  });
+}
+
+async function assertAudioIsAudible(audioPath: string) {
+  const result = await runFfmpegWithStderr([
+    "-i",
+    audioPath,
+    "-af",
+    "volumedetect",
+    "-f",
+    "null",
+    "NUL"
+  ]);
+
+  const match = result.match(/mean_volume:\s*(-?[0-9.]+)\s*dB/i);
+  const meanVolume = match ? Number(match[1]) : null;
+
+  if (meanVolume === null || meanVolume <= -70) {
+    throw new Error(
+      `Imported scenic source audio is effectively silent (mean volume ${meanVolume ?? "n/a"} dB). Use a source with real audible ambience.`
+    );
+  }
+}
+
+async function runFfmpegWithStderr(args: string[]) {
+  return await new Promise<string>((resolve, reject) => {
+    const child = spawn(ffmpegPath!, args);
+
+    let stderr = "";
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk.toString();
+    });
+
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code === 0 || code === 1) {
+        resolve(stderr);
+        return;
+      }
+
+      reject(new Error(stderr || `ffmpeg failed with code ${code}.`));
     });
   });
 }

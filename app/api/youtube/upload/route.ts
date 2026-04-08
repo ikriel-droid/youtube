@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getImportedAudioRecordById, getLatestImportedAudioRecord } from "@/lib/imported-audio-library";
-import { getLatestImportedFootageRecord } from "@/lib/imported-footage-library";
+import { getImportedFootageRecordById, getLatestImportedFootageRecord } from "@/lib/imported-footage-library";
 import { buildImportedAudioUploadDraft } from "@/lib/imported-audio-upload";
 import { getAuthorizedOAuthClient } from "@/lib/youtube-auth";
 import {
@@ -22,6 +22,9 @@ export async function POST(request: Request) {
     mode?: "concept" | "imported-audio-scenic";
     conceptId?: string;
     importedAudioId?: string;
+    importedFootageId?: string;
+    audioTrimStartSeconds?: number;
+    footageTrimStartSeconds?: number;
     privacyStatus?: "private" | "unlisted" | "public";
     titleOverride?: string;
     descriptionOverride?: string;
@@ -44,7 +47,9 @@ export async function POST(request: Request) {
       }
 
       const draft = buildImportedAudioUploadDraft(importedAudio);
-      const importedFootage = await getLatestImportedFootageRecord();
+      const importedFootage = body.importedFootageId
+        ? await getImportedFootageRecordById(body.importedFootageId)
+        : await getLatestImportedFootageRecord();
       const title = body.titleOverride?.trim() || draft.title;
       const description = body.descriptionOverride?.trim() || draft.description;
       const tags =
@@ -66,6 +71,10 @@ export async function POST(request: Request) {
         seed: draft.seed,
         audioSourceUrl: importedAudio.fileUrl,
         footageSourceUrl: importedFootage?.fileUrl,
+        audioTrimStartSeconds:
+          typeof body.audioTrimStartSeconds === "number" ? body.audioTrimStartSeconds : undefined,
+        footageTrimStartSeconds:
+          typeof body.footageTrimStartSeconds === "number" ? body.footageTrimStartSeconds : undefined,
         title,
         description,
         tags,

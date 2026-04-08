@@ -68,9 +68,9 @@ test("sleep pinned comment stays creator-ready", () => {
 });
 
 test("imported audio render args loop short audio to the full target duration", () => {
-  const args = buildLoopedImportedAudioArgs("input.ogg", "output.wav", 1800);
+  const args = buildLoopedImportedAudioArgs("input.ogg", "output.wav", 1800, 12.5);
 
-  assert.deepEqual(args.slice(0, 5), ["-y", "-stream_loop", "-1", "-i", "input.ogg"]);
+  assert.deepEqual(args.slice(0, 7), ["-y", "-stream_loop", "-1", "-ss", "12.5", "-i", "input.ogg"]);
   assert.ok(args.includes("-t"));
   assert.ok(args.includes("1800"));
   assert.ok(args.includes("pcm_s16le"));

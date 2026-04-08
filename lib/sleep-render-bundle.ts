@@ -25,6 +25,8 @@ export interface SleepRenderRequestInput {
   seed: string;
   audioSourceUrl?: string;
   footageSourceUrl?: string;
+  audioTrimStartSeconds?: number;
+  footageTrimStartSeconds?: number;
   title?: string;
   description?: string;
   tags?: string[];
@@ -87,6 +89,14 @@ export async function generateSleepRenderBundle(
     seed: input.seed,
     audioSourceUrl: input.audioSourceUrl?.trim() || undefined,
     footageSourceUrl: input.footageSourceUrl?.trim() || undefined,
+    audioTrimStartSeconds:
+      typeof input.audioTrimStartSeconds === "number" && input.audioTrimStartSeconds >= 0
+        ? input.audioTrimStartSeconds
+        : 0,
+    footageTrimStartSeconds:
+      typeof input.footageTrimStartSeconds === "number" && input.footageTrimStartSeconds >= 0
+        ? input.footageTrimStartSeconds
+        : 1.2,
     title: input.title?.trim() || metadata.title,
     description: input.description?.trim() || metadata.description,
     tags: normalizeTags(input.tags, metadata.tags),
@@ -110,11 +120,12 @@ export async function generateSleepRenderBundle(
   try {
     const audioSource = normalized.audioSourceUrl
       ? await prepareImportedAudioSource({
-          audioSourceUrl: normalized.audioSourceUrl,
-          tempDir,
-          fileBase,
-          minutes: normalized.minutes
-        })
+        audioSourceUrl: normalized.audioSourceUrl,
+        tempDir,
+        fileBase,
+        minutes: normalized.minutes,
+        trimStartSeconds: normalized.audioTrimStartSeconds
+      })
       : await prepareGeneratedAudioSource({
           preset: normalized.preset,
           minutes: normalized.minutes,
@@ -128,7 +139,8 @@ export async function generateSleepRenderBundle(
           footageSourceUrl: normalized.footageSourceUrl,
           tempDir,
           fileBase,
-          ffmpegExecutable: ffmpegPath
+          ffmpegExecutable: ffmpegPath,
+          trimStartSeconds: normalized.footageTrimStartSeconds
         })
       : null;
 
@@ -213,6 +225,7 @@ async function prepareImportedAudioSource(input: {
   tempDir: string;
   fileBase: string;
   minutes: number;
+  trimStartSeconds: number;
 }) {
   if (!ffmpegPath) {
     throw new Error("ffmpeg-static is not available, so imported audio cannot be extended for video rendering.");
@@ -222,7 +235,10 @@ async function prepareImportedAudioSource(input: {
   const durationSeconds = input.minutes * 60;
   const audioPath = path.join(input.tempDir, `${input.fileBase}-looped.wav`);
 
-  await runProcess(ffmpegPath, buildLoopedImportedAudioArgs(filePath, audioPath, durationSeconds));
+  await runProcess(
+    ffmpegPath,
+    buildLoopedImportedAudioArgs(filePath, audioPath, durationSeconds, input.trimStartSeconds)
+  );
 
   return {
     audioPath,
@@ -230,11 +246,23 @@ async function prepareImportedAudioSource(input: {
   };
 }
 
-export function buildLoopedImportedAudioArgs(inputPath: string, outputPath: string, durationSeconds: number) {
-  return [
+export function buildLoopedImportedAudioArgs(
+  inputPath: string,
+  outputPath: string,
+  durationSeconds: number,
+  trimStartSeconds = 0
+) {
+  const args = [
     "-y",
     "-stream_loop",
-    "-1",
+    "-1"
+  ];
+
+  if (trimStartSeconds > 0) {
+    args.push("-ss", String(trimStartSeconds));
+  }
+
+  args.push(
     "-i",
     inputPath,
     "-t",
@@ -246,7 +274,9 @@ export function buildLoopedImportedAudioArgs(inputPath: string, outputPath: stri
     "-c:a",
     "pcm_s16le",
     outputPath
-  ];
+  );
+
+  return args;
 }
 
 async function prepareImportedFootageSource(input: {
@@ -254,6 +284,7 @@ async function prepareImportedFootageSource(input: {
   tempDir: string;
   fileBase: string;
   ffmpegExecutable: string;
+  trimStartSeconds: number;
 }): Promise<PreparedFootageSource> {
   const originalFootagePath = resolveImportedFootageSourcePath(input.footageSourceUrl);
   const footagePath = path.join(input.tempDir, `${input.fileBase}-footage.mp4`);
@@ -262,7 +293,7 @@ async function prepareImportedFootageSource(input: {
   await runProcess(input.ffmpegExecutable, [
     "-y",
     "-ss",
-    "1.2",
+    String(input.trimStartSeconds),
     "-i",
     originalFootagePath,
     "-an",

@@ -70,3 +70,25 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
   - natural outdoor rain
   - forest and lakeside healing uploads
   - calmer environmental rain than the earlier generic rain clip
+
+## 4. South Fork Creek Valley Motion
+
+- Imported on: `2026-04-09`
+- LocalTube footage record id: `footage-1775661819489-234`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/south-fork-creek-valley-motion-1775661819099.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:South_Fork_Clackamas_Wild_and_Scenic_River_(28287735390).webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and then imported into LocalTube
+- Creator:
+  - `BLM Oregon & Washington`
+- License:
+  - `Public domain in the United States`
+  - also mirrored on Wikimedia Commons with `CC BY 2.0` attribution context
+- License note used in LocalTube:
+  - `Public domain in the United States as a U.S. Bureau of Land Management work; also mirrored on Wikimedia Commons with CC BY 2.0 attribution context.`
+- Visual fit:
+  - valley stream
+  - forest gorge creek
+  - wider scenic creek uploads where we want visible depth instead of a close pebble-water macro

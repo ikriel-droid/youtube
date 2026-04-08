@@ -14,7 +14,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [ ] Forest upload produced end to end
 - [ ] Day Ocean upload produced end to end
 - [ ] Mountain Wind upload produced end to end
-- [ ] Valley Stream upload produced end to end
+- [x] Valley Stream upload produced end to end
 - [ ] Night Sea upload produced end to end
 - [x] Rain upload produced end to end
 - [ ] Waterfall upload produced end to end
@@ -37,3 +37,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 Current rain upload:
 
 - `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
+
+Current valley stream upload:
+
+- `https://www.youtube.com/watch?v=aWldGQIC4Ac`

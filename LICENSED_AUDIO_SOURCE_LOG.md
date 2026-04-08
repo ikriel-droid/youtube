@@ -61,3 +61,24 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the upgraded natural-rain audio bed for the outdoor forest/lake rain upload
 - Public rain upload:
   `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
+
+## Source 004
+
+- Title: `Forest Creek Cascade Sleep`
+- Local asset: `/api/generated-assets/imported-audio/forest-creek-cascade-sleep-1775661819099.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:South_Fork_Clackamas_Wild_and_Scenic_River_(28287735390).webm`
+- Import source:
+  - local scenic file imported after download from Wikimedia Commons
+- Creator listed on source page: `BLM Oregon & Washington`
+- License:
+  - `Public domain in the United States as a U.S. federal government work`
+  - also mirrored on Wikimedia Commons with `CC BY 2.0` attribution context
+- Source description: forested creek and waterfall basin on the South Fork Clackamas River
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-09`
+- Used as the verified creek/valley-stream audio bed for the nature-healing series
+- Public creek upload:
+  `https://www.youtube.com/watch?v=aWldGQIC4Ac`

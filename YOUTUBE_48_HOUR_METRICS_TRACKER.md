@@ -5,7 +5,7 @@ Use this file to record the first two days of performance for the current public
 ## Current Public Video
 
 - Video ID: `WGf9Wmvlh7g`
-- Title: `자연 숲과 호숫가에 내리는 빗소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
+- Title: `자연 숲 및 호숫가에서 지저귀는 새소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
 - Watch URL: `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
 - Published status: `public`
 - Public moving-scenic candidate is now the primary metric target
@@ -47,7 +47,7 @@ The key fields are the ones already called out in the checklist:
 Reason:
 
 - the upload just went public under the `힐링전도사` channel context
-- this is now the main 1-hour outdoor-rain moving-scenic candidate we want to observe for the next 48 hours
+- this is now the main 1-hour outdoor birds-and-lakeside moving-scenic candidate we want to observe for the next 48 hours
 
 Self-verification before upload:
 

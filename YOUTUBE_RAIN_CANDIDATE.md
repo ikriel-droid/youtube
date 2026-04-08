@@ -6,7 +6,7 @@
 - Watch URL: `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
 - Privacy: `public`
 - Title:
-  `자연 숲과 호숫가에 내리는 빗소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
+  `자연 숲 및 호숫가에서 지저귀는 새소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
 
 ## Source Pair
 
@@ -25,6 +25,15 @@
 - it keeps rain as a core healing theme in the channel lineup
 - it gives us a cleaner public comparison between rain-led and water-led scenic uploads
 - it finally matches the user-facing intent of "real rain in nature" instead of a generic rain/window clip
+- the latest title/description now match the actual perceived content more honestly: calm birds and outdoor lakeside nature ambience
+
+## Actual Listening Note
+
+- even though the source log started as a rain/environment import, the heard result reads more like:
+  - birds chirping in a quiet forest and lakeside setting
+  - soft outdoor ambience
+  - low-stimulation healing background audio
+- because of that, the public-facing title and description now describe it as a bird-and-nature ambience upload instead of a rain-led upload
 
 ## Production Notes
 

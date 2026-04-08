@@ -41,6 +41,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_MOVING_SCENIC_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MOVING_SCENIC_CANDIDATE.md)
 - [YOUTUBE_NATURE_SERIES_PLAN.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_PLAN.md)
 - [YOUTUBE_NATURE_SERIES_CHECKLIST.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_NATURE_SERIES_CHECKLIST.md)
+- [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)
 
 The current product decision is:
 

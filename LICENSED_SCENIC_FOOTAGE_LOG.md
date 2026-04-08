@@ -27,3 +27,24 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 
 - Real moving scenic footage is now preferred over static scenic graphics when we have a licensed clip that matches the audio theme.
 - Static scenic graphics stay in the product as the fallback path.
+
+## 2. Rain Clip Motion
+
+- Imported on: `2026-04-08`
+- LocalTube footage record id: `footage-1775655812932-rain`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/rain-clip-cc0-1775655812932.ogv`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Rain_clip.theora.ogv`
+- Import URL used:
+  - `https://commons.wikimedia.org/wiki/Special:Redirect/file/Rain%20clip.theora.ogv`
+- Creator:
+  - `PB`
+- License:
+  - `CC0 1.0`
+- License note used in LocalTube:
+  - `CC0 1.0 rain clip from Wikimedia Commons.`
+- Visual fit:
+  - rain ambience
+  - gentle healing uploads
+  - window-rain and outdoor-rain themed sleep videos

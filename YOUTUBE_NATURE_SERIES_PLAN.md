@@ -37,6 +37,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - Goal: core rain-led sleep upload
 - Audio target: steady rainfall, window-side patter, soft low masking texture
 - Visual target: rain on glass, wet lights, soft night window motion
+- Status: first public rain upload completed as `6x3p0icVGxk`
 
 ## 7. Waterfall
 
@@ -68,3 +69,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - imported licensed audio is the preferred publish-ready audio path
 - rain remains part of the core lineup
 - waterfall and rain are the best near-term production targets
+
+Reference:
+
+- [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)

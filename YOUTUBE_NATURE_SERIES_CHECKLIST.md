@@ -16,7 +16,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [ ] Mountain Wind upload produced end to end
 - [ ] Valley Stream upload produced end to end
 - [ ] Night Sea upload produced end to end
-- [ ] Rain upload produced end to end
+- [x] Rain upload produced end to end
 - [ ] Waterfall upload produced end to end
 - [ ] Snow Forest upload produced end to end
 - [ ] Meadow Breeze upload produced end to end
@@ -33,3 +33,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [ ] Keep thumbnails frame-first and low-text across the full series
 - [ ] Keep titles calm and natural rather than overly functional
 - [ ] Keep descriptions consistent across the 10-video batch
+
+Current rain upload:
+
+- `https://www.youtube.com/watch?v=6x3p0icVGxk`

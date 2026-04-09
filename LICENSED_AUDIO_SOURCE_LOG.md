@@ -82,3 +82,24 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified creek/valley-stream audio bed for the nature-healing series
 - Public creek upload:
   `https://www.youtube.com/watch?v=aWldGQIC4Ac`
+
+## Source 005
+
+- Title: `Forest Birdsong Sleep`
+- Local asset: `/api/generated-assets/imported-audio/forest-birdsong-sleep-1775741289323.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Birds_forest.ogg`
+- Import source:
+  - `https://commons.wikimedia.org/wiki/Special:Redirect/file/Birds_forest.ogg`
+- Creator listed on source page: `barracuda1983`
+- License:
+  - `Public domain`
+  - listed on Commons as `PD-self`
+- Source description: birdsong recorded in the forest of Fontainebleau, France
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-09`
+- Used as the verified forest-theme birdsong audio bed for the nature-healing series
+- Public forest upload:
+  `https://www.youtube.com/watch?v=SFJxRnk1O7o`

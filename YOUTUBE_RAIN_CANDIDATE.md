@@ -6,7 +6,7 @@
 - Watch URL: `https://www.youtube.com/watch?v=WGf9Wmvlh7g`
 - Privacy: `public`
 - Title:
-  `자연 숲 및 호숫가에서 지저귀는 새소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
+  `자연 숲 및 호숲가에서 지저귀는 새소리 ASMR, 편안한 힐링 수면음악 | 1시간 반복듣기`
 
 ## Source Pair
 
@@ -21,11 +21,9 @@
 
 ## Why This Candidate Matters
 
-- it proves the nature-series plan is now moving beyond ocean and waterfall
-- it keeps rain as a core healing theme in the channel lineup
-- it gives us a cleaner public comparison between rain-led and water-led scenic uploads
-- it finally matches the user-facing intent of "real rain in nature" instead of a generic rain/window clip
-- the latest title/description now match the actual perceived content more honestly: calm birds and outdoor lakeside nature ambience
+- it proves the nature-series plan moved beyond ocean and waterfall
+- it keeps a softer outdoor ambience lane in the channel lineup
+- it gives us a calmer birds-and-lakeside comparison against creek and forest uploads
 
 ## Actual Listening Note
 

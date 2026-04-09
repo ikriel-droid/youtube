@@ -1,6 +1,28 @@
 {
   "videos": [
     {
+      "id": "vid-1775741289330-515",
+      "title": "Forest Birdsong Sleep",
+      "description": "Wikimedia Commons - barracuda1983. Public domain forest birds recording from Wikimedia Commons.",
+      "channelSlug": "healing-preacher",
+      "channelName": "힐링전도사",
+      "category": "sleep",
+      "views": 0,
+      "likes": 0,
+      "duration": "60:00",
+      "publishedAt": "2026-04-09T13:28:09.330Z",
+      "videoUrl": "/api/generated-assets/imported-audio/forest-birdsong-sleep-1775741289323.mp3",
+      "tags": [
+        "forest birds",
+        "bird song",
+        "forest ambience",
+        "birdsong",
+        "public domain"
+      ],
+      "status": "draft",
+      "comments": []
+    },
+    {
       "id": "vid-finance-playbook",
       "title": "3 habits that made my finance workflow less chaotic",
       "description": "A short breakdown of the templates and review loops I use to track income, spending, and investing ideas every week.",
@@ -13,7 +35,12 @@
       "publishedAt": "2026-03-22T09:00:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["finance", "workflow", "budgeting", "portfolio"],
+      "tags": [
+        "finance",
+        "workflow",
+        "budgeting",
+        "portfolio"
+      ],
       "status": "published",
       "comments": [
         {
@@ -37,7 +64,12 @@
       "publishedAt": "2026-03-28T07:30:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["ai", "scripts", "workflow", "creator"],
+      "tags": [
+        "ai",
+        "scripts",
+        "workflow",
+        "creator"
+      ],
       "status": "published",
       "comments": [
         {
@@ -61,7 +93,12 @@
       "publishedAt": "2026-03-29T14:00:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["vision", "inspection", "defects", "factory"],
+      "tags": [
+        "vision",
+        "inspection",
+        "defects",
+        "factory"
+      ],
       "status": "published",
       "comments": []
     },
@@ -78,7 +115,12 @@
       "publishedAt": "2026-03-31T05:20:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1508344928928-7165b67de128?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["baseball", "rotation", "pitching", "breakout"],
+      "tags": [
+        "baseball",
+        "rotation",
+        "pitching",
+        "breakout"
+      ],
       "status": "published",
       "comments": []
     },
@@ -95,7 +137,12 @@
       "publishedAt": "2026-04-01T06:15:00.000Z",
       "videoUrl": "https://www.youtube.com/watch?v=ATfjufkgmx4",
       "thumbnailUrl": "https://img.youtube.com/vi/ATfjufkgmx4/maxresdefault.jpg",
-      "tags": ["baseball", "bullpen", "analysis", "sports-channel"],
+      "tags": [
+        "baseball",
+        "bullpen",
+        "analysis",
+        "sports-channel"
+      ],
       "status": "published",
       "comments": []
     },
@@ -112,7 +159,12 @@
       "publishedAt": "2026-04-01T10:40:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["football", "title-race", "analysis", "shorts"],
+      "tags": [
+        "football",
+        "title-race",
+        "analysis",
+        "shorts"
+      ],
       "status": "published",
       "comments": [
         {
@@ -136,7 +188,12 @@
       "publishedAt": "2026-04-02T08:10:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["football", "thumbnails", "packaging", "sports-channel"],
+      "tags": [
+        "football",
+        "thumbnails",
+        "packaging",
+        "sports-channel"
+      ],
       "status": "published",
       "comments": []
     },
@@ -153,7 +210,12 @@
       "publishedAt": "2026-04-02T03:15:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["creator", "planning", "studio", "workflow"],
+      "tags": [
+        "creator",
+        "planning",
+        "studio",
+        "workflow"
+      ],
       "status": "published",
       "comments": []
     },
@@ -170,12 +232,44 @@
       "publishedAt": "2026-04-03T02:15:00.000Z",
       "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["football", "draft", "thumbnail", "reaction"],
+      "tags": [
+        "football",
+        "draft",
+        "thumbnail",
+        "reaction"
+      ],
       "status": "draft",
       "comments": []
     }
   ],
   "channels": [
+    {
+      "slug": "creator-stack",
+      "name": "Creator Stack",
+      "category": "creator",
+      "tagline": "Systems for batching uploads, managing hooks, and staying consistent.",
+      "about": "Creator Stack is the generic channel-ops lane inside LocalTube for packaging, publishing, and workflow examples.",
+      "avatarText": "CS",
+      "accentColor": "#be185d"
+    },
+    {
+      "slug": "diamond-room",
+      "name": "Diamond Room",
+      "category": "baseball",
+      "tagline": "Baseball breakdowns built for channels that want sharper analysis packaging.",
+      "about": "Diamond Room mixes baseball analysis with creator-friendly packaging ideas for sports channels.",
+      "avatarText": "DR",
+      "accentColor": "#b91c1c"
+    },
+    {
+      "slug": "factory-vision",
+      "name": "Factory Vision",
+      "category": "vision",
+      "tagline": "Inspection lessons for teams trying to reduce noise and rework.",
+      "about": "Factory Vision keeps industrial inspection practical, explaining the tooling and review loops behind cleaner defect pipelines.",
+      "avatarText": "FV",
+      "accentColor": "#7c3aed"
+    },
     {
       "slug": "money-notebook",
       "name": "Money Notebook",
@@ -195,24 +289,6 @@
       "accentColor": "#0f766e"
     },
     {
-      "slug": "factory-vision",
-      "name": "Factory Vision",
-      "category": "vision",
-      "tagline": "Inspection lessons for teams trying to reduce noise and rework.",
-      "about": "Factory Vision keeps industrial inspection practical, explaining the tooling and review loops behind cleaner defect pipelines.",
-      "avatarText": "FV",
-      "accentColor": "#7c3aed"
-    },
-    {
-      "slug": "diamond-room",
-      "name": "Diamond Room",
-      "category": "baseball",
-      "tagline": "Baseball breakdowns built for channels that want sharper analysis packaging.",
-      "about": "Diamond Room mixes baseball analysis with creator-friendly packaging ideas for sports channels.",
-      "avatarText": "DR",
-      "accentColor": "#b91c1c"
-    },
-    {
       "slug": "touchline-room",
       "name": "Touchline Room",
       "category": "football",
@@ -222,13 +298,13 @@
       "accentColor": "#15803d"
     },
     {
-      "slug": "creator-stack",
-      "name": "Creator Stack",
-      "category": "creator",
-      "tagline": "Systems for batching uploads, managing hooks, and staying consistent.",
-      "about": "Creator Stack is the generic channel-ops lane inside LocalTube for packaging, publishing, and workflow examples.",
-      "avatarText": "CS",
-      "accentColor": "#be185d"
+      "slug": "healing-preacher",
+      "name": "힐링전도사",
+      "category": "sleep",
+      "tagline": "Sleep ideas, smarter packaging, and repeatable publishing.",
+      "about": "힐링전도사 is a LocalTube channel focused on sleep analysis, creator workflows, and publishable ideas. 1 videos are currently live in the local library.",
+      "avatarText": "힐",
+      "accentColor": "#4f46e5"
     }
   ]
 }

@@ -92,3 +92,30 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
   - valley stream
   - forest gorge creek
   - wider scenic creek uploads where we want visible depth instead of a close pebble-water macro
+
+## 5. Foggy Forest Motion
+
+- Imported on: `2026-04-09`
+- LocalTube footage record id: `footage-1775741289778-589`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/foggy-forest-motion-1775741289679.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Foggy_day_of_hyrcanian_forest_of_iran.webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and then imported into LocalTube
+- Creator:
+  - `Reza Rafizadeh`
+- License:
+  - `CC BY 3.0`
+- License note used in LocalTube:
+  - `CC BY 3.0 forest footage from Wikimedia Commons (Attribution: Reza Rafizadeh).`
+- Visual fit:
+  - foggy forest
+  - calm tree-line motion
+  - birdsong-led forest ambience uploads
+
+## Important Note
+
+- The Commons page currently carries a `license review needed` notice for the video.
+- We trimmed the usable section to start after `45s` so the rendered upload avoids the earlier person-visible section.
+- For a stricter long-term release policy, this forest footage should eventually be replaced with a forest clip that has a fully settled Commons review status.

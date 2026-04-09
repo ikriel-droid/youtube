@@ -119,3 +119,32 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 - The Commons page currently carries a `license review needed` notice for the video.
 - We trimmed the usable section to start after `45s` so the rendered upload avoids the earlier person-visible section.
 - For a stricter long-term release policy, this forest footage should eventually be replaced with a forest clip that has a fully settled Commons review status.
+
+## 6. Sunny Day Ocean Shore Motion
+
+- Imported on: `2026-04-09`
+- LocalTube footage record id: `footage-1775743470128-79`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/sunny-day-ocean-shore-motion-1775743467908.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Sunny_waves_at_Cattle_Point_(40789227201).webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and then imported into LocalTube
+- Creator:
+  - `BLM Oregon & Washington / Nick Teague`
+- License:
+  - `Public domain in the United States`
+  - also mirrored on Wikimedia Commons with `CC BY 2.0` attribution context
+- License note used in LocalTube:
+  - `Public domain in the United States as a U.S. Bureau of Land Management work; also mirrored on Wikimedia Commons with CC BY 2.0 attribution context.`
+- Visual fit:
+  - bright daytime ocean
+  - shoreline wave motion
+  - sunlit coastal healing uploads
+
+## Day Ocean Verification Note
+
+- frame checks at source `2.2s` vs rendered `1s` and source `4.2s` vs rendered `3s` stayed extremely close
+  - `16x16 grayscale mean absolute difference: 0.75`
+  - `16x16 grayscale mean absolute difference: 0.63`
+- that confirms the rendered upload is using the intended sunny shoreline footage rather than falling back to an unrelated scenic background

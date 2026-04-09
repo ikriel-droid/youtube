@@ -20,7 +20,7 @@ test("imported audio upload draft prefers scenic ocean packaging and defaults to
   assert.equal(draft.preset, "ocean");
   assert.equal(draft.releasePreset, "ocean-drift");
   assert.equal(draft.minutes, 60);
-  assert.equal(draft.title, "Ocean Ambient Sleep | Coastal Wave Drift | 1시간 반복듣기");
+  assert.equal(draft.title, "Ocean Ambient Sleep | Coastal Wave Drift | 1-hour loop");
   assert.match(draft.description, /licensed source audio/i);
   assert.match(draft.description, /coastal wave ambience/i);
   assert.ok(draft.tags.includes("licensed audio"));

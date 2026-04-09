@@ -103,3 +103,24 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified forest-theme birdsong audio bed for the nature-healing series
 - Public forest upload:
   `https://www.youtube.com/watch?v=SFJxRnk1O7o`
+
+## Source 006
+
+- Title: `Day Ocean Wave Sleep`
+- Local asset: `/api/generated-assets/imported-audio/day-ocean-wave-sleep-1775743467908.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Oceanwavescrushing.ogg`
+- Import source:
+  - local audio file downloaded from Wikimedia Commons and converted to mp3 for LocalTube import
+- Creator listed on source page: `Luftrum`
+- License:
+  - `CC BY 3.0 Unported`
+- Source description:
+  - close field recording of medium waves crushing on the shore of Kalundborg Fjord at Røsnæs, with water cascading through small stones
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-09`
+- Used as the verified day-ocean wave audio bed for the nature-healing series
+- Public day-ocean upload:
+  `https://www.youtube.com/watch?v=sNB7BTSs99o`

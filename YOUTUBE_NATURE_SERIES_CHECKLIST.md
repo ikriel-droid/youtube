@@ -12,7 +12,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 ## 2. Theme Production Queue
 
 - [x] Forest upload produced end to end
-- [ ] Day Ocean upload produced end to end
+- [x] Day Ocean upload produced end to end
 - [ ] Mountain Wind upload produced end to end
 - [x] Valley Stream upload produced end to end
 - [ ] Night Sea upload produced end to end
@@ -45,3 +45,7 @@ Current valley stream upload:
 Current forest upload:
 
 - `https://www.youtube.com/watch?v=SFJxRnk1O7o`
+
+Current day ocean upload:
+
+- `https://www.youtube.com/watch?v=sNB7BTSs99o`

@@ -10,7 +10,8 @@
     "test": "tsx --test tests/**/*.test.ts",
     "seed:reset": "powershell -ExecutionPolicy Bypass -File .\\reset-localtube-seed.ps1",
     "upload:imported-scenic": "tsx scripts/upload-imported-scenic.ts",
-    "import:remote-scenic": "tsx scripts/import-remote-scenic-source.ts"
+    "import:remote-scenic": "tsx scripts/import-remote-scenic-source.ts",
+    "import:local-scenic": "tsx scripts/import-local-scenic-pair.ts"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",

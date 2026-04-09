@@ -42,7 +42,8 @@ function normalizeTags(tags: string[]) {
 }
 
 function detectImportedAudioTheme(record: ImportedAudioRecord): ImportedTheme {
-  const haystack = `${record.title} ${record.sourceName} ${record.licenseNote} ${record.tags.join(" ")}`.toLowerCase();
+  const haystack =
+    `${record.title} ${record.sourceName} ${record.licenseNote} ${record.tags.join(" ")}`.toLowerCase();
 
   if (/(ocean|wave|waves|sea|coast|coastal|waterfall|shore)/.test(haystack)) {
     return "ocean";
@@ -56,7 +57,8 @@ function detectImportedAudioTheme(record: ImportedAudioRecord): ImportedTheme {
 }
 
 function buildImportedTitle(theme: ImportedTheme, minutes: number) {
-  const durationLabel = minutes >= 60 ? "1시간 반복듣기" : minutes === 1 ? "1 Minute" : `${minutes} Minutes`;
+  const durationLabel =
+    minutes >= 60 ? "1-hour loop" : minutes === 1 ? "1 minute" : `${minutes} minutes`;
 
   switch (theme) {
     case "ocean":

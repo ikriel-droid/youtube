@@ -44,6 +44,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)
 - [YOUTUBE_CREEK_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_CREEK_CANDIDATE.md)
 - [YOUTUBE_FOREST_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_FOREST_CANDIDATE.md)
+- [YOUTUBE_DAY_OCEAN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_DAY_OCEAN_CANDIDATE.md)
 
 The current product decision is:
 
@@ -86,6 +87,7 @@ Sleep music generator:
 - reusable helper scripts:
   - `npm run import:remote-scenic -- --source-url ...` for licensed outdoor A/V imports
   - `npm run import:remote-scenic -- --local-file ...` for scenic files you already downloaded locally
+  - `npm run import:local-scenic -- --audio-file ... --footage-file ...` for separately sourced licensed audio + footage pairs
   - `npm run upload:imported-scenic -- --audio-id ... --footage-id ... --title ...` for verified YouTube uploads
 
 ## YouTube API Validation Env

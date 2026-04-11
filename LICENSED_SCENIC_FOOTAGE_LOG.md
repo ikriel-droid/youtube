@@ -263,3 +263,29 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 
 - the same clip now provides both the audible meadow wind and the visual grass movement
 - this is one of the cleaner one-source theme matches in the full nature batch
+
+## 11. Lakeside Dusk Still Motion
+
+- Imported on: `2026-04-11`
+- LocalTube footage record id: `footage-1775910731455-188`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/lakeside-dusk-still-motion-1775910730235.mp4`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Evening_at_the_Lake_(52079294191).jpg`
+- Import source:
+  - still photograph downloaded from Wikimedia Commons and rendered into a slow-motion mp4 loop before LocalTube import
+- Creator:
+  - `Gary Todd`
+- License:
+  - `Public domain mark`
+- License note used in LocalTube:
+  - `Public domain mark lake-evening photograph from Wikimedia Commons, rendered into a slow-motion scenic loop for LocalTube.`
+- Visual fit:
+  - lakeside dusk
+  - evening reflections
+  - soft twilight water calm
+
+## Lakeside Dusk Verification Note
+
+- this theme uses a mood-matched pair rather than a single-source pair
+- the still-motion dusk frame is appropriate for this calmer closing-slot theme, but it could still be refreshed later if stronger moving lakeside footage appears

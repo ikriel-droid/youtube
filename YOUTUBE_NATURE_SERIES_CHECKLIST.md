@@ -20,19 +20,19 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [x] Waterfall upload produced end to end
 - [x] Snow Forest upload produced end to end
 - [x] Meadow Breeze upload produced end to end
-- [ ] Lakeside Dusk upload produced end to end
+- [x] Lakeside Dusk upload produced end to end
 
 ## 3. Source Collection
 
-- [ ] Import a licensed audio source for each theme
-- [ ] Import a licensed scenic footage clip for each theme
-- [ ] Match each audio source to the correct visual family
+- [x] Import a licensed audio source for each theme
+- [x] Import a licensed scenic footage clip for each theme
+- [x] Match each audio source to the correct visual family
 
 ## 4. Packaging Quality
 
-- [ ] Keep thumbnails frame-first and low-text across the full series
-- [ ] Keep titles calm and natural rather than overly functional
-- [ ] Keep descriptions consistent across the 10-video batch
+- [x] Keep thumbnails frame-first and low-text across the full series
+- [x] Keep titles calm and natural rather than overly functional
+- [x] Keep descriptions consistent across the 10-video batch
 
 Current rain upload:
 
@@ -69,3 +69,7 @@ Current snow-forest upload:
 Current meadow-breeze upload:
 
 - `https://www.youtube.com/watch?v=E_-kX5Q4K2o`
+
+Current lakeside-dusk upload:
+
+- `https://www.youtube.com/watch?v=R3IhAfYWxqs`

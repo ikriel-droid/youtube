@@ -82,6 +82,6 @@ first. This file is the broader product backlog.
 - [x] Lock a 10-theme natural-healing lineup
 - [x] Add the 10 concepts into the launch plan UI
 - [x] Include rain as a core theme instead of treating it as a side format
-- [ ] Import licensed audio for each of the 10 themes
-- [ ] Import licensed footage for each of the 10 themes
-- [ ] Produce the first full 10-video nature batch
+- [x] Import licensed audio for each of the 10 themes
+- [x] Import licensed footage for each of the 10 themes
+- [x] Produce the first full 10-video nature batch

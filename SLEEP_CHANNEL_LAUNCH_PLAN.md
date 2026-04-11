@@ -40,14 +40,14 @@ Reference:
 
 The next publish-ready target is:
 
-- `nature-10`
-- `Lakeside Dusk`
+- `batch-review`
+- `Nature series performance review`
 
 Why:
 
-- meadow breeze is now shipped as a verified 1-hour public upload
-- the series now benefits more from a softer evening-water lane to close the 10-theme batch
-- lakeside dusk can test whether slower dusk calm performs differently from brighter meadow motion
+- the 10-theme nature series is now fully shipped
+- the next useful work is to compare performance rather than add more placeholder themes
+- review will tell us which lanes deserve refreshed footage or stronger follow-up uploads
 
 ## Working Production Order
 
@@ -63,6 +63,11 @@ Suggested order:
 8. Night Sea
 9. Valley Stream
 10. Mountain Wind
+
+Current call:
+
+- the first 10-video batch is complete
+- next work should focus on review, replacement, and optimization rather than filling missing slots
 
 This order favors:
 

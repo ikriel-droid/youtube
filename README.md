@@ -50,6 +50,7 @@ If the immediate goal is a real sleep-music YouTube release, use:
 - [YOUTUBE_WATERFALL_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_WATERFALL_CANDIDATE.md)
 - [YOUTUBE_SNOW_FOREST_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SNOW_FOREST_CANDIDATE.md)
 - [YOUTUBE_MEADOW_BREEZE_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MEADOW_BREEZE_CANDIDATE.md)
+- [YOUTUBE_LAKESIDE_DUSK_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_LAKESIDE_DUSK_CANDIDATE.md)
 
 The current product decision is:
 

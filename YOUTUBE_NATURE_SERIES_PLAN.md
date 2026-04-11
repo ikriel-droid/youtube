@@ -65,6 +65,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - Goal: calm sunset-to-evening water upload
 - Audio target: still water edge, soft evening air, gentle ambient wash
 - Visual target: orange-blue lake reflections, silhouette trees, very slow surface motion
+- Status: verified public upload completed as `R3IhAfYWxqs`
 
 ## Current Production Call
 
@@ -74,7 +75,8 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - waterfall is now shipped
 - snow forest is now shipped
 - meadow breeze is now shipped
-- lakeside dusk is the best near-term production target
+- the first 10-theme batch is now complete
+- the next useful step is a series review pass rather than another new theme
 
 Reference:
 
@@ -82,3 +84,4 @@ Reference:
 - [YOUTUBE_WATERFALL_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_WATERFALL_CANDIDATE.md)
 - [YOUTUBE_SNOW_FOREST_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SNOW_FOREST_CANDIDATE.md)
 - [YOUTUBE_MEADOW_BREEZE_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MEADOW_BREEZE_CANDIDATE.md)
+- [YOUTUBE_LAKESIDE_DUSK_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_LAKESIDE_DUSK_CANDIDATE.md)

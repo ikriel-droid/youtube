@@ -233,3 +233,25 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified meadow-breeze audio bed for the nature-healing series
 - Public meadow-breeze upload:
   `https://www.youtube.com/watch?v=E_-kX5Q4K2o`
+
+## Source 012
+
+- Title: `Lakeside Dusk Nature Sleep`
+- Local asset: `/api/generated-assets/imported-audio/lakeside-dusk-nature-sleep-1775910730235.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Nature_sounds_ambience_in_a_Dordogne_pond.ogg`
+- Import source:
+  - direct local import from the licensed evening pond ambience recording
+- Creator listed on source page:
+  `Llann W᠀`
+- License:
+  - `CC BY 3.0`
+- Source description:
+  - evening pond and waterside ambience with insects and calm dusk atmosphere
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified lakeside-dusk audio bed for the nature-healing series
+- Public lakeside-dusk upload:
+  `https://www.youtube.com/watch?v=R3IhAfYWxqs`

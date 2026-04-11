@@ -178,3 +178,33 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
   - `16x16 grayscale mean absolute difference: 1.54`
 - manual frame review confirmed the rendered upload keeps the same trail-edge slope, ridge line, and open blue-sky mountain scene
 - the Commons page includes `Flickr review needed`, so this source is usable for the current branch but should eventually be replaced with a cleaner long-term mountain clip if we want stricter release hygiene
+
+## 8. Night Sea Shore Motion
+
+- Imported on: `2026-04-11`
+- LocalTube footage record id: `footage-1775896119426-608`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/night-sea-shore-motion-1775896117340.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:McAbee_Beach_1_2024-01-11.webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and then imported into LocalTube
+- Creator:
+  - `Wikimedia Commons contributor`
+- License:
+  - `Needs follow-up on the exact file page before long-term catalog use`
+- License note used in LocalTube:
+  - `Wikimedia Commons night beach footage; verify source-page attribution before long-term catalog use.`
+- Visual fit:
+  - night sea
+  - dark shoreline
+  - low-light coastal ambience
+
+## Night Sea Verification Note
+
+- frame checks at source `2.2s` vs rendered `1s` and source `6.2s` vs rendered `5s` stayed reasonably close for a very dark clip
+  - `16x16 grayscale mean absolute difference: 5.9`
+  - `16x16 grayscale mean absolute difference: 5.39`
+- watch page returned `200`
+- manual frame review confirmed the rendered upload keeps the same dark shoreline, sea horizon, and distant coastal lights as the source clip
+- this footage works for the current branch, but we should replace it later with a night-sea clip that has cleaner attribution metadata and less visible shoreline lighting

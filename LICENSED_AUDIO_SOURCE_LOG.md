@@ -147,3 +147,24 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified mountain-wind audio bed for the nature-healing series
 - Public mountain upload:
   `https://www.youtube.com/watch?v=hzjDhwblWcM`
+
+## Source 008
+
+- Title: `Night Sea Wave Sleep`
+- Local asset: `/api/generated-assets/imported-audio/night-sea-wave-sleep-1775896117340.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Oceanwavescrushing.ogg`
+- Import source:
+  - local mp3 derived from the licensed day-ocean wave source and re-imported as the night-sea audio bed
+- Creator listed on source page: `Luftrum`
+- License:
+  - `CC BY 3.0 Unported`
+- Source description:
+  - close field recording of waves crushing on a rocky shoreline
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified night-sea wave audio bed for the nature-healing series
+- Public night-sea upload:
+  `https://www.youtube.com/watch?v=fOxjWxNz_nQ`

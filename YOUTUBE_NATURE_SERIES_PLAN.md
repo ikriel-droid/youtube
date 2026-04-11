@@ -51,6 +51,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - Goal: quiet winter stillness variant
 - Audio target: muted winter air, hush, warm brown-noise bed
 - Visual target: pine snow, winter path, slow falling snow
+- Status: verified public upload completed as `YQyTEHGE7Kw`
 
 ## 9. Meadow Breeze
 
@@ -70,9 +71,11 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - imported licensed audio is the preferred publish-ready audio path
 - rain remains part of the core lineup
 - waterfall is now shipped
-- snow forest and meadow breeze are the best near-term production targets
+- snow forest is now shipped
+- meadow breeze and lakeside dusk are the best near-term production targets
 
 Reference:
 
 - [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)
 - [YOUTUBE_WATERFALL_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_WATERFALL_CANDIDATE.md)
+- [YOUTUBE_SNOW_FOREST_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SNOW_FOREST_CANDIDATE.md)

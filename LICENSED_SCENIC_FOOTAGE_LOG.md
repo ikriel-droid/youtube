@@ -210,3 +210,30 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 - watch page returned `200`
 - manual frame review confirmed the rendered upload keeps the same dark shoreline, sea horizon, and distant coastal lights as the source clip
 - this footage works for the current branch, but we should replace it later with a night-sea clip that has cleaner attribution metadata and less visible shoreline lighting
+
+## 9. Snow Forest Still Motion
+
+- Imported on: `2026-04-11`
+- LocalTube footage record id: `footage-1775899874517-880`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/snow-forest-still-motion-1775899873973.mp4`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Snow_At_The_Forest_(141746555).jpeg`
+- Import source:
+  - still photograph downloaded from Wikimedia Commons and rendered into a slow-motion mp4 loop before LocalTube import
+- Creator:
+  - `Alejandro Hg`
+- License:
+  - `CC BY 3.0`
+- License note used in LocalTube:
+  - `CC BY 3.0 snowy forest photograph from Wikimedia Commons (Attribution: Alejandro Hg), rendered into a slow-motion scenic loop for LocalTube.`
+- Visual fit:
+  - snow forest
+  - winter pines
+  - quiet stillness-led healing uploads
+
+## Snow Forest Verification Note
+
+- watch-page verification confirmed the public Korean title rendered correctly
+- the visual path is a still-motion scenic loop rather than live moving winter footage
+- this is acceptable for the current batch, but snow forest should be refreshed later if we find stronger licensed moving winter footage

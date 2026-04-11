@@ -18,7 +18,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [x] Night Sea upload produced end to end
 - [x] Rain upload produced end to end
 - [x] Waterfall upload produced end to end
-- [ ] Snow Forest upload produced end to end
+- [x] Snow Forest upload produced end to end
 - [ ] Meadow Breeze upload produced end to end
 - [ ] Lakeside Dusk upload produced end to end
 
@@ -61,3 +61,7 @@ Current night sea upload:
 Current waterfall upload:
 
 - `https://www.youtube.com/watch?v=wc_OhY9jmOk`
+
+Current snow-forest upload:
+
+- `https://www.youtube.com/watch?v=YQyTEHGE7Kw`

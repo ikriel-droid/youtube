@@ -40,22 +40,22 @@ Reference:
 
 The next publish-ready target is:
 
-- `nature-08`
-- `Snow Forest`
+- `nature-09`
+- `Meadow Breeze`
 
 Why:
 
-- waterfall is now shipped as a verified 1-hour public upload
-- the series now benefits more from a colder, quieter contrast lane than another water-led variant
-- snow-forest can test whether calmer winter stillness performs differently from stronger water motion
+- snow forest is now shipped as a verified 1-hour public upload
+- the series now benefits more from a warm, brighter daytime contrast lane
+- meadow breeze can test whether open-field calm performs differently from darker forest and winter uploads
 
 ## Working Production Order
 
 Suggested order:
 
-1. Snow Forest
-2. Meadow Breeze
-3. Lakeside Dusk
+1. Meadow Breeze
+2. Lakeside Dusk
+3. Snow Forest
 4. Waterfall
 5. Rain
 6. Forest

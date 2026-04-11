@@ -189,3 +189,25 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified waterfall audio bed for the nature-healing series
 - Public waterfall upload:
   `https://www.youtube.com/watch?v=wc_OhY9jmOk`
+
+## Source 010
+
+- Title: `Snow Forest Wind Sleep`
+- Local asset: `/api/generated-assets/imported-audio/snow-forest-wind-sleep-1775899873973.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Steens_Mountain,_East_Side_(33056947434).webm`
+- Import source:
+  - reused the licensed mountain-wind ambience as the winter air bed for the snow-forest theme
+- Creator listed on source page:
+  `BLM Oregon & Washington / Greg Shine`
+- License:
+  - `Public domain in the United States as a U.S. federal government work`
+- Source description:
+  - open mountain wind ambience reused as a calm winter-air sound bed for the snowy forest release
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified snow-forest wind audio bed for the nature-healing series
+- Public snow-forest upload:
+  `https://www.youtube.com/watch?v=YQyTEHGE7Kw`

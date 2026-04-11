@@ -124,3 +124,26 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified day-ocean wave audio bed for the nature-healing series
 - Public day-ocean upload:
   `https://www.youtube.com/watch?v=sNB7BTSs99o`
+
+## Source 007
+
+- Title: `Mountain Wind Sleep`
+- Local asset: `/api/generated-assets/imported-audio/mountain-wind-sleep-1775886682801.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Steens_Mountain,_East_Side_(33056947434).webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and converted to mp3 for LocalTube import
+- Creator listed on source page:
+  `BLM Oregon & Washington / Greg Shine`
+- License:
+  - `Public domain in the United States as a U.S. federal government work`
+  - page also carries mirrored `CC BY 2.0` and `Flickr review needed` context
+- Source description:
+  - environmental mountain ambience captured on the east side of Steens Mountain from Pike Creek Trail
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified mountain-wind audio bed for the nature-healing series
+- Public mountain upload:
+  `https://www.youtube.com/watch?v=hzjDhwblWcM`

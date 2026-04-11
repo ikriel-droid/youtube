@@ -148,3 +148,33 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
   - `16x16 grayscale mean absolute difference: 0.75`
   - `16x16 grayscale mean absolute difference: 0.63`
 - that confirms the rendered upload is using the intended sunny shoreline footage rather than falling back to an unrelated scenic background
+
+## 7. Steens Mountain Wind Motion
+
+- Imported on: `2026-04-11`
+- LocalTube footage record id: `footage-1775886683511-795`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/steens-mountain-wind-motion-1775886682801.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Steens_Mountain,_East_Side_(33056947434).webm`
+- Import source:
+  - local scenic file downloaded from Wikimedia Commons and then imported into LocalTube
+- Creator:
+  - `BLM Oregon & Washington / Greg Shine`
+- License:
+  - `Public domain in the United States`
+  - page also carries mirrored `CC BY 2.0` and `Flickr review needed` context
+- License note used in LocalTube:
+  - `Public domain in the United States as a U.S. Bureau of Land Management work; also mirrored on Wikimedia Commons with CC BY 2.0 attribution context.`
+- Visual fit:
+  - mountain ridge
+  - dry highland valley
+  - open-sky mountain wind ambience
+
+## Mountain Verification Note
+
+- frame checks at source `2.2s` vs rendered `1s` and source `6.2s` vs rendered `5s` stayed close
+  - `16x16 grayscale mean absolute difference: 1.43`
+  - `16x16 grayscale mean absolute difference: 1.54`
+- manual frame review confirmed the rendered upload keeps the same trail-edge slope, ridge line, and open blue-sky mountain scene
+- the Commons page includes `Flickr review needed`, so this source is usable for the current branch but should eventually be replaced with a cleaner long-term mountain clip if we want stricter release hygiene

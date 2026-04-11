@@ -44,6 +44,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - Goal: stronger immersive nature upload
 - Audio target: softened waterfall roar, wet air ambience, smooth low-end bed
 - Visual target: falling water, rocky cliff, mist, medium-motion scenic loop
+- Status: verified public upload completed as `wc_OhY9jmOk`
 
 ## 8. Snow Forest
 
@@ -68,8 +69,10 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - scenic moving footage is the preferred visual path
 - imported licensed audio is the preferred publish-ready audio path
 - rain remains part of the core lineup
-- waterfall and rain are the best near-term production targets
+- waterfall is now shipped
+- snow forest and meadow breeze are the best near-term production targets
 
 Reference:
 
 - [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)
+- [YOUTUBE_WATERFALL_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_WATERFALL_CANDIDATE.md)

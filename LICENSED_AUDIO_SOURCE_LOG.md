@@ -168,3 +168,24 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified night-sea wave audio bed for the nature-healing series
 - Public night-sea upload:
   `https://www.youtube.com/watch?v=fOxjWxNz_nQ`
+
+## Source 009
+
+- Title: `Forest Waterfall Cascade Sleep`
+- Local asset: `/api/generated-assets/imported-audio/forest-waterfall-cascade-sleep-1775897198539.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Sgwd_Gwladus_2014-07-30.webm`
+- Import source:
+  - local scenic file downloaded earlier from Wikimedia Commons and re-imported so the audio and footage come from the same waterfall clip
+- Creator listed on source page: `Prolineserver`
+- License:
+  - `CC BY-SA 3.0`
+- Source description:
+  - forest waterfall ambience with a steady falling-water bed and wet-air outdoor texture
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified waterfall audio bed for the nature-healing series
+- Public waterfall upload:
+  `https://www.youtube.com/watch?v=wc_OhY9jmOk`

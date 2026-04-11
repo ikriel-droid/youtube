@@ -27,6 +27,8 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 
 - Real moving scenic footage is now preferred over static scenic graphics when we have a licensed clip that matches the audio theme.
 - Static scenic graphics stay in the product as the fallback path.
+- This source page is now also the basis of the verified 1-hour waterfall public upload:
+  `https://www.youtube.com/watch?v=wc_OhY9jmOk`
 
 ## 2. Rain Clip Motion
 

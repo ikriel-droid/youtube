@@ -211,3 +211,25 @@ This log records real external audio sources that were imported into LocalTube f
 - Used as the verified snow-forest wind audio bed for the nature-healing series
 - Public snow-forest upload:
   `https://www.youtube.com/watch?v=YQyTEHGE7Kw`
+
+## Source 011
+
+- Title: `Meadow Breeze Sleep`
+- Local asset: `/api/generated-assets/imported-audio/meadow-breeze-sleep-1775901940500.mp3`
+- Upstream source page:
+  `https://commons.wikimedia.org/wiki/File:Windblown_grasses.webm`
+- Import source:
+  - direct audio extraction from the licensed windblown meadow clip
+- Creator listed on source page:
+  `Gail Hampshire / gails_pictures`
+- License:
+  - `CC BY 2.0`
+- Source description:
+  - airy wind moving through tall grasses on a hillside
+
+## Current Use
+
+- Imported into LocalTube on `2026-04-11`
+- Used as the verified meadow-breeze audio bed for the nature-healing series
+- Public meadow-breeze upload:
+  `https://www.youtube.com/watch?v=E_-kX5Q4K2o`

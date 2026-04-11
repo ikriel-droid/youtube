@@ -237,3 +237,29 @@ This log tracks real scenic footage sources that we are allowed to use in the `s
 - watch-page verification confirmed the public Korean title rendered correctly
 - the visual path is a still-motion scenic loop rather than live moving winter footage
 - this is acceptable for the current batch, but snow forest should be refreshed later if we find stronger licensed moving winter footage
+
+## 10. Windblown Meadow Motion
+
+- Imported on: `2026-04-11`
+- LocalTube footage record id: `footage-1775901943687-672`
+- LocalTube asset URL:
+  - `http://127.0.0.1:3000/api/generated-assets/imported-footage/windblown-meadow-motion-1775901940500.webm`
+- Source page:
+  - `https://commons.wikimedia.org/wiki/File:Windblown_grasses.webm`
+- Import source:
+  - direct remote scenic import from Wikimedia Commons
+- Creator:
+  - `Gail Hampshire / gails_pictures`
+- License:
+  - `CC BY 2.0`
+- License note used in LocalTube:
+  - `CC BY 2.0 meadow footage from Wikimedia Commons (Attribution: Gail Hampshire / gails_pictures).`
+- Visual fit:
+  - meadow breeze
+  - grassy hillside
+  - warm field motion
+
+## Meadow Verification Note
+
+- the same clip now provides both the audible meadow wind and the visual grass movement
+- this is one of the cleaner one-source theme matches in the full nature batch

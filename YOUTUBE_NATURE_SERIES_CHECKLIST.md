@@ -19,7 +19,7 @@ This checklist tracks the move from a few scenic experiments into a real 10-vide
 - [x] Rain upload produced end to end
 - [x] Waterfall upload produced end to end
 - [x] Snow Forest upload produced end to end
-- [ ] Meadow Breeze upload produced end to end
+- [x] Meadow Breeze upload produced end to end
 - [ ] Lakeside Dusk upload produced end to end
 
 ## 3. Source Collection
@@ -65,3 +65,7 @@ Current waterfall upload:
 Current snow-forest upload:
 
 - `https://www.youtube.com/watch?v=YQyTEHGE7Kw`
+
+Current meadow-breeze upload:
+
+- `https://www.youtube.com/watch?v=E_-kX5Q4K2o`

@@ -58,6 +58,7 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - Goal: warm field-based daytime healing video
 - Audio target: meadow wind, low airy bed, sparse natural motion
 - Visual target: grass movement, reeds, flowers, warm light field footage
+- Status: verified public upload completed as `E_-kX5Q4K2o`
 
 ## 10. Lakeside Dusk
 
@@ -72,10 +73,12 @@ This plan locks the next 10 natural-healing uploads so we can produce them as a 
 - rain remains part of the core lineup
 - waterfall is now shipped
 - snow forest is now shipped
-- meadow breeze and lakeside dusk are the best near-term production targets
+- meadow breeze is now shipped
+- lakeside dusk is the best near-term production target
 
 Reference:
 
 - [YOUTUBE_RAIN_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_RAIN_CANDIDATE.md)
 - [YOUTUBE_WATERFALL_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_WATERFALL_CANDIDATE.md)
 - [YOUTUBE_SNOW_FOREST_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_SNOW_FOREST_CANDIDATE.md)
+- [YOUTUBE_MEADOW_BREEZE_CANDIDATE.md](c:\Users\Administrator\.vscode\cli\localtube\YOUTUBE_MEADOW_BREEZE_CANDIDATE.md)

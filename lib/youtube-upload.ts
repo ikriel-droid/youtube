@@ -52,12 +52,9 @@ export async function uploadSleepBundleToYouTube(
     throw new Error("YouTube upload did not return a video id.");
   }
 
-  const thumbnailPathForUpload = await prepareThumbnailForYouTubeUpload(bundle.thumbnailFilePath);
-  await youtube.thumbnails.set({
+  await setYouTubeThumbnailFromPath(authClient, {
     videoId,
-    media: {
-      body: createReadStream(thumbnailPathForUpload)
-    }
+    thumbnailFilePath: bundle.thumbnailFilePath
   });
 
   const lastUpload = await recordLastUpload({
@@ -74,6 +71,32 @@ export async function uploadSleepBundleToYouTube(
     manifestUrl: bundle.manifestUrl,
     lastUpload,
     verification
+  };
+}
+
+export async function setYouTubeThumbnailFromPath(
+  authClient: InstanceType<typeof google.auth.OAuth2>,
+  input: {
+    videoId: string;
+    thumbnailFilePath: string;
+  }
+) {
+  const youtube = google.youtube({
+    version: "v3",
+    auth: authClient
+  });
+
+  const thumbnailPathForUpload = await prepareThumbnailForYouTubeUpload(input.thumbnailFilePath);
+  await youtube.thumbnails.set({
+    videoId: input.videoId,
+    media: {
+      body: createReadStream(thumbnailPathForUpload)
+    }
+  });
+
+  return {
+    videoId: input.videoId,
+    thumbnailFilePath: input.thumbnailFilePath
   };
 }
 

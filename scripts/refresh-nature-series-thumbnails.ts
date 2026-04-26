@@ -14,11 +14,11 @@ interface ThemeThumbnailSpec {
   footageFileName: string;
   frameSeconds: number;
   headlineLines: [string, string];
-  accentFill: string;
-  accentBorder: string;
 }
 
+const FONT_REGULAR = "C\\:/Windows/Fonts/malgunsl.ttf";
 const FONT_BOLD = "C\\:/Windows/Fonts/malgunbd.ttf";
+const ACCENT_FILL = "#456e63";
 
 const SPECS: ThemeThumbnailSpec[] = [
   {
@@ -26,90 +26,70 @@ const SPECS: ThemeThumbnailSpec[] = [
     videoId: "SFJxRnk1O7o",
     footageFileName: "foggy-forest-motion-1775741289679.webm",
     frameSeconds: 46,
-    headlineLines: ["깊은 숲속", "새소리"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0b6755"
+    headlineLines: ["깊은 숲속", "새소리"]
   },
   {
     key: "day-ocean",
     videoId: "sNB7BTSs99o",
     footageFileName: "sunny-day-ocean-shore-motion-1775743467908.webm",
     frameSeconds: 2.2,
-    headlineLines: ["햇살 비치는", "낮 바다"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0c6172"
+    headlineLines: ["햇살 비치는", "낮 바다"]
   },
   {
     key: "mountain-wind",
     videoId: "hzjDhwblWcM",
     footageFileName: "steens-mountain-wind-motion-1775886682801.webm",
     frameSeconds: 2.2,
-    headlineLines: ["깊은 산속", "바람소리"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0f5b4c"
+    headlineLines: ["깊은 산속", "바람소리"]
   },
   {
     key: "valley-stream",
     videoId: "aWldGQIC4Ac",
     footageFileName: "south-fork-creek-valley-motion-1775661819099.webm",
     frameSeconds: 2.2,
-    headlineLines: ["맑은 계곡물", "소리"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0f6275"
+    headlineLines: ["맑은 계곡물", "소리"]
   },
   {
     key: "night-sea",
     videoId: "fOxjWxNz_nQ",
     footageFileName: "night-sea-shore-motion-1775896117340.webm",
     frameSeconds: 2.2,
-    headlineLines: ["잔잔한", "밤바다"],
-    accentFill: "#f6e86a",
-    accentBorder: "#123d62"
+    headlineLines: ["잔잔한", "밤바다"]
   },
   {
     key: "rain",
     videoId: "WGf9Wmvlh7g",
     footageFileName: "lost-lake-forest-rain-motion-1775659572611.webm",
     frameSeconds: 2.2,
-    headlineLines: ["호숫가", "새소리"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0f5b4c"
+    headlineLines: ["호숫가", "새소리"]
   },
   {
     key: "waterfall",
     videoId: "wc_OhY9jmOk",
     footageFileName: "forest-waterfall-cascade-motion-1775897198539.webm",
     frameSeconds: 1.2,
-    headlineLines: ["시원한 폭포", "물소리"],
-    accentFill: "#f6e86a",
-    accentBorder: "#0b6755"
+    headlineLines: ["시원한 폭포", "물소리"]
   },
   {
     key: "snow-forest",
     videoId: "YQyTEHGE7Kw",
     footageFileName: "snow-forest-still-motion-1775899873973.mp4",
     frameSeconds: 1,
-    headlineLines: ["눈 덮인", "겨울 숲"],
-    accentFill: "#f6e86a",
-    accentBorder: "#264a6b"
+    headlineLines: ["눈 덮인", "겨울 숲"]
   },
   {
     key: "meadow-breeze",
     videoId: "E_-kX5Q4K2o",
     footageFileName: "windblown-meadow-motion-1775901940500.webm",
     frameSeconds: 1.2,
-    headlineLines: ["초원 위", "산들바람"],
-    accentFill: "#f6e86a",
-    accentBorder: "#436124"
+    headlineLines: ["초원 위", "산들바람"]
   },
   {
     key: "lakeside-dusk",
     videoId: "R3IhAfYWxqs",
     footageFileName: "lakeside-dusk-still-motion-1775910730235.mp4",
     frameSeconds: 1,
-    headlineLines: ["노을 지는", "호숫가"],
-    accentFill: "#f6e86a",
-    accentBorder: "#70461d"
+    headlineLines: ["노을 지는", "호숫가"]
   }
 ];
 
@@ -149,7 +129,7 @@ async function main() {
 
     const results: Array<{ key: string; videoId: string; thumbnailPath: string }> = [];
 
-    for (const spec of targets) {
+    for (const [index, spec] of targets.entries()) {
       const footagePath = path.join(footageDir, spec.footageFileName);
       const framePath = path.join(tempDir, `${spec.key}-frame.png`);
       const thumbnailPath = path.join(outputDir, `${spec.key}.png`);
@@ -171,6 +151,10 @@ async function main() {
           videoId: spec.videoId,
           thumbnailFilePath: thumbnailPath
         });
+
+        if (index < targets.length - 1) {
+          await sleep(150000);
+        }
       }
 
       results.push({
@@ -180,16 +164,7 @@ async function main() {
       });
     }
 
-    console.log(
-      JSON.stringify(
-        {
-          refreshed: results,
-          renderOnly
-        },
-        null,
-        2
-      )
-    );
+    console.log(JSON.stringify({ refreshed: results, renderOnly }, null, 2));
   } finally {
     await rm(tempDir, { recursive: true, force: true });
   }
@@ -218,7 +193,7 @@ async function loadLocalEnv() {
       }
     }
   } catch {
-    // env already populated
+    // env already loaded
   }
 }
 
@@ -262,13 +237,18 @@ async function renderThumbnail(input: {
 function buildThumbnailFilter(spec: ThemeThumbnailSpec) {
   const headline1 = escapeDrawtext(spec.headlineLines[0]);
   const headline2 = escapeDrawtext(spec.headlineLines[1]);
-  const duration = escapeDrawtext("1시간");
+  const badge = escapeDrawtext("NATURE ASMR");
+  const duration = escapeDrawtext("1시간 반복");
 
   const parts = [
-    "drawbox=x=0:y=0:w=790:h=388:color=black@0.18:t=fill",
-    `drawtext=fontfile='${FONT_BOLD}':text='${headline1}':fontcolor=white:fontsize=102:borderw=18:bordercolor=${spec.accentBorder}:x=58:y=44`,
-    `drawtext=fontfile='${FONT_BOLD}':text='${headline2}':fontcolor=white:fontsize=102:borderw=18:bordercolor=${spec.accentBorder}:x=58:y=172`,
-    `drawtext=fontfile='${FONT_BOLD}':text='${duration}':fontcolor=${spec.accentFill}:fontsize=124:borderw=16:bordercolor=${spec.accentBorder}:x=74:y=318`
+    "drawbox=x=0:y=0:w=1280:h=720:color=black@0.04:t=fill",
+    "drawbox=x=44:y=514:w=1192:h=152:color=black@0.18:t=fill",
+    `drawbox=x=58:y=58:w=224:h=54:color=${ACCENT_FILL}@0.82:t=fill`,
+    `drawtext=fontfile='${FONT_BOLD}':text='${badge}':fontcolor=white:fontsize=24:x=82:y=73`,
+    `drawtext=fontfile='${FONT_BOLD}':text='${duration}':fontcolor=white:fontsize=28:shadowcolor=black@0.45:shadowx=2:shadowy=2:x=1032:y=73`,
+    `drawtext=fontfile='${FONT_REGULAR}':text='${headline1}':fontcolor=#f7f5ef:fontsize=64:shadowcolor=black@0.48:shadowx=2:shadowy=2:x=64:y=558`,
+    `drawtext=fontfile='${FONT_BOLD}':text='${headline2}':fontcolor=#f7f5ef:fontsize=84:shadowcolor=black@0.48:shadowx=2:shadowy=2:x=60:y=632`,
+    `drawbox=x=62:y=648:w=156:h=5:color=${ACCENT_FILL}@0.98:t=fill`
   ];
 
   return parts.join(",");
@@ -313,7 +293,7 @@ async function setThumbnailWithRetry(
     thumbnailFilePath: string;
   }
 ) {
-  const delays = [0, 30_000, 90_000];
+  const delays = [0, 60000, 180000];
   let lastError: unknown;
 
   for (const delay of delays) {
